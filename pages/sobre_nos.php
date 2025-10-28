@@ -7,7 +7,7 @@ session_start();
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>F1 Series - Página Inicial</title>
+  <title>RACE FOR GLORY - Página Inicial</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
   <link href="./assets/css/style.css" rel="stylesheet" />
@@ -16,7 +16,7 @@ session_start();
 <body>
   <header class="bg-dark text-white py-3">
     <nav class="navbar navbar-expand-lg navbar-dark container">
-      <a class="navbar-brand fw-bold fs-4" href="#">F1 Series</a>
+      <a class="navbar-brand fw-bold fs-4" href="#">RACE FOR GLORY</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -33,10 +33,10 @@ session_start();
             <a class="nav-link text-white" href="#">Temporada</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="/F1-SERIES/pages/sobre_nos.php">Contato</a>
+            <a class="nav-link text-white" href="/rfg/pages/sobre_nos.php">Contato</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="/F1-SERIES/pages/conta.php">Login</a>
+            <a class="nav-link text-white" href="/rfg/pages/conta.php">Login</a>
           </li>
         </ul>
       </div>
@@ -46,7 +46,7 @@ session_start();
   <section class="bg-dark text-white text-center py-5 hero">
     <div class="container">
       <h1 class="display-3 fw-bold">Velocidade. Emoção. Competição.</h1>
-      <p class="lead">Acompanhe cada curva da temporada F1 Series 2025</p>
+      <p class="lead">Acompanhe cada curva da temporada RACE FOR GLORY 2025</p>
       <a href="#temporadas" class="btn btn-danger mt-4 px-5 py-2">Explorar Temporadas</a>
     </div>
   </section>
@@ -56,7 +56,7 @@ session_start();
   <!-- Grid de Categorias -->
   <section id="temporadas" class="py-5 bg-white text-center">
     <div class="container">
-      <h2 class="fw-bold mb-4 text-center">Explore o Universo F1 Series</h2>
+      <h2 class="fw-bold mb-4 text-center">Explore o Universo RACE FOR GLORY</h2>
       <div class="row g-4">
         <div class="col-md-4">
           <div class="card h-100 p-4 bg-dark text-white text-center">
@@ -127,13 +127,13 @@ session_start();
   <!-- Rodapé -->
   <footer class="bg-dark text-white text-center py-4">
     <div class="container">
-      <p class="mb-2">Junte-se à comunidade F1 Series</p>
+      <p class="mb-2">Junte-se à comunidade RACE FOR GLORY</p>
       <div class="d-flex justify-content-center gap-3">
         <a href="#" class="text-white text-decoration-none">Instagram</a>
         <a href="#" class="text-white text-decoration-none">Twitter</a>
         <a href="#" class="text-white text-decoration-none">YouTube</a>
       </div>
-      <p class="mt-3 small">© 2025 F1 Series - Todos os direitos reservados</p>
+      <p class="mt-3 small">© 2025 RACE FOR GLORY - Todos os direitos reservados</p>
     </div>
   </footer>
 

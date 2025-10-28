@@ -71,7 +71,7 @@ function auth_is(string $role): bool {
 function auth_require_login(): void {
     if (!auth_check()) {
         $redirect = urlencode($_SERVER['REQUEST_URI'] ?? '/');
-        header('Location: /admin-login/login.php?redirect=' . $redirect);
+        header('Location: /rfg/admin-login/login.php?redirect=' . $redirect);
         exit;
     }
 }
@@ -80,7 +80,7 @@ function auth_require_login(): void {
 function auth_require_role(array $roles): void {
     auth_require_login();
     if (!in_array(auth_role(), $roles, true)) {
-        header('Location: /admin-login/sem_permissao.php');
+        header('Location: /rfg/admin-login/sem_permissao.php');
         exit;
     }
 }
@@ -96,7 +96,7 @@ function auth_logout(): void {
         );
     }
     session_destroy();
-    header('Location: /admin-login/login.php?bye=1');
+    header('Location: /rfg/admin-login/login.php');
     exit;
 }
 

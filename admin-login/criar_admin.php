@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $hash = password_hash($senha, PASSWORD_DEFAULT);
 
-            $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, role) VALUES (?, ?, ?, 'admin')");
+            // ✅ Corrigido: campos corretos do banco
+            $stmt = $pdo->prepare("INSERT INTO usuarios (name, email, password, role) VALUES (?, ?, ?, 'admin')");
             $stmt->execute([$nome, $email, $hash]);
 
             $msg = "Administrador criado com sucesso!";
@@ -58,12 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label class="block text-sm font-medium">Senha</label>
         <input type="password" name="senha" required class="w-full border rounded p-2">
       </div>
-      <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded">
+      <button type="submit" class="w-full bg-[#FFD700] hover:bg-[#E6C200] text-black font-semibold py-2 rounded">
         Criar Admin
       </button>
     </form>
   </div>
 </body>
 </html>
-
-?>

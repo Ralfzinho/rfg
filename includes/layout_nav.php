@@ -4,15 +4,14 @@
     <!-- Brand -->
     <div class="flex items-center gap-3">
       <a href="/index.php" class="flex items-center gap-3 font-extrabold text-xl tracking-wide">
-        <img src="/F1-SERIES/assets/img/logo.png" alt="Logo da Liga" class="h-9 w-9 object-contain" />
+        <img src="/rfg/assets/img/logo.png" alt="Logo da Liga" class="h-9 w-9 object-contain" />
         <span>RACE FOR <span class="text-[#FFD700]">GLORY</span></span>
       </a>
     </div>
 
 
     <!-- Botão hambúrguer (só aparece no mobile) -->
-    <button
-      id="menuBtn"
+    <button id="menuBtn"
       class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
       aria-controls="mobilePanel" aria-expanded="false" aria-label="Abrir menu">
       <svg id="iconOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -26,40 +25,44 @@
     <!-- Menu desktop -->
     <div class="hidden md:block">
       <ul id="mainMenu" class="flex gap-6 items-center">
-        <li><a class="text-white/90 hover:text-white" href="../../F1-SERIES/index.php">Início</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../F1-SERIES/pages/corrida.php">Corridas</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../F1-SERIES/pages/classificacao.php">Classificação</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../F1-SERIES/pages/equipes.php">Equipes</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../F1-SERIES/pages/pilotos.php">Pilotos</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../F1-SERIES/pages/sobre_nos.php">Contato</a></li>
+        <li><a class="text-white/90 hover:text-white" href="../../rfg/index.php">Início</a></li>
+        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/corrida.php">Corridas</a></li>
+        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/classificacao.php">Classificação</a></li>
+        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/equipes.php">Equipes</a></li>
+        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/pilotos.php">Pilotos</a></li>
+        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/sobre_nos.php">Contato</a></li>
 
         <?php if ($logged): ?>
-          <li><a class="inline-flex items-center px-3 py-1.5 rounded bg-primary text-white" href="/admin/dashboard.php">Painel</a></li>
-          <li><a class="text-white/90 hover:text-white" href="/admin-login/logout.php">Sair</a></li>
+          <li><a class="inline-flex items-center px-3 py-1.5 rounded bg-primary text-white"
+              href="../../rfg/admin/dashboard.php">Painel</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/admin-login/logout.php">Sair</a>
+          </li>
         <?php else: ?>
-          <li><a class="inline-flex items-center px-3 py-1.5 rounded border border-white/20 hover:border-white" href="../../F1-SERIES/pages/conta.php">Login</a></li>
+          <li><a class="inline-flex items-center px-3 py-1.5 rounded border border-white/20 hover:border-white"
+              href="../../rfg/pages/conta.php">Login</a></li>
         <?php endif; ?>
       </ul>
     </div>
 
     <!-- Painel mobile (dropdown) -->
-    <div
-      id="mobilePanel"
+    <div id="mobilePanel"
       class="hidden absolute left-0 right-0 top-full bg-dark/95 backdrop-blur border-t border-white/10 md:hidden">
       <div class="mx-auto max-w-6xl px-4 py-3">
         <ul class="flex flex-col gap-3">
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../F1-SERIES/index.php">Início</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../F1-SERIES/pages/corridas.php">Corridas</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../F1-SERIES/pages/classificacao.php">Classificação</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../F1-SERIES/pages/equipes.php">Equipes</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../F1-SERIES/pages/pilotos.php">Pilotos</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../F1-SERIES/pages/sobre_nos.php">Contato</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/index.php">Início</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/corridas.php">Corridas</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white"
+              href="../../rfg/pages/classificacao.php">Classificação</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/equipes.php">Equipes</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/pilotos.php">Pilotos</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/sobre_nos.php">Contato</a></li>
 
           <?php if ($logged): ?>
-            <li><a class="block py-2 text-white/90 hover:text-white" href="../../F1-SERIES/admin/dashboard.php">Painel</a></li>
-            <li><a class="block py-2 text-white/90 hover:text-white" href="../../F1-SERIES/admin-login/logout.php">Sair</a></li>
+            <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/admin/dashboard.php">Painel</a></li>
+            <li><a class="block py-2 text-white/90 hover:text-white"
+                href="../../rfg/admin-login/logout.php">Sair</a></li>
           <?php else: ?>
-            <li><a class="block py-2 text-white/90 hover:text-white" href="../../F1-SERIES/pages/conta.php">Login</a></li>
+            <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/conta.php">Login</a></li>
           <?php endif; ?>
         </ul>
       </div>
@@ -68,7 +71,7 @@
 </header>
 
 <script>
-  (function() {
+  (function () {
     const btn = document.getElementById('menuBtn');
     const mobile = document.getElementById('mobilePanel');
     const iconOpen = document.getElementById('iconOpen');

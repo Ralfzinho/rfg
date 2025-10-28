@@ -9,7 +9,7 @@ require_once __DIR__ . '/../includes/funcoes.php';  // set_flash/get_flash (opci
 
 // Só aceita POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  header('Location: /admin-login/login.php');
+  header('Location: /rfg/admin-login/login.php');
   exit;
 }
 
@@ -26,7 +26,7 @@ if ($email === '' || $senha === '') {
   } else {
     set_flash('login_error', 'Preencha e-mail e senha.');
   }
-  header('Location: /admin-login/login.php');
+  header('Location: /rfg/admin-login/login.php');
   exit;
 }
 
@@ -44,7 +44,7 @@ try {
     } else {
       set_flash('login_error', 'Usuário ou senha inválidos.');
     }
-    header('Location: /admin-login/login.php');
+    header('Location: /rfg/admin-login/login.php');
     exit;
   }
 
@@ -85,7 +85,7 @@ try {
   } else {
     set_flash('login_error', 'Erro interno ao autenticar.');
   }
-  header('Location: /admin-login/login.php');
+  header('Location: /rfg/admin-login/login.php');
   exit;
 }
 

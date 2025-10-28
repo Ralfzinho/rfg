@@ -12,14 +12,14 @@
       tailwind.config = {
         theme: {
           extend: {
-            colors: { dark: '#0b0b0c', primary: '#ef4444' }
+            colors: { dark: '#0b0b0c', primary: '#C9A300' }
           }
         }
       }
     </script>
 
     <!-- Seu CSS opcional -->
-    <link href="../F1-SERIES/assets/css/main.css" rel="stylesheet">
+<link href="/rfg/assets/css/main.css" rel="stylesheet">
   </head>
   <body class="bg-neutral-50 text-neutral-900">
     

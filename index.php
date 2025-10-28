@@ -50,9 +50,9 @@ define('INC', __DIR__ . '/includes/');
           <div class="rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl bg-white/5 backdrop-blur-md">
             <video
               class="block w-full aspect-video"
-              poster="/F1-SERIES/assets/img/background_video.png"
+              poster="/rfg/assets/img/background_video.png"
               autoplay muted loop playsinline preload="metadata">
-              <source src="/F1-SERIES/assets/img/videobackground.mp4" type="video/mp4" />
+              <source src="/rfg/assets/img/videobackground.mp4" type="video/mp4" />
               Seu navegador não suporta vídeo HTML5.
             </video>
           </div>
@@ -128,7 +128,7 @@ define('INC', __DIR__ . '/includes/');
 
         <!-- IMAGEM AO CENTRO -->
         <div class="order-1 lg:order-2 justify-self-center">
-          <img src="/F1-SERIES/assets/img/mockup_instagram.png" alt="Mockup Instagram"
+          <img src="/rfg/assets/img/mockup_instagram.png" alt="Mockup Instagram"
             class="w-[300px] md:w-[420px] rotate-[-8deg] rounded-3xl" loading="lazy" />
         </div>
 
@@ -150,7 +150,7 @@ define('INC', __DIR__ . '/includes/');
           <!-- Card 1 -->
           <article class="group bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden hover:shadow-md transition">
             <div class="w-full aspect-[16/9] bg-white ring-neutral-200">
-              <img src="/F1-SERIES/assets/img/tela_login.jpg" alt="Última Corrida"
+              <img src="/rfg/assets/img/tela_login.jpg" alt="Última Corrida"
                 class="w-full h-full object-contain" />
             </div>
             <div class="p-5 text-left">
@@ -162,7 +162,7 @@ define('INC', __DIR__ . '/includes/');
           <!-- Card 2 -->
           <article class="group bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden hover:shadow-md transition">
             <div class="w-full aspect-[16/9] bg-white ring-neutral-200">
-              <img src="/F1-SERIES/assets/img/tela_login.jpg" alt="Piloto do Mês"
+              <img src="/rfg/assets/img/tela_login.jpg" alt="Piloto do Mês"
                 class="w-full h-full object-contain" />
             </div>
             <div class="p-5 text-left">
@@ -174,7 +174,7 @@ define('INC', __DIR__ . '/includes/');
           <!-- Card 3 -->
           <article class="group bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden hover:shadow-md transition">
             <div class="w-full aspect-[16/9] bg-white ring-neutral-200">
-              <img src="/F1-SERIES/assets/img/tela_login.jpg" alt="Equipe Líder"
+              <img src="/rfg/assets/img/tela_login.jpg" alt="Equipe Líder"
                 class="w-full h-full object-contain" />
             </div>
             <div class="p-5 text-left">
@@ -189,8 +189,8 @@ define('INC', __DIR__ . '/includes/');
     <?php require INC . 'layout_footer.php'; ?>
   </main>
   <!-- Scripts -->
-  <script src="/F1-SERIES/assets/JavaScript/noticias_card_tailwind.js"></script>
-  <script src="/F1-SERIES/assets/JavaScript/classificacao_tailwind.js"></script>
+  <script src="/rfg/assets/JavaScript/noticias_card_tailwind.js"></script>
+  <script src="/rfg/assets/JavaScript/classificacao_tailwind.js"></script>
 </body>
 
 </html>
