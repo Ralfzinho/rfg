@@ -1,3 +1,0 @@
-<?php
-// Cadastro de piloto
-?>

@@ -1,3 +1,0 @@
-<?php
-// Configurações globais
-?>

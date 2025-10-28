@@ -1,3 +1,0 @@
-<?php
-// Perfil do piloto
-?>

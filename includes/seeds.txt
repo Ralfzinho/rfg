@@ -1,0 +1,170 @@
+-- =============================================================
+-- SCHEMA: race_for_glory
+-- Projeto: F1-SERIES / Race For Glory
+-- Autor: Ralf
+-- Banco: MySQL (XAMPP)
+-- =============================================================
+
+CREATE DATABASE IF NOT EXISTS race_for_glory CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE race_for_glory;
+
+-- =============================================================
+-- Tabela: usuarios (login do painel)
+-- =============================================================
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(120) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin','editor','viewer') DEFAULT 'viewer',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =============================================================
+-- Tabela: equipes
+-- =============================================================
+CREATE TABLE equipes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    pais VARCHAR(80),
+    cor_principal VARCHAR(20),
+    logo_url VARCHAR(255),
+    data_fundacao YEAR,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =============================================================
+-- Tabela: pilotos
+-- =============================================================
+CREATE TABLE pilotos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    numero INT NOT NULL,
+    pais VARCHAR(80),
+    equipe_id INT,
+    foto_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (equipe_id) REFERENCES equipes(id) ON DELETE SET NULL
+);
+
+-- =============================================================
+-- Tabela: circuitos
+-- =============================================================
+CREATE TABLE circuitos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    localizacao VARCHAR(100),
+    pais VARCHAR(80),
+    comprimento_km DECIMAL(5,2),
+    numero_voltas INT,
+    imagem_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =============================================================
+-- Tabela: corridas
+-- =============================================================
+CREATE TABLE corridas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_gp VARCHAR(100) NOT NULL,
+    circuito_id INT NOT NULL,
+    data DATE NOT NULL,
+    status ENUM('teste','agendada','finalizada') DEFAULT 'agendada',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (circuito_id) REFERENCES circuitos(id) ON DELETE CASCADE
+);
+
+-- =============================================================
+-- Tabela: classificacao (pontos por corrida)
+-- =============================================================
+CREATE TABLE classificacao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    corrida_id INT NOT NULL,
+    piloto_id INT NOT NULL,
+    equipe_id INT,
+    posicao INT,
+    pontos INT,
+    tempo VARCHAR(50),
+    volta_rapida BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (corrida_id) REFERENCES corridas(id) ON DELETE CASCADE,
+    FOREIGN KEY (piloto_id) REFERENCES pilotos(id) ON DELETE CASCADE,
+    FOREIGN KEY (equipe_id) REFERENCES equipes(id) ON DELETE SET NULL
+);
+
+-- =============================================================
+-- Tabela: noticias (opcional, para futuras integrações)
+-- =============================================================
+CREATE TABLE noticias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(150) NOT NULL,
+    conteudo TEXT,
+    imagem_url VARCHAR(255),
+    autor VARCHAR(100),
+    data_publicacao DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =============================================================
+-- Tabela: logs_acesso (para auditoria de login)
+-- =============================================================
+CREATE TABLE logs_acesso (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    ip VARCHAR(45),
+    navegador VARCHAR(150),
+    data_login DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL
+);
+
+
+-- =============================================================
+-- Tabela: resultados 
+-- =============================================================
+CREATE TABLE resultados (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    corrida_id INT NOT NULL,
+    piloto_id INT NOT NULL,
+    equipe_id INT,
+    posicao INT,
+    tempo VARCHAR(50),
+    voltas INT,
+    volta_rapida BOOLEAN DEFAULT FALSE,
+    status ENUM('concluido','abandonou','desclassificado') DEFAULT 'concluido',
+    pontos INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (corrida_id) REFERENCES corridas(id) ON DELETE CASCADE,
+    FOREIGN KEY (piloto_id) REFERENCES pilotos(id) ON DELETE CASCADE,
+    FOREIGN KEY (equipe_id) REFERENCES equipes(id) ON DELETE SET NULL
+);
+
+-- =============================================================
+-- INSERÇÕES BÁSICAS
+-- =============================================================
+INSERT INTO usuarios (name, email, password, role) VALUES
+('Administrador', 'admin@raceforglory.com', '$2y$10$ExemploDeHashBcrypt1234567890abcdefghi', 'admin');
+
+INSERT INTO equipes (nome, pais, cor_principal)
+VALUES 
+('Black Arrow GP', 'Reino Unido', '#000000'),
+('Red Phoenix', 'Itália', '#FF0000');
+
+INSERT INTO pilotos (nome, numero, pais, equipe_id)
+VALUES 
+('Oscar Piastri', 81, 'Austrália', 1),
+('Carlos R.', 23, 'Espanha', 2);
+
+INSERT INTO circuitos (nome, localizacao, pais, comprimento_km, numero_voltas)
+VALUES 
+('Circuit de Barcelona-Catalunya', 'Montmeló', 'Espanha', 4.67, 66),
+('Autódromo José Carlos Pace', 'São Paulo', 'Brasil', 4.31, 71);
+
+INSERT INTO corridas (nome_gp, circuito_id, data, status)
+VALUES
+('GP da Espanha', 1, '2025-06-01', 'finalizada'),
+('GP do Brasil', 2, '2025-11-10', 'agendada');
+
+INSERT INTO classificacao (corrida_id, piloto_id, equipe_id, posicao, pontos, tempo, volta_rapida)
+VALUES
+(1, 1, 1, 1, 26, '1:22:05.214', TRUE),
+(1, 2, 2, 2, 18, '1:22:10.547', FALSE);

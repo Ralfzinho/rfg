@@ -1,189 +1,242 @@
 <?php
 session_start();
+define('INC', __DIR__ . '/includes/');
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<!-- resto do HTML -->
+<?php require INC . 'layout_head.php'; ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
+<body class="bg-neutral-50 text-neutral-900 antialiased">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>F1 Series - Inicio</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href='../F1-SERIES/assets/css/main.css' rel="stylesheet">
-</head>
-
-<body>
   <!-- Header -->
-  <header class="bg-dark text-white py-3">
-    <nav class="navbar navbar-expand-lg navbar-dark container">
-      <a class="navbar-brand fw-bold fs-4" href="#">F1 Series</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav gap-2">
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../index.php">Início</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#">Calendário</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="#">Temporada</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../F1-SERIES/pages/sobre_nos.php">Contato</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="../F1-SERIES/pages/conta.php">Login</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <div id="carouselExample" class="carousel slide w-100" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <!-- Slide 1 -->
-      <div class="carousel-item ">
-        <img src="https://cdn.midjourney.com/466d114c-0fa5-4753-8c8a-2c532d80725a/0_3.png"
-          class="carousel-img d-block w-100" alt="Slide 1" style="object-fit:cover; object-position: center 70%;">
-        <div class="carousel-caption d-none d-md-block text-start" style="left: 25%; right: auto; bottom: 35%;">
-          <p class="h3">Ultrapasse os limites. </p>
-          <p class="h3">Vença com estilo.</p>
-        </div>
-      </div>
-      <!-- Slide 2 -->
-      <div class="carousel-item">
-        <img src="https://cdn.midjourney.com/912bcebb-a79d-4728-88b7-ef15a3ab771b/0_2.png"
-          class="carousel-img d-block w-100" alt="Slide 1" style="object-fit:cover; object-position: center 70%;">
-        <div class="carousel-caption d-none d-md-block text-start" style="left: 25%; right: auto; bottom: 35%;">
-          <p class="h3">Uma temporada.</p>
-          <p class="h3">Um campeão. </p>
-          <p class="h3">Vários rivais.</p>
-        </div>
-      </div>
-      <!-- Slide 3 -->
-      <div class="carousel-item active">
-        <img src="https://cdn.midjourney.com/912bcebb-a79d-4728-88b7-ef15a3ab771b/0_3.png"
-          class="carousel-img d-block w-100" alt="Slide 1" style="object-fit:cover; object-position: center 70%;">
-        <div class="carousel-caption d-none d-md-block text-start" style="left: 55%; right: auto; bottom: 35%;">
-          <p class="h3">Adrenalina em cada curva.</p>
-        </div>
-      </div>
-    </div>
-    <!-- Controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-  <div class="container my-5">
-    <main class="container my-5">
-      <div class="row">
-        <!-- Coluna: Notícias Populares -->
-        <div class="col-lg-8">
-          <h5 class="border-start border-success ps-3 mb-4">ULTIMAS CORRIDAS</h5>
-          <div id="noticias-container" class="row g-4">
-            <!-- Replique outro SCRIPT para outra notícia -->
-            <script>
-              document.addEventListener("DOMContentLoaded", () => {
-                adicionarNoticia({
-                  titulo: "Teste",
-                  imagem: "https://cdn.midjourney.com/912bcebb-a79d-4728-88b7-ef15a3ab771b/0_3.png",
-                  subtitulo: "TEMPORADA 1",
-                  data: "07 de Junho, 2025",
-                  texto: "Testando com sucesso...",
-                  link: "#"
-                });
-              });
-            </script>
-          </div>
-        </div>
-        <!-- Coluna: Resultados e Spotlight -->
-        <div class="col-lg-4">
-          <!-- Últimos resultados -->
-          <h5 class="border-start border-success ps-3 mb-4">ULTIMO VENCEDOR</h5>
-          <div class="bg-white p-3 border rounded mb-4">
-            <div class="d-flex justify-content-between text-dark">
-              <div>
-                <strong>O. Piastri</strong> <span class="badge bg-success">WIN</span> <br><small>McLaren</small>
-              </div>
+  <?php require INC . 'layout_nav.php'; ?>
+  <main>
+    <!-- Hero -->
+    <section class="relative text-white ">
+      <!-- overlay gradiente (dourado → preto) -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#C9A300]/90 via-neutral-900/90 to-black"></div>
+
+      <!-- conteúdo -->
+      <div class="relative mx-auto max-w-7xl px-6 py-16">
+        <div class="grid items-center gap-10 md:grid-cols-2">
+          <!-- copy -->
+          <div class="space-y-6">
+            <span
+              class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-wider ring-1 ring-white/20 backdrop-blur">
+              <span class="h-1.5 w-1.5 rounded-full bg-[#C9A300]"></span>
+              Temporada 2025
+            </span>
+
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.05]">
+              Adrenalina em cada <span
+                class="bg-clip-text text-transparent bg-gradient-to-r from-[#C9A300] to-yellow-300">curva</span>.
+            </h1>
+
+            <p class="text-white/80 text-lg">
+              A Corrida para a Glória. Um campeonato. Vários rivais.
+            </p>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <a href="#"
+                class="px-5 py-2.5 rounded-xl text-black bg-[#C9A300] hover:bg-[#E6C200] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A300]/60 transition">
+                Ver temporada
+              </a>
+              <a href="#"
+                class="px-5 py-2.5 rounded-xl border border-white/20 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 transition">
+                Calendário
+              </a>
             </div>
-            <hr>
-            <small class="text-muted d-block mt-2">Grande Premio da Espanha / 01 de Junho, 2025</small>
           </div>
 
-          <!-- DESTAQUE -->
-          <h5 class="border-start border-success ps-3 mb-3">EM DESTAQUES</h5>
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">
-              <div class="d-flex">
-                <img src="https://cdn.midjourney.com/912bcebb-a79d-4728-88b7-ef15a3ab771b/0_3.png" class="me-3"
-                  style="width: 80px; height: 60px; object-fit: cover;">
-                <div>
-                  <strong>Punições deixam pilotos com raiva</strong><br>
-                  <small class="text-muted">01 de junho, 2025</small>
-                </div>
-              </div>
+          <!-- vídeo -->
+          <div class="rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl bg-white/5 backdrop-blur-md">
+            <video class="block w-full aspect-video" poster="/rfg/assets/img/background_video.png" autoplay muted loop
+              playsinline preload="metadata">
+              <source src="/rfg/assets/img/videobackground.mp4" type="video/mp4" />
+              Seu navegador não suporta vídeo HTML5.
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- borda decorativa inferior -->
+      <div
+        class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent">
+      </div>
+    </section>
+
+    <!-- ===== SECTION 2 – HISTÓRIA / GRID ===== -->
+    <section id="historia" class="relative min-h-[101vh] py-20 md:py-28 bg-neutral-900 overflow-hidden">
+      <div class="absolute inset-0 -z-0">
+        <img src="assets/img/background_historia_1.jpg" class="w-full h-full object-cover" alt="Fundo veloz" />
+      </div>
+      <div class="absolute inset-0 z-10 bg-gradient-to-b from-black/60 via-black/70 to-black/80"></div>
+
+      <div class="relative z-20 max-w-7xl mx-auto px-6">
+        <h2 class="text-center text-4xl md:text-6xl font-extrabold tracking-tight">
+          <span class="text-white">RACE FOR</span> <span class="text-[#C9A300]">GLORY</span><span
+            class="text-white">—</span> <span class="text-[#C9A300]">Nossa história</span>
+        </h2>
+        <p class="mt-6 text-center text-white/80 max-w-3xl mx-auto">
+          Em 23 de novembro de 2021, um grupo de amigos se conectou no lobby de corridas. O que começou como diversão
+          casual virou uma equipe unida por um mesmo sonho: competir e vencer.
+        </p>
+
+        <div class="mt-16 grid gap-10 md:gap-14 md:grid-cols-2">
+          <!-- card -->
+          <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">O nome e o símbolo
+            </h3>
+            <p class="mt-4 text-white/90 leading-relaxed">
+              O nome RACE FOR GLORY representa liderança, pioneirismo e excelência — sempre à frente. Nosso símbolo, o
+              lobo, traduz a força da coletividade: como uma alcateia, somos mais fortes juntos.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">Trajetória de sucesso
+            </h3>
+            <p class="mt-4 text-white/90 leading-relaxed">
+              Em poucos anos, nos consolidamos como uma das equipes mais respeitadas no automobilismo virtual,
+              acumulando títulos e expandindo para novas plataformas e desafios.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">Além das pistas</h3>
+            <p class="mt-4 text-white/90 leading-relaxed">
+              Compartilhamos bastidores, evolução dos pilotos e nossa preparação estratégica. O trabalho em equipe é o
+              que nos torna únicos.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">O futuro é veloz</h3>
+            <p class="mt-4 text-white/90 leading-relaxed">
+              Estamos sempre em movimento, buscando talentos, parcerias e conquistas. O próximo pódio é só o começo.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SECTION 3 – INSTAGRAM / CALL ===== -->
+    <section id="instagram" class="relative py-20 md:py-24 bg-white text-black">
+      <div class="max-w-7xl mx-auto px-6 grid items-center gap-12 lg:grid-cols-3">
+        <!-- ESQUERDA -->
+        <div class="order-2 lg:order-1 lg:text-left text-center">
+          <p class="text-5xl md:text-6xl leading-none font-extrabold">
+            SIGA A <span class="text-[#C9A300]">RACE FOR GLORY</span><br class="hidden lg:block"> NO INSTAGRAM
+          </p>
+          <a href="https://instagram.com/MYTHS_STREET_team" target="_blank"
+            class="mt-6 inline-block rounded-lg px-4 py-2 bg-black text-white hover:bg-neutral-800 transition">
+            @raceforgloryof
+          </a>
+          <p class="mt-2 text-black/70 font-semibold tracking-wide">#RACE FOR GLORY</p>
+        </div>
+
+        <!-- IMAGEM AO CENTRO -->
+        <div class="order-1 lg:order-2 justify-self-center">
+          <img src="/rfg/assets/img/mockup_instagram.png" alt="Mockup Instagram"
+            class="w-[300px] md:w-[420px] rotate-[-8deg] rounded-3xl" loading="lazy" />
+        </div>
+
+        <!-- DIREITA -->
+        <div class="order-3 lg:order-3 lg:text-right text-center">
+          <p class="mt-8 text-xl md:text-2xl font-semibold">
+            FIQUE POR DENTRO DE TODAS AS <span class="text-[#C9A300]">NOVIDADES</span>
+          </p>
+          <p class="mt-2 text-black/70">Novos posts, bastidores e clipes toda semana.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 bg-neutral-50">
+      <div class="max-w-7x1 mx-auto px-6">
+        <h2 class="mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">Destaques</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!--Card 1 --->
+          <div
+            class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+              <img class="rounded-t-lg" src="/rfg/assets/img/background_video.png" alt="" />
             </a>
-            <!-- Replique para outros destaques -->
-
-            <!-- Tabela com CLASSIFICAÇÃO -->
-            <div class="mt-4 mb-3 d-flex justify-content-between align-items-center">
-              <h5 class="border-start border-success ps-3 mb-0">CLASSIFICAÇÃO</h5>
-              <button class="btn btn-outline-secondary btn-sm">VER COMPLETA</button>
+            <div class="p-5">
+              <a href="#">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
+                  acquisitions 2021</h5>
+              </a>
+              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
+                acquisitions of 2021 so far, in reverse chronological order.</p>
+              <a href="#"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Read more
+                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 14 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M1 5h12m0 0L9 1m4 4L9 9" />
+                </svg>
+              </a>
             </div>
-            <div class="card mt-0 text-dark">
-              <div class="table-responsive">
-                <table class="table table-bordered mb-0">
-                  <thead class="table bg-danger text-uppercase text-center">
-                    <tr class="text-light">
-                      <th>Posição da equipe</th>
-                      <th>Pontos</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tabela-classificacao" class="align-middle">
-                    <!-- Equipes no tabela_class.js -->
-                  </tbody>
-                </table>
-              </div>
+          </div>
+
+          <!--Card 2 --->
+          <div
+            class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+              <img class="rounded-t-lg" src="/rfg/assets/img/background_video.png" alt="" />
+            </a>
+            <div class="p-5">
+              <a href="#">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
+                  acquisitions 2021</h5>
+              </a>
+              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
+                acquisitions of 2021 so far, in reverse chronological order.</p>
+              <a href="#"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Read more
+                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 14 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M1 5h12m0 0L9 1m4 4L9 9" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!--Card 3 --->
+          <div
+            class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+              <img class="rounded-t-lg" src="/rfg/assets/img/background_video.png" alt="" />
+            </a>
+            <div class="p-5">
+              <a href="#">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
+                  acquisitions 2021</h5>
+              </a>
+              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
+                acquisitions of 2021 so far, in reverse chronological order.</p>
+              <a href="#"
+                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Read more
+                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 14 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M1 5h12m0 0L9 1m4 4L9 9" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
+    </section>
 
-
-
+    <?php require INC . 'layout_footer.php'; ?>
+  </main>
+  <!-- Scripts -->
+  <script src="/rfg/assets/JavaScript/noticias_card_tailwind.js"></script>
+  <script src="/rfg/assets/JavaScript/classificacao_tailwind.js"></script>
 </body>
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-4">
-  <div class="container">
-    <p class="mb-2">Junte-se à comunidade F1 Series</p>
-    <div class="d-flex justify-content-center gap-3">
-      <a href="#" class="text-white text-decoration-none">Instagram</a>
-      <a href="#" class="text-white text-decoration-none">Twitter</a>
-      <a href="#" class="text-white text-decoration-none">YouTube</a>
-    </div>
-    <p class="mt-3 small">© 2025 F1 Series - Todos os direitos reservados</p>
-  </div>
-</footer>
-
-<!-- Bootstrap JS (Optional for Carousel functionality) -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-<script src="assets/JavaScript/noticias_card.js"></script>
-<script src="assets/JavaScript/tabela_class.js"></script>
 
 </html>

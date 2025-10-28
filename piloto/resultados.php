@@ -1,3 +1,0 @@
-<?php
-// Resultados individuais
-?>
