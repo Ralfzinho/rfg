@@ -1,139 +1,87 @@
-<<<<<<< HEAD
 <?php
-require_once __DIR__ . '/../../includes/db.php';
+// admin/equipes/editar.php
 require_once __DIR__ . '/../../includes/funcoes.php';
-auth_require_login();
+auth_require_role(['admin', 'editor']);
 
-$id = $_GET['id'] ?? null;
-if (!$id) {
-    header('Location: listar.php');
+define('INC', __DIR__ . '/../../includes/');
+$title = 'Editar Equipe — RFG';
+global $pdo;
+
+// Valida ID
+$id = (int)($_GET['id'] ?? 0);
+if ($id <= 0) {
+    header('Location: /admin/equipes/listar.php');
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT * FROM equipes WHERE id = ?");
-$stmt->execute([$id]);
-$equipe = $stmt->fetch(PDO::FETCH_ASSOC);
+// Busca equipe
+$st_equipe = $pdo->prepare("SELECT * FROM equipes WHERE id = ?");
+$st_equipe->execute([$id]);
+$equipe = $st_equipe->fetch(PDO::FETCH_ASSOC);
 
 if (!$equipe) {
-    die('Equipe não encontrada.');
+    set_flash('erro', 'Equipe não encontrada.');
+    header('Location: /admin/equipes/listar.php');
+    exit;
 }
 
-$erro = '';
+// Pega mensagens
+$erro = get_flash('erro');
+$ok = get_flash('ok');
+
+// Processa o POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($_POST['nome'] ?? '');
     $pais = trim($_POST['pais'] ?? '');
-    $chefe = trim($_POST['chefe'] ?? '');
 
-    if ($nome === '' || $pais === '' || $chefe === '') {
-        $erro = 'Preencha todos os campos!';
+    if ($nome === '' || $pais === '') {
+        $erro = 'Preencha Nome e País.';
     } else {
-        $stmt = $pdo->prepare("UPDATE equipes SET nome = ?, pais = ?, chefe = ? WHERE id = ?");
-        $stmt->execute([$nome, $pais, $chefe, $id]);
-        header('Location: listar.php?sucesso=1');
+        $sql = "UPDATE equipes SET nome = :nome, pais = :pais WHERE id = :id";
+        $st = $pdo->prepare($sql);
+        $st->execute([':nome' => $nome, ':pais' => $pais, ':id' => $id]);
+
+        set_flash('ok', 'Equipe atualizada com sucesso.');
+        header("Location: /admin/equipes/editar.php?id=$id");
         exit;
     }
 }
 ?>
 <!doctype html>
 <html lang="pt-br">
-<?php include __DIR__ . '/../../includes/layout_head.php'; ?>
+<head><?php require INC . 'layout_head.php'; ?></head>
 <body class="bg-neutral-50 text-neutral-900">
-<?php include __DIR__ . '/../../includes/layout_nav.php'; ?>
+<?php require INC . 'layout_nav.php'; ?>
 
 <main class="mx-auto max-w-3xl px-4 py-8">
-  <h1 class="text-2xl font-bold mb-6">Editar Equipe</h1>
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold">Editar Equipe</h1>
+    <a href="/admin/equipes/listar.php" class="px-4 py-2 rounded border">Voltar</a>
+  </div>
 
+  <?php if ($ok): ?>
+    <div class="mb-4 rounded-lg border border-green-200 bg-green-50 text-green-800 px-3 py-2 text-sm"><?= htmlspecialchars($ok) ?></div>
+  <?php endif; ?>
   <?php if ($erro): ?>
-    <div class="bg-red-100 text-red-700 p-3 rounded mb-4"><?= htmlspecialchars($erro) ?></div>
+    <div class="mb-4 rounded-lg border border-red-200 bg-red-50 text-red-800 px-3 py-2 text-sm"><?= htmlspecialchars($erro) ?></div>
   <?php endif; ?>
 
-  <form method="post" class="space-y-4">
+  <form method="post" class="bg-white border rounded-2xl p-6 shadow space-y-4">
     <div>
-      <label class="block mb-1">Nome da Equipe</label>
-      <input type="text" name="nome" value="<?= htmlspecialchars($equipe['nome']) ?>" class="w-full border rounded px-3 py-2">
+      <label class="block text-sm font-medium">Nome da Equipe *</label>
+      <input type="text" name="nome" required class="mt-1 w-full border rounded px-3 py-2" value="<?= htmlspecialchars($equipe['nome']) ?>">
     </div>
     <div>
-      <label class="block mb-1">País</label>
-      <input type="text" name="pais" value="<?= htmlspecialchars($equipe['pais']) ?>" class="w-full border rounded px-3 py-2">
+      <label class="block text-sm font-medium">País *</label>
+      <input type="text" name="pais" required class="mt-1 w-full border rounded px-3 py-2" value="<?= htmlspecialchars($equipe['pais']) ?>">
     </div>
-    <div>
-      <label class="block mb-1">Chefe da Equipe</label>
-      <input type="text" name="chefe" value="<?= htmlspecialchars($equipe['chefe']) ?>" class="w-full border rounded px-3 py-2">
+    <div class="flex gap-3 justify-end mt-2">
+      <a href="/admin/equipes/listar.php" class="px-4 py-2 rounded border">Cancelar</a>
+      <button type="submit" class="px-5 py-2 rounded bg-primary text-white hover:bg-red-700">Salvar Alterações</button>
     </div>
-    <button type="submit" class="bg-primary text-white px-4 py-2 rounded">Salvar Alterações</button>
   </form>
 </main>
 
-<?php include __DIR__ . '/../../includes/layout_footer.php'; ?>
+<?php require INC . 'layout_footer.php'; ?>
 </body>
 </html>
-=======
-<?php
-require_once __DIR__ . '/../../includes/db.php';
-require_once __DIR__ . '/../../includes/funcoes.php';
-auth_require_login();
-
-$id = $_GET['id'] ?? null;
-if (!$id) {
-    header('Location: listar.php');
-    exit;
-}
-
-$stmt = $pdo->prepare("SELECT * FROM equipes WHERE id = ?");
-$stmt->execute([$id]);
-$equipe = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$equipe) {
-    die('Equipe não encontrada.');
-}
-
-$erro = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = trim($_POST['nome'] ?? '');
-    $pais = trim($_POST['pais'] ?? '');
-    $chefe = trim($_POST['chefe'] ?? '');
-
-    if ($nome === '' || $pais === '' || $chefe === '') {
-        $erro = 'Preencha todos os campos!';
-    } else {
-        $stmt = $pdo->prepare("UPDATE equipes SET nome = ?, pais = ?, chefe = ? WHERE id = ?");
-        $stmt->execute([$nome, $pais, $chefe, $id]);
-        header('Location: listar.php?sucesso=1');
-        exit;
-    }
-}
-?>
-<!doctype html>
-<html lang="pt-br">
-<?php include __DIR__ . '/../../includes/layout_head.php'; ?>
-<body class="bg-neutral-50 text-neutral-900">
-<?php include __DIR__ . '/../../includes/layout_nav.php'; ?>
-
-<main class="mx-auto max-w-3xl px-4 py-8">
-  <h1 class="text-2xl font-bold mb-6">Editar Equipe</h1>
-
-  <?php if ($erro): ?>
-    <div class="bg-red-100 text-red-700 p-3 rounded mb-4"><?= htmlspecialchars($erro) ?></div>
-  <?php endif; ?>
-
-  <form method="post" class="space-y-4">
-    <div>
-      <label class="block mb-1">Nome da Equipe</label>
-      <input type="text" name="nome" value="<?= htmlspecialchars($equipe['nome']) ?>" class="w-full border rounded px-3 py-2">
-    </div>
-    <div>
-      <label class="block mb-1">País</label>
-      <input type="text" name="pais" value="<?= htmlspecialchars($equipe['pais']) ?>" class="w-full border rounded px-3 py-2">
-    </div>
-    <div>
-      <label class="block mb-1">Chefe da Equipe</label>
-      <input type="text" name="chefe" value="<?= htmlspecialchars($equipe['chefe']) ?>" class="w-full border rounded px-3 py-2">
-    </div>
-    <button type="submit" class="bg-primary text-white px-4 py-2 rounded">Salvar Alterações</button>
-  </form>
-</main>
-
-<?php include __DIR__ . '/../../includes/layout_footer.php'; ?>
-</body>
-</html>
->>>>>>> 69bb93605bbc7806118eb2d75e23a16c5d146d8b
