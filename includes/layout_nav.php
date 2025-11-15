@@ -3,7 +3,7 @@
   <nav class="relative mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
     <!-- Brand -->
     <div class="flex items-center gap-3">
-      <a href="/index.php" class="flex items-center gap-3 font-extrabold text-xl tracking-wide">
+      <a href="/rfg/index.php" class="flex items-center gap-3 font-extrabold text-xl tracking-wide">
         <img src="/rfg/assets/img/logo.png" alt="Logo da Liga" class="h-9 w-9 object-contain" />
         <span>RACE FOR <span class="text-[#FFD700]">GLORY</span></span>
       </a>
@@ -25,21 +25,21 @@
     <!-- Menu desktop -->
     <div class="hidden md:block">
       <ul id="mainMenu" class="flex gap-6 items-center">
-        <li><a class="text-white/90 hover:text-white" href="../../rfg/index.php">Início</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/corrida.php">Corridas</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/classificacao.php">Classificação</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/equipes.php">Equipes</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/pilotos.php">Pilotos</a></li>
-        <li><a class="text-white/90 hover:text-white" href="../../rfg/pages/sobre_nos.php">Contato</a></li>
+        <li><a class="text-white/90 hover:text-white" href="/rfg/index.php">Início</a></li>
+        <li><a class="text-white/90 hover:text-white" href="/rfg/pages/corrida.php">Corridas</a></li>
+        <li><a class="text-white/90 hover:text-white" href="/rfg/pages/classificacao.php">Classificação</a></li>
+        <li><a class="text-white/90 hover:text-white" href="/rfg/pages/equipes.php">Equipes</a></li>
+        <li><a class="text-white/90 hover:text-white" href="/rfg/pages/pilotos.php">Pilotos</a></li>
+        <li><a class="text-white/90 hover:text-white" href="/rfg/pages/sobre_nos.php">Contato</a></li>
 
         <?php if ($logged): ?>
           <li><a class="inline-flex items-center px-3 py-1.5 rounded bg-primary text-white"
-              href="../../rfg/admin/dashboard.php">Painel</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/admin-login/logout.php">Sair</a>
+              href="/rfg/admin/dashboard.php">Painel</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="/rfg/admin-login/logout.php">Sair</a>
           </li>
         <?php else: ?>
           <li><a class="inline-flex items-center px-3 py-1.5 rounded border border-white/20 hover:border-white"
-              href="../../rfg/pages/conta.php">Login</a></li>
+              href="/rfg/pages/conta.php">Login</a></li>
         <?php endif; ?>
       </ul>
     </div>
@@ -49,20 +49,20 @@
       class="hidden absolute left-0 right-0 top-full bg-dark/95 backdrop-blur border-t border-white/10 md:hidden">
       <div class="mx-auto max-w-6xl px-4 py-3">
         <ul class="flex flex-col gap-3">
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/index.php">Início</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/corridas.php">Corridas</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="/rfg/index.php">Início</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="/rfg/pages/corridas.php">Corridas</a></li>
           <li><a class="block py-2 text-white/90 hover:text-white"
-              href="../../rfg/pages/classificacao.php">Classificação</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/equipes.php">Equipes</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/pilotos.php">Pilotos</a></li>
-          <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/sobre_nos.php">Contato</a></li>
+              href="/rfg/pages/classificacao.php">Classificação</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="/rfg/pages/equipes.php">Equipes</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="/rfg/pages/pilotos.php">Pilotos</a></li>
+          <li><a class="block py-2 text-white/90 hover:text-white" href="/rfg/pages/sobre_nos.php">Contato</a></li>
 
           <?php if ($logged): ?>
-            <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/admin/dashboard.php">Painel</a></li>
+            <li><a class="block py-2 text-white/90 hover:text-white" href="/rfg/admin/dashboard.php">Painel</a></li>
             <li><a class="block py-2 text-white/90 hover:text-white"
-                href="../../rfg/admin-login/logout.php">Sair</a></li>
+                href="/rfg/admin-login/logout.php">Sair</a></li>
           <?php else: ?>
-            <li><a class="block py-2 text-white/90 hover:text-white" href="../../rfg/pages/conta.php">Login</a></li>
+            <li><a class="block py-2 text-white/90 hover:text-white" href="/rfg/pages/conta.php">Login</a></li>
           <?php endif; ?>
         </ul>
       </div>
