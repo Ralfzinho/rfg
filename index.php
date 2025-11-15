@@ -21,15 +21,13 @@ define('INC', __DIR__ . '/includes/');
         <div class="grid items-center gap-10 md:grid-cols-2">
           <!-- copy -->
           <div class="space-y-6">
-            <span
-              class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-wider ring-1 ring-white/20 backdrop-blur">
+            <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-wider ring-1 ring-white/20 backdrop-blur">
               <span class="h-1.5 w-1.5 rounded-full bg-[#C9A300]"></span>
               Temporada 2025
             </span>
 
             <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.05]">
-              Adrenalina em cada <span
-                class="bg-clip-text text-transparent bg-gradient-to-r from-[#C9A300] to-yellow-300">curva</span>.
+              Adrenalina em cada <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#C9A300] to-yellow-300">curva</span>.
             </h1>
 
             <p class="text-white/80 text-lg">
@@ -50,8 +48,10 @@ define('INC', __DIR__ . '/includes/');
 
           <!-- vídeo -->
           <div class="rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl bg-white/5 backdrop-blur-md">
-            <video class="block w-full aspect-video" poster="/rfg/assets/img/background_video.png" autoplay muted loop
-              playsinline preload="metadata">
+            <video
+              class="block w-full aspect-video"
+              poster="/rfg/assets/img/background_video.png"
+              autoplay muted loop playsinline preload="metadata">
               <source src="/rfg/assets/img/videobackground.mp4" type="video/mp4" />
               Seu navegador não suporta vídeo HTML5.
             </video>
@@ -60,9 +60,7 @@ define('INC', __DIR__ . '/includes/');
       </div>
 
       <!-- borda decorativa inferior -->
-      <div
-        class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent">
-      </div>
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
     </section>
 
     <!-- ===== SECTION 2 – HISTÓRIA / GRID ===== -->
@@ -74,39 +72,32 @@ define('INC', __DIR__ . '/includes/');
 
       <div class="relative z-20 max-w-7xl mx-auto px-6">
         <h2 class="text-center text-4xl md:text-6xl font-extrabold tracking-tight">
-          <span class="text-white">RACE FOR</span> <span class="text-[#C9A300]">GLORY</span><span
-            class="text-white">—</span> <span class="text-[#C9A300]">Nossa história</span>
+          <span class="text-white">RACE FOR</span> <span class="text-[#C9A300]">GLORY</span><span class="text-white">—</span> <span class="text-[#C9A300]">Nossa história</span>
         </h2>
         <p class="mt-6 text-center text-white/80 max-w-3xl mx-auto">
-          Em 23 de novembro de 2021, um grupo de amigos se conectou no lobby de corridas. O que começou como diversão
-          casual virou uma equipe unida por um mesmo sonho: competir e vencer.
+          Em 23 de novembro de 2021, um grupo de amigos se conectou no lobby de corridas. O que começou como diversão casual virou uma equipe unida por um mesmo sonho: competir e vencer.
         </p>
 
         <div class="mt-16 grid gap-10 md:gap-14 md:grid-cols-2">
           <!-- card -->
           <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
-            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">O nome e o símbolo
-            </h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">O nome e o símbolo</h3>
             <p class="mt-4 text-white/90 leading-relaxed">
-              O nome RACE FOR GLORY representa liderança, pioneirismo e excelência — sempre à frente. Nosso símbolo, o
-              lobo, traduz a força da coletividade: como uma alcateia, somos mais fortes juntos.
+              O nome RACE FOR GLORY representa liderança, pioneirismo e excelência — sempre à frente. Nosso símbolo, o lobo, traduz a força da coletividade: como uma alcateia, somos mais fortes juntos.
             </p>
           </article>
 
           <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
-            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">Trajetória de sucesso
-            </h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">Trajetória de sucesso</h3>
             <p class="mt-4 text-white/90 leading-relaxed">
-              Em poucos anos, nos consolidamos como uma das equipes mais respeitadas no automobilismo virtual,
-              acumulando títulos e expandindo para novas plataformas e desafios.
+              Em poucos anos, nos consolidamos como uma das equipes mais respeitadas no automobilismo virtual, acumulando títulos e expandindo para novas plataformas e desafios.
             </p>
           </article>
 
           <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
             <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">Além das pistas</h3>
             <p class="mt-4 text-white/90 leading-relaxed">
-              Compartilhamos bastidores, evolução dos pilotos e nossa preparação estratégica. O trabalho em equipe é o
-              que nos torna únicos.
+              Compartilhamos bastidores, evolução dos pilotos e nossa preparação estratégica. O trabalho em equipe é o que nos torna únicos.
             </p>
           </article>
 
@@ -152,84 +143,47 @@ define('INC', __DIR__ . '/includes/');
     </section>
 
     <section class="py-12 bg-neutral-50">
-      <div class="max-w-7x1 mx-auto px-6">
+      <div class="max-w-7xl mx-auto px-6">
         <h2 class="mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">Destaques</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!--Card 1 --->
-          <div
-            class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-              <img class="rounded-t-lg" src="/rfg/assets/img/background_video.png" alt="" />
-            </a>
-            <div class="p-5">
-              <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                  acquisitions 2021</h5>
-              </a>
-              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                acquisitions of 2021 so far, in reverse chronological order.</p>
-              <a href="#"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Read more
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                  fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                </svg>
-              </a>
-            </div>
-          </div>
 
-          <!--Card 2 --->
-          <div
-            class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-              <img class="rounded-t-lg" src="/rfg/assets/img/background_video.png" alt="" />
-            </a>
-            <div class="p-5">
-              <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                  acquisitions 2021</h5>
-              </a>
-              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                acquisitions of 2021 so far, in reverse chronological order.</p>
-              <a href="#"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Read more
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                  fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                </svg>
-              </a>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <article class="group bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden hover:shadow-md transition">
+            <div class="w-full aspect-[16/9] bg-white ring-neutral-200">
+              <img src="/rfg/assets/img/tela_login.jpg" alt="Última Corrida"
+                class="w-full h-full object-contain" />
             </div>
-          </div>
+            <div class="p-5 text-left">
+              <h5 class="text-lg font-semibold">Última Corrida</h5>
+              <p class="mt-1 text-neutral-600">GP da Espanha — Vitória de O. Piastri com volta mais rápida.</p>
+            </div>
+          </article>
 
-          <!--Card 3 --->
-          <div
-            class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-              <img class="rounded-t-lg" src="/rfg/assets/img/background_video.png" alt="" />
-            </a>
-            <div class="p-5">
-              <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                  acquisitions 2021</h5>
-              </a>
-              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-                acquisitions of 2021 so far, in reverse chronological order.</p>
-              <a href="#"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Read more
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                  fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                </svg>
-              </a>
+          <!-- Card 2 -->
+          <article class="group bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden hover:shadow-md transition">
+            <div class="w-full aspect-[16/9] bg-white ring-neutral-200">
+              <img src="/rfg/assets/img/tela_login.jpg" alt="Piloto do Mês"
+                class="w-full h-full object-contain" />
             </div>
-          </div>
+            <div class="p-5 text-left">
+              <h5 class="text-lg font-semibold">Piloto do Mês</h5>
+              <p class="mt-1 text-neutral-600">Carlos R. (Red Phoenix) — Consistência e duas vitórias seguidas.</p>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="group bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden hover:shadow-md transition">
+            <div class="w-full aspect-[16/9] bg-white ring-neutral-200">
+              <img src="/rfg/assets/img/tela_login.jpg" alt="Equipe Líder"
+                class="w-full h-full object-contain" />
+            </div>
+            <div class="p-5 text-left">
+              <h5 class="text-lg font-semibold">Equipe Líder</h5>
+              <p class="mt-1 text-neutral-600">Black Arrow GP — 213 pontos acumulados na temporada.</p>
+            </div>
+          </article>
         </div>
+      </div>
     </section>
 
     <?php require INC . 'layout_footer.php'; ?>
