@@ -23,7 +23,7 @@ if ($id <= 0) {
 
 /**
  * Campos esperados na tabela `equipes`:
- * id, nome, sigla, chefe_equipe, status, pontos, posicao
+ * id, nome, sigla, chefe_equipe, status, pontos, posicao, foto_url
  */
 
 // Se enviou o form, atualiza
@@ -34,17 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $status       = trim($_POST['status'] ?? 'ativa');
   $pontos       = (int)($_POST['pontos'] ?? 0);
   $posicao      = $_POST['posicao'] !== '' ? (int)$_POST['posicao'] : null;
+  $foto_url     = trim($_POST['foto_url'] ?? '');
 
   if ($nome === '') {
     set_flash('erro', 'Informe ao menos o nome da equipe.');
   } else {
     $sql = "UPDATE equipes
-            SET nome = :nome,
-                sigla = :sigla,
+            SET nome         = :nome,
+                sigla        = :sigla,
                 chefe_equipe = :chefe_equipe,
-                status = :status,
-                pontos = :pontos,
-                posicao = :posicao
+                status       = :status,
+                pontos       = :pontos,
+                posicao      = :posicao,
+                foto_url     = :foto_url
             WHERE id = :id";
     $st = $pdo->prepare($sql);
     $st->execute([
@@ -54,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ':status'       => $status,
       ':pontos'       => $pontos,
       ':posicao'      => $posicao,
+      ':foto_url'     => $foto_url !== '' ? $foto_url : null,
       ':id'           => $id,
     ]);
 
@@ -65,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Busca equipe
 $st = $pdo->prepare("
-  SELECT id, nome, sigla, chefe_equipe, status, pontos, posicao
+  SELECT id, nome, sigla, chefe_equipe, status, pontos, posicao, foto_url
   FROM equipes
   WHERE id = :id
 ");
@@ -88,7 +91,7 @@ $erro = get_flash('erro');
   <?php require INC . 'layout_head.php'; ?>
 </head>
 
-<body class="bg-neutral-900 text-white">
+<body class="bg-gray-500 text-neutral-900">
   <?php require INC . 'layout_nav.php'; ?>
 
   <div class="flex">
@@ -97,47 +100,50 @@ $erro = get_flash('erro');
     <main class="flex-1 mx-auto max-w-3xl px-4 py-8">
       <div class="mb-6 flex items-center justify-between">
         <div>
-          <h1 class="text-2xl font-racing font-bold text-white uppercase tracking-wider">
+          <h1 class="text-2xl font-racing font-bold text-black uppercase tracking-wider">
             Editar <span class="text-racing-gold">Equipe</span>
           </h1>
-          <p class="text-gray-400 text-sm mt-1">
+          <p class="text-gray-700 text-sm mt-1">
             Ajuste as informações da equipe e salve as alterações.
           </p>
         </div>
         <a href="/rfg/admin/equipes/listar.php"
-          class="px-4 py-2 rounded-lg border border-neutral-600 text-gray-200 hover:bg-neutral-800 text-sm font-medium">
+          class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-semibold hover:from-yellow-600 hover:to-yellow-700 shadow-lg hover:shadow-xl transition-all">
           Voltar
         </a>
       </div>
 
       <?php if ($ok): ?>
-        <div class="mb-4 rounded-xl border border-green-500/40 bg-green-500/10 text-green-300 px-4 py-3 text-sm">
+        <div class="mb-4 rounded-xl border border-green-500/40 bg-green-500/10 text-green-700 px-4 py-3 text-sm">
           <?= htmlspecialchars($ok) ?>
         </div>
       <?php endif; ?>
 
       <?php if ($erro): ?>
-        <div class="mb-4 rounded-xl border border-red-500/40 bg-red-500/10 text-red-300 px-4 py-3 text-sm">
+        <div class="mb-4 rounded-xl border border-red-500/40 bg-red-500/10 text-red-700 px-4 py-3 text-sm">
           <?= htmlspecialchars($erro) ?>
         </div>
       <?php endif; ?>
 
-      <form method="post" class="admin-card rounded-2xl p-6 racing-glow space-y-4">
+      <form method="post" class="admin-card rounded-2xl p-6 racing-glow bg-white space-y-4">
+        <!-- Nome -->
         <div>
-          <label class="block text-sm font-semibold text-gray-200 mb-1">
-            Nome da Equipe <span class="text-red-400">*</span>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">
+            Nome da Equipe <span class="text-red-500">*</span>
           </label>
           <input
             name="nome"
             type="text"
             required
             value="<?= htmlspecialchars($equipe['nome']) ?>"
-            class="w-full rounded-lg border border-neutral-700 bg-neutral-900 text-white px-4 py-2.5 focus:ring-2 focus:ring-racing-gold focus:border-transparent">
+            class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-4 py-2.5
+                   focus:ring-2 focus:ring-racing-gold focus:border-transparent">
         </div>
 
+        <!-- Sigla + Status -->
         <div class="grid md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-semibold text-gray-200 mb-1">
+            <label class="block text-sm font-semibold text-gray-700 mb-1">
               Sigla / Abreviação
             </label>
             <input
@@ -145,36 +151,56 @@ $erro = get_flash('erro');
               type="text"
               maxlength="5"
               value="<?= htmlspecialchars($equipe['sigla']) ?>"
-              class="w-full rounded-lg border border-neutral-700 bg-neutral-900 text-white px-4 py-2.5 focus:ring-2 focus:ring-racing-gold focus:border-transparent">
+              class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-4 py-2.5
+                     focus:ring-2 focus:ring-racing-gold focus:border-transparent">
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-200 mb-1">
+            <label class="block text-sm font-semibold text-gray-700 mb-1">
               Status
             </label>
             <select
               name="status"
-              class="w-full rounded-lg border border-neutral-700 bg-neutral-900 text-white px-4 py-2.5 focus:ring-2 focus:ring-racing-gold focus:border-transparent">
-              <option value="ativa" <?= ($equipe['status'] ?? 'ativa') === 'ativa'   ? 'selected' : '' ?>>Ativa</option>
+              class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-4 py-2.5
+                     focus:ring-2 focus:ring-racing-gold focus:border-transparent">
+              <option value="ativa"   <?= ($equipe['status'] ?? 'ativa') === 'ativa'   ? 'selected' : '' ?>>Ativa</option>
               <option value="inativa" <?= ($equipe['status'] ?? 'ativa') === 'inativa' ? 'selected' : '' ?>>Inativa</option>
             </select>
           </div>
         </div>
 
+        <!-- Foto / Logo -->
         <div>
-          <label class="block text-sm font-semibold text-gray-200 mb-1">
-            Chefe de Equipe
+          <label class="block text-sm font-semibold text-gray-700 mb-1">
+            URL do Logo / Foto
           </label>
           <input
-            name="chefe_equipe"
-            type="text"
-            value="<?= htmlspecialchars($equipe['chefe_equipe']) ?>"
-            class="w-full rounded-lg border border-neutral-700 bg-neutral-900 text-white px-4 py-2.5 focus:ring-2 focus:ring-racing-gold focus:border-transparent">
+            name="foto_url"
+            type="url"
+            value="<?= htmlspecialchars($equipe['foto_url'] ?? '') ?>"
+            class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-4 py-2.5
+                   focus:ring-2 focus:ring-racing-gold focus:border-transparent"
+            placeholder="https://logo.clearbit.com/ferrari.com">
+          <p class="text-xs text-gray-500 mt-1">
+            Você pode usar um link de logo, por exemplo:
+            <code class="font-mono text-[11px] bg-gray-100 px-1 py-0.5 rounded">https://logo.clearbit.com/ferrari.com</code>
+          </p>
+
+          <?php if (!empty($equipe['foto_url'])): ?>
+            <div class="mt-3">
+              <p class="text-xs text-gray-500 mb-1">Pré-visualização atual:</p>
+              <img
+                src="<?= htmlspecialchars($equipe['foto_url']) ?>"
+                alt="Logo <?= htmlspecialchars($equipe['nome']) ?>"
+                class="h-12 bg-white rounded-md border border-gray-200 p-1 object-contain">
+            </div>
+          <?php endif; ?>
         </div>
 
+        <!-- Pontos + Posição -->
         <div class="grid md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-semibold text-gray-200 mb-1">
+            <label class="block text-sm font-semibold text-gray-700 mb-1">
               Pontos
             </label>
             <input
@@ -182,11 +208,12 @@ $erro = get_flash('erro');
               type="number"
               min="0"
               value="<?= (int)$equipe['pontos'] ?>"
-              class="w-full rounded-lg border border-neutral-700 bg-neutral-900 text-white px-4 py-2.5 focus:ring-2 focus:ring-racing-gold focus:border-transparent">
+              class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-4 py-2.5
+                     focus:ring-2 focus:ring-racing-gold focus:border-transparent">
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-200 mb-1">
+            <label class="block text-sm font-semibold text-gray-700 mb-1">
               Posição no Campeonato
             </label>
             <input
@@ -194,18 +221,20 @@ $erro = get_flash('erro');
               type="number"
               min="1"
               value="<?= $equipe['posicao'] !== null ? (int)$equipe['posicao'] : '' ?>"
-              class="w-full rounded-lg border border-neutral-700 bg-neutral-900 text-white px-4 py-2.5 focus:ring-2 focus:ring-racing-gold focus:border-transparent">
+              class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-4 py-2.5
+                     focus:ring-2 focus:ring-racing-gold focus:border-transparent">
           </div>
         </div>
 
-        <div class="flex justify-end gap-3 pt-4 border-t border-neutral-800 mt-4">
+        <!-- Botões -->
+        <div class="flex justify-end gap-3 pt-4 border-t border-gray-200 mt-4">
           <a href="/rfg/admin/equipes/listar.php"
-            class="px-5 py-2.5 rounded-lg border border-neutral-600 text-gray-200 font-semibold hover:bg-neutral-800">
+            class="px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-700 font-semibold hover:bg-gray-100">
             Cancelar
           </a>
           <button
             type="submit"
-            class="px-6 py-2.5 rounded-lg bg-racing-gold text-black font-bold font-racing uppercase tracking-wider hover:brightness-110 shadow-lg hover:shadow-xl transition-all">
+            class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-semibold hover:from-yellow-600 hover:to-yellow-700 shadow-lg hover:shadow-xl transition-all">
             Salvar Alterações
           </button>
         </div>

@@ -24,18 +24,16 @@ CREATE TABLE usuarios (
 -- Tabela: equipes
 -- =============================================================
 CREATE TABLE equipes (
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL,
-  sigla VARCHAR(10) DEFAULT NULL,
-  chefe_equipe VARCHAR(100) DEFAULT NULL,
-  status VARCHAR(20) NOT NULL DEFAULT 'ativa', -- 'ativa' ou 'inativa'
-  pontos INT NOT NULL DEFAULT 0,
-  posicao INT DEFAULT NULL,
-  created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB
-  DEFAULT CHARSET=utf8mb4
-  COLLATE=utf8mb4_unicode_ci;
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    sigla VARCHAR(10),
+    chefe_equipe VARCHAR(100),
+    foto_url VARCHAR(255),             -- NOVO
+    status ENUM('ativa','inativa') DEFAULT 'ativa',
+    pontos INT DEFAULT 0,
+    posicao INT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 -- =============================================================
 -- Tabela: pilotos
@@ -46,11 +44,12 @@ CREATE TABLE pilotos (
     numero INT NOT NULL,
     pais VARCHAR(80),
     equipe_id INT,
+    pontos INT NOT NULL DEFAULT 0,
     foto_url VARCHAR(255),
     status ENUM('ativo','reserva','inativo') DEFAULT 'ativo',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (equipe_id) REFERENCES equipes(id) ON DELETE SET NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- =============================================================
 -- Tabela: circuitos
@@ -74,7 +73,7 @@ CREATE TABLE corridas (
     nome_gp VARCHAR(100) NOT NULL,
     circuito_id INT NOT NULL,
     data DATE NOT NULL,
-    status ENUM('teste','agendada','finalizada') DEFAULT 'agendada',
+    status ENUM('teste','agendada','finalizada','Próxima') DEFAULT 'agendada',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (circuito_id) REFERENCES circuitos(id) ON DELETE CASCADE
 );

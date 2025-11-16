@@ -108,10 +108,6 @@ function getAvatarColor($index)
 <head>
   <?php require INC . 'layout_head.php'; ?>
   <style>
-    .modern-border {
-      border-left: 4px solid #ef4444;
-    }
-
     .btn-primary {
       background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
       box-shadow: 0 4px 14px rgba(234, 179, 8, 0.25);

@@ -17,7 +17,7 @@ $title = 'Equipes — RFG';
 /**
  * ATENÇÃO:
  * Para este arquivo funcionar sem erro, a tabela `equipes` deve ter pelo menos:
- *  id (PK), nome, sigla, chefe_equipe, status, pontos, posicao
+ *  id, nome, sigla, chefe_equipe, foto_url, status, pontos, posicao
  */
 
 // Lógica de exclusão
@@ -44,17 +44,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar_equipe'])) 
   $status       = trim($_POST['status'] ?? 'ativa');
   $pontos       = (int)($_POST['pontos'] ?? 0);
   $posicao      = $_POST['posicao'] !== '' ? (int)$_POST['posicao'] : null;
+  $foto_url     = trim($_POST['foto_url'] ?? '');
 
   if ($nome === '') {
     set_flash('erro', 'Informe ao menos o nome da equipe.');
   } else {
-    $sql = "INSERT INTO equipes (nome, sigla, chefe_equipe, status, pontos, posicao)
-            VALUES (:nome, :sigla, :chefe_equipe, :status, :pontos, :posicao)";
+    $sql = "INSERT INTO equipes (nome, sigla, chefe_equipe, foto_url, status, pontos, posicao)
+            VALUES (:nome, :sigla, :chefe_equipe, :foto_url, :status, :pontos, :posicao)";
     $st = $pdo->prepare($sql);
     $st->execute([
       ':nome'         => $nome,
       ':sigla'        => $sigla,
       ':chefe_equipe' => $chefe_equipe,
+      ':foto_url'     => $foto_url,
       ':status'       => $status,
       ':pontos'       => $pontos,
       ':posicao'      => $posicao,
@@ -173,43 +175,50 @@ function equipe_status_label(string $status): string
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <?php foreach ($equipes as $e): ?>
             <?php
-            $iniciais = equipe_iniciais($e);
+            $iniciais    = equipe_iniciais($e);
             $statusClass = equipe_status_badge($e['status'] ?? 'ativa');
             $statusLabel = equipe_status_label($e['status'] ?? 'ativa');
-            $chefe = $e['chefe_equipe'] ?? 'Não informado';
-            $pontos = isset($e['pontos']) ? (int)$e['pontos'] : 0;
-            $posicao = isset($e['posicao']) && $e['posicao'] ? (int)$e['posicao'] . 'º' : '-';
+            $chefe       = $e['chefe_equipe'] ?? 'Não informado';
+            $pontos      = isset($e['pontos']) ? (int)$e['pontos'] : 0;
+            $posicao     = isset($e['posicao']) && $e['posicao'] ? (int)$e['posicao'] . 'º' : '-';
             $totalPilotos = (int)($e['total_pilotos'] ?? 0);
+            $foto_url    = trim($e['foto_url'] ?? '');
             ?>
-            <div class="admin-card rounded-xl p-6 racing-glow">
+            <div class="admin-card rounded-xl p-6 racing-glow bg-white text-gray-900">
               <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                  <span class="text-white font-bold"><?= htmlspecialchars($iniciais) ?></span>
-                </div>
+                <?php if ($foto_url !== ''): ?>
+                  <div class="w-12 h-12 rounded-full overflow-hidden bg-neutral-200 flex items-center justify-center">
+                    <img
+                      src="<?= htmlspecialchars($foto_url) ?>"
+                      alt="<?= htmlspecialchars($e['nome']) ?>"
+                      class="w-full h-full object-cover">
+                  </div>
+                <?php else: ?>
+                  <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold"><?= htmlspecialchars($iniciais) ?></span>
+                  </div>
+                <?php endif; ?>
+
                 <span class="<?= $statusClass ?> text-white text-xs px-2 py-1 rounded-full">
                   <?= htmlspecialchars($statusLabel) ?>
                 </span>
               </div>
 
-              <h3 class="text-gray-900 font-racing font-bold text-lg mb-2">
+              <h3 class="font-racing font-bold text-lg mb-1">
                 <?= htmlspecialchars($e['nome']) ?>
               </h3>
-              <p class="text-gray-400 text-sm mb-4">
-                Equipe Principal:
-                <span class="text-gray-200 font-medium"><?= htmlspecialchars($chefe) ?></span>
-              </p>
               <div class="space-y-2 mb-4 text-sm">
                 <div class="flex justify-between">
-                  <span class="text-gray-400">Pilotos:</span>
-                  <span class="text-gray"><?= $totalPilotos ?></span>
+                  <span class="text-gray-500">Pilotos:</span>
+                  <span class="text-gray-900"><?= $totalPilotos ?></span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-400">Pontos:</span>
+                  <span class="text-gray-500">Pontos:</span>
                   <span class="text-racing-gold font-bold"><?= $pontos ?></span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-400">Posição:</span>
-                  <span class="text-gray"><?= htmlspecialchars($posicao) ?></span>
+                  <span class="text-gray-500">Posição:</span>
+                  <span class="text-gray-900"><?= htmlspecialchars($posicao) ?></span>
                 </div>
               </div>
 
@@ -294,18 +303,6 @@ function equipe_status_label(string $status): string
             </select>
           </div>
         </div>
-
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">
-            Chefe de Equipe
-          </label>
-          <input
-            name="chefe_equipe"
-            type="text"
-            class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-            placeholder="Ex: Christian Horner">
-        </div>
-
         <div class="grid md:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-semibold text-gray-700 mb-1">
@@ -332,6 +329,18 @@ function equipe_status_label(string $status): string
           </div>
         </div>
 
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">
+            Logo / Foto (URL)
+          </label>
+          <input
+            name="foto_url"
+            type="url"
+            class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+            placeholder="https://exemplo.com/logo-equipe.png">
+          <p class="mt-1 text-xs text-gray-500">Cole o link direto da imagem da equipe.</p>
+        </div>
+
         <div class="flex justify-end gap-3 pt-4 border-t border-gray-200 mt-4">
           <button
             type="button"
@@ -348,7 +357,6 @@ function equipe_status_label(string $status): string
       </form>
     </div>
   </div>
-
 
   <script>
     // Controle dos modais

@@ -1,6 +1,81 @@
 // /rfg/assets/js/admin-panel.js
 
 // ===============================
+// Função auxiliar para resetar um item do menu
+// ===============================
+function resetMenuItem(item) {
+    // Remove classes de ativo
+    item.classList.remove('bg-yellow-400', 'text-white', 'shadow-lg', 'sidebar-active');
+    item.classList.add('text-gray-600');
+    
+    // Remove estilos inline do item principal
+    item.style.backgroundColor = '';
+    item.style.color = '';
+    item.style.boxShadow = '';
+    
+    // Reseta o container do ícone
+    const iconContainer = item.querySelector('.w-8');
+    if (iconContainer) {
+        iconContainer.classList.remove('bg-yellow-500');
+        iconContainer.classList.add('bg-gray-100');
+        iconContainer.style.backgroundColor = '';
+    }
+    
+    // Reseta o SVG para dourado
+    const svg = item.querySelector('svg');
+    if (svg) {
+        svg.classList.remove('text-white');
+        svg.classList.add('text-racing-gold');
+        svg.style.color = '#facc15'; // Dourado
+        svg.style.fill = '#facc15';
+    }
+    
+    // Reseta o texto
+    const span = item.querySelector('span');
+    if (span) {
+        span.style.color = '';
+    }
+}
+
+// ===============================
+// Função auxiliar para ativar um item do menu
+// ===============================
+function activateMenuItem(item) {
+    // Adiciona classes de ativo
+    item.classList.add('bg-yellow-400', 'text-white', 'shadow-lg', 'sidebar-active');
+    item.classList.remove('text-gray-600');
+    
+    // Força estilos inline no item principal
+    item.style.backgroundColor = '#facc15'; // Amarelo
+    item.style.color = 'white';
+    item.style.boxShadow = '0 10px 15px -3px rgba(250, 204, 21, 0.3)';
+    
+    // Atualiza o container do ícone
+    const iconContainer = item.querySelector('.w-8');
+    if (iconContainer) {
+        iconContainer.classList.add('bg-yellow-500');
+        iconContainer.classList.remove('bg-gray-100');
+        iconContainer.style.backgroundColor = 'rgba(234, 179, 8, 0.4)';
+    }
+    
+    // Força o SVG ficar BRANCO
+    const svg = item.querySelector('svg');
+    if (svg) {
+        svg.classList.add('text-white');
+        svg.classList.remove('text-racing-gold');
+        svg.style.color = 'white';
+        svg.style.fill = 'white';
+    }
+    
+    // Força o texto ficar branco
+    const span = item.querySelector('span');
+    if (span) {
+        span.style.color = 'white';
+        span.style.fontWeight = '600';
+    }
+}
+
+// ===============================
 // Troca de seções do painel (para SPA - Single Page)
 // ===============================
 window.showSection = function (sectionName, btnEl) {
@@ -15,15 +90,15 @@ window.showSection = function (sectionName, btnEl) {
         section.classList.remove('hidden');
     }
 
-    // Remove qualquer .sidebar-active (botão, span, etc.)
-    document.querySelectorAll('.sidebar-active').forEach(el => {
-        el.classList.remove('sidebar-active');
+    // Reseta todos os itens do menu
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+        resetMenuItem(item);
     });
 
     // Pega o botão correto (mesmo se o clique foi no span/svg)
     const btn = btnEl ? btnEl.closest('.sidebar-item') : null;
     if (btn) {
-        btn.classList.add('sidebar-active');
+        activateMenuItem(btn);
     }
 };
 
@@ -33,28 +108,20 @@ window.showSection = function (sectionName, btnEl) {
 function setActiveSidebarItem() {
     const currentPath = window.location.pathname;
     
-    // Remove todos os ativos
-    document.querySelectorAll('.sidebar-active').forEach(el => {
-        el.classList.remove('sidebar-active');
+    // Reseta todos os itens do menu
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+        resetMenuItem(item);
     });
     
     // Mapeia URLs para os itens da sidebar
     const pathMap = {
-        '/admin/index.php': 'dashboard',
-        '/admin/dashboard.php': 'dashboard',
-        '/admin/pilotos/listar.php': 'pilotos',
-        '/admin/pilotos/cadastrar.php': 'pilotos',
-        '/admin/pilotos/editar.php': 'pilotos',
-        '/admin/equipes/listar.php': 'equipes',
-        '/admin/equipes/cadastrar.php': 'equipes',
-        '/admin/equipes/editar.php': 'equipes',
-        '/admin/corridas/listar.php': 'corridas',
-        '/admin/corridas/cadastrar.php': 'corridas',
-        '/admin/corridas/editar.php': 'corridas',
-        '/admin/resultados/listar.php': 'resultados',
-        '/admin/resultados/cadastrar.php': 'resultados',
-        '/admin/classificacoes/pilotos.php': 'classificacoes',
-        '/admin/classificacoes/equipes.php': 'classificacoes',
+        '/rfg/admin/dashboard_new.php': 'dashboard',
+        '/rfg/admin/pilotos': 'pilotos',
+        '/rfg/admin/equipes': 'equipes',
+        '/rfg/admin/corridas/listar': 'corridas',
+        '/rfg/admin/corridas/resultados': 'resultados',
+        '/rfg/admin/classificacoes': 'classificacoes',
+        '/rfg/admin/usuarios': 'usuarios',
     };
     
     // Encontra qual seção corresponde à URL atual
@@ -70,7 +137,7 @@ function setActiveSidebarItem() {
     if (activeSection) {
         const activeItem = document.querySelector(`[data-section="${activeSection}"]`);
         if (activeItem) {
-            activeItem.classList.add('sidebar-active');
+            activateMenuItem(activeItem);
         }
     }
 }

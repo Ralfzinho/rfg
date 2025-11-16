@@ -235,16 +235,39 @@ header {
   }
 }
 
-/* Estilo para item ativo da sidebar */
+/* ===================================
+   SIDEBAR - FORÇAR MENU AMARELO
+   =================================== */
+
+/* Força o item ativo ficar amarelo */
+.sidebar-item.bg-yellow-400,
 .sidebar-item.sidebar-active {
-  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
-  color: #4f46e5;
+  background-color: #facc15 !important;
+  color: white !important;
+  box-shadow: 0 10px 15px -3px rgba(250, 204, 21, 0.3) !important;
 }
 
-.sidebar-item.sidebar-active .w-8 {
-  background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+/* Força o container do ícone */
+.sidebar-item.bg-yellow-400 .w-8,
+.sidebar-item.sidebar-active .w-8,
+.sidebar-item.bg-yellow-400 .bg-yellow-500,
+.sidebar-item.sidebar-active .bg-yellow-500 {
+  background-color: rgba(234, 179, 8, 0.4) !important;
 }
 
-.sidebar-item.sidebar-active svg {
+/* FORÇA O ÍCONE SVG FICAR BRANCO - MÁXIMA PRIORIDADE */
+.sidebar-item.bg-yellow-400 svg,
+.sidebar-item.sidebar-active svg,
+.sidebar-item.bg-yellow-400 svg.text-white,
+.sidebar-item.sidebar-active svg.text-white,
+.sidebar-item.bg-yellow-400 svg.text-racing-gold,
+.sidebar-item.sidebar-active svg.text-racing-gold {
+  color: white !important;
+  fill: white !important;
+}
+
+/* Força o texto ficar branco */
+.sidebar-item.bg-yellow-400 span,
+.sidebar-item.sidebar-active span {
   color: white !important;
 }

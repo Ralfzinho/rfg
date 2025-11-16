@@ -1,6 +1,18 @@
 <?php
-session_start();
+
+declare(strict_types=1);
+
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
 define('INC', __DIR__ . '/includes/');
+
+// carrega as funções + conexão PDO
+require_once INC . 'funcoes.php';
+
+// torna o $pdo visível neste arquivo
+global $pdo;
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -141,56 +153,129 @@ define('INC', __DIR__ . '/includes/');
         </div>
       </div>
     </section>
+    <!-- ===== SECTION 4 – DESTAQUES / PODIUM ===== -->
+    <?php
+    global $pdo;
 
+    // Busca top 3 pilotos por pontos
+    $stmt = $pdo->query("
+    SELECT 
+        p.id,
+        p.nome,
+        p.pontos,
+        p.pais,
+        p.foto_url,
+        e.nome AS equipe_nome
+    FROM pilotos p
+    LEFT JOIN equipes e ON e.id = p.equipe_id
+    WHERE p.status = 'ativo'
+    ORDER BY p.pontos DESC
+    LIMIT 3
+");
+    $podium = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Quebra em 1º, 2º, 3º
+    $first  = $podium[0] ?? null;
+    $second = $podium[1] ?? null;
+    $third  = $podium[2] ?? null;
+
+    // Função pra separar nome e sobrenome
+    function splitName($nome)
+    {
+      $parts = explode(' ', trim($nome));
+      if (count($parts) <= 1) {
+        return [$nome, ''];
+      }
+      $last = array_pop($parts);
+      return [implode(' ', $parts), $last];
+    }
+    ?>
     <section class="py-12 bg-neutral-50">
       <div class="max-w-7xl mx-auto px-6">
         <h2 class="mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">Destaques</h2>
-        <div class="podium-container">
-          <!-- Card 2º Lugar -->
-          <div class="card card-second">
-            <div class="position">2<span class="position-suffix">ND</span></div>
-            <div class="driver-info">
-              <h2 class="driver-name">Oscar <span class="last-name">Piastri</span></h2>
-              <p class="team">McLaren</p>
-              <div class="flag-icon flag-au"></div>
-            </div>
-            <div class="driver-image">
-              <img src="piastri.png" alt="Oscar Piastri">
-            </div>
-            <div class="points">346 <span class="pts-label">PTS</span></div>
-            <div class="dotted-pattern"></div>
-          </div>
 
-          <!-- Card 1º Lugar -->
-          <div class="card card-first">
-            <div class="position">1<span class="position-suffix">ST</span></div>
-            <div class="driver-info">
-              <h2 class="driver-name">Lando <span class="last-name">Norris</span></h2>
-              <p class="team">McLaren</p>
-              <div class="flag-icon flag-gb"></div>
-            </div>
-            <div class="driver-image">
-              <img src="norris.png" alt="Lando Norris">
-            </div>
-            <div class="points">398 <span class="pts-label">PTS</span></div>
-            <div class="dotted-pattern"></div>
-          </div>
+        <?php if ($first && $second && $third): ?>
+          <div class="podium-container">
 
-          <!-- Card 3º Lugar -->
-          <div class="card card-third">
-            <div class="position">3<span class="position-suffix">RD</span></div>
-            <div class="driver-info">
-              <h2 class="driver-name">Max <span class="last-name">Verstappen</span></h2>
-              <p class="team">Red Bull Racing</p>
-              <div class="flag-icon flag-nl"></div>
+            <!-- 2º Lugar -->
+            <?php list($nome2, $sobrenome2) = splitName($second['nome']); ?>
+            <div class="card card-second">
+              <div class="position">2<span class="position-suffix">ND</span></div>
+              <div class="driver-info">
+                <h2 class="driver-name">
+                  <?= htmlspecialchars($nome2) ?>
+                  <?php if ($sobrenome2): ?>
+                    <span class="last-name"><?= htmlspecialchars($sobrenome2) ?></span>
+                  <?php endif; ?>
+                </h2>
+                <p class="team"><?= htmlspecialchars($second['equipe_nome'] ?? 'Sem equipe') ?></p>
+                <!-- adapte essa class da bandeira conforme seu esquema -->
+                <div class="flag-icon"></div>
+              </div>
+              <div class="driver-image">
+                <img src="<?= htmlspecialchars($second['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                  alt="<?= htmlspecialchars($second['nome']) ?>">
+              </div>
+              <div class="points">
+                <?= (int)$second['pontos'] ?> <span class="pts-label">PTS</span>
+              </div>
+              <div class="dotted-pattern"></div>
             </div>
-            <div class="driver-image">
-              <img src="verstappen.png" alt="Max Verstappen">
+
+            <!-- 1º Lugar -->
+            <?php list($nome1, $sobrenome1) = splitName($first['nome']); ?>
+            <div class="card card-first">
+              <div class="position">1<span class="position-suffix">ST</span></div>
+              <div class="driver-info">
+                <h2 class="driver-name">
+                  <?= htmlspecialchars($nome1) ?>
+                  <?php if ($sobrenome1): ?>
+                    <span class="last-name"><?= htmlspecialchars($sobrenome1) ?></span>
+                  <?php endif; ?>
+                </h2>
+                <p class="team"><?= htmlspecialchars($first['equipe_nome'] ?? 'Sem equipe') ?></p>
+                <div class="flag-icon"></div>
+              </div>
+              <div class="driver-image">
+                <img src="<?= htmlspecialchars($first['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                  alt="<?= htmlspecialchars($first['nome']) ?>">
+              </div>
+              <div class="points">
+                <?= (int)$first['pontos'] ?> <span class="pts-label">PTS</span>
+              </div>
+              <div class="dotted-pattern"></div>
             </div>
-            <div class="points">341 <span class="pts-label">PTS</span></div>
-            <div class="dotted-pattern"></div>
+
+            <!-- 3º Lugar -->
+            <?php list($nome3, $sobrenome3) = splitName($third['nome']); ?>
+            <div class="card card-third">
+              <div class="position">3<span class="position-suffix">RD</span></div>
+              <div class="driver-info">
+                <h2 class="driver-name">
+                  <?= htmlspecialchars($nome3) ?>
+                  <?php if ($sobrenome3): ?>
+                    <span class="last-name"><?= htmlspecialchars($sobrenome3) ?></span>
+                  <?php endif; ?>
+                </h2>
+                <p class="team"><?= htmlspecialchars($third['equipe_nome'] ?? 'Sem equipe') ?></p>
+                <div class="flag-icon"></div>
+              </div>
+              <div class="driver-image">
+                <img src="<?= htmlspecialchars($third['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                  alt="<?= htmlspecialchars($third['nome']) ?>">
+              </div>
+              <div class="points">
+                <?= (int)$third['pontos'] ?> <span class="pts-label">PTS</span>
+              </div>
+              <div class="dotted-pattern"></div>
+            </div>
+
           </div>
-        </div>
+        <?php else: ?>
+          <p class="text-center text-gray-500">
+            Ainda não há pilotos suficientes para montar o pódio.
+          </p>
+        <?php endif; ?>
       </div>
     </section>
 
