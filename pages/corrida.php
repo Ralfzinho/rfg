@@ -58,7 +58,7 @@ $meses = [1 => 'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'o
 ?>
 <section id="proximas-corridas" class="bg-neutral-900 py-12 md:py-16">
     <div class="container mx-auto px-4">
-        <h2 class="text-center text-[clamp(28px,5vw,48px)] font-extrabold text-[var(--brand)]">
+        <h2 class="text-center text-[clamp(28px,5vw,48px)] font-extrabold text-white">
             Corridas da Temporada
         </h2>
 

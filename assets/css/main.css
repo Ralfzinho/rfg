@@ -16,7 +16,7 @@ body {
   background-repeat: no-repeat;
   color: #C9A300;
 }
- 
+
 header {
   position: relative;
   z-index: 10;
@@ -40,4 +40,211 @@ header {
 
 .nav-link:hover {
   color: #C9A300 !important;
+}
+
+.podium-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  max-width: 1400px;
+}
+
+.card {
+  position: relative;
+  width: 420px;
+  height: 320px;
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Card de 1º lugar - Laranja */
+.card-first {
+  background: linear-gradient(135deg, #ff8c00 0%, #cc5500 100%);
+  height: 340px;
+}
+
+/* Card de 2º lugar - Laranja mais claro */
+.card-second {
+  background: linear-gradient(135deg, #d17742 0%, #8b4513 100%);
+}
+
+/* Card de 3º lugar - Azul Red Bull */
+.card-third {
+  background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+}
+
+/* Padrão pontilhado de fundo */
+.dotted-pattern {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events: none;
+}
+
+/* Posição */
+.position {
+  font-size: 48px;
+  font-weight: 900;
+  color: white;
+  z-index: 2;
+}
+
+.position-suffix {
+  font-size: 24px;
+  font-weight: 700;
+  vertical-align: super;
+}
+
+/* Informações do piloto */
+.driver-info {
+  position: relative;
+  z-index: 2;
+}
+
+.driver-name {
+  font-size: 32px;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.last-name {
+  font-weight: 900;
+}
+
+.team {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+}
+
+/* Bandeiras */
+.flag-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.flag-au {
+  background: linear-gradient(to bottom, #012169 50%, white 50%);
+}
+
+.flag-gb {
+  background:
+    linear-gradient(to right, transparent 45%, white 45%, white 55%, transparent 55%),
+    linear-gradient(to bottom, transparent 45%, white 45%, white 55%, transparent 55%),
+    linear-gradient(135deg, transparent 48%, white 48%, white 52%, transparent 52%),
+    linear-gradient(45deg, transparent 48%, white 48%, white 52%, transparent 52%),
+    #012169;
+}
+
+.flag-nl {
+  background: linear-gradient(to bottom, #AE1C28 33.33%, white 33.33%, white 66.66%, #21468B 66.66%);
+}
+
+/* Imagem do piloto */
+.driver-image {
+  position: absolute;
+  right: 0;
+  bottom: 60px;
+  width: 220px;
+  height: 250px;
+  z-index: 1;
+}
+
+.driver-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+}
+
+/* Pontos */
+.points {
+  font-size: 56px;
+  font-weight: 900;
+  color: white;
+  z-index: 2;
+}
+
+.pts-label {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Responsividade */
+@media (max-width: 1400px) {
+  .podium-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .card-first {
+    order: 1;
+  }
+
+  .card-second {
+    order: 2;
+  }
+
+  .card-third {
+    order: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    height: 280px;
+    padding: 20px;
+  }
+
+  .position {
+    font-size: 36px;
+  }
+
+  .driver-name {
+    font-size: 24px;
+  }
+
+  .points {
+    font-size: 42px;
+  }
+
+  .driver-image {
+    width: 180px;
+    height: 200px;
+  }
+}
+
+/* Estilo para item ativo da sidebar */
+.sidebar-item.sidebar-active {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  color: #4f46e5;
+}
+
+.sidebar-item.sidebar-active .w-8 {
+  background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+}
+
+.sidebar-item.sidebar-active svg {
+  color: white !important;
 }

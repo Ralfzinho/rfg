@@ -145,43 +145,51 @@ define('INC', __DIR__ . '/includes/');
     <section class="py-12 bg-neutral-50">
       <div class="max-w-7xl mx-auto px-6">
         <h2 class="mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">Destaques</h2>
+        <div class="podium-container">
+          <!-- Card 2º Lugar -->
+          <div class="card card-second">
+            <div class="position">2<span class="position-suffix">ND</span></div>
+            <div class="driver-info">
+              <h2 class="driver-name">Oscar <span class="last-name">Piastri</span></h2>
+              <p class="team">McLaren</p>
+              <div class="flag-icon flag-au"></div>
+            </div>
+            <div class="driver-image">
+              <img src="piastri.png" alt="Oscar Piastri">
+            </div>
+            <div class="points">346 <span class="pts-label">PTS</span></div>
+            <div class="dotted-pattern"></div>
+          </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <!-- Card 1 -->
-          <article class="group bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden hover:shadow-md transition">
-            <div class="w-full aspect-[16/9] bg-white ring-neutral-200">
-              <img src="/rfg/assets/img/tela_login.jpg" alt="Última Corrida"
-                class="w-full h-full object-contain" />
+          <!-- Card 1º Lugar -->
+          <div class="card card-first">
+            <div class="position">1<span class="position-suffix">ST</span></div>
+            <div class="driver-info">
+              <h2 class="driver-name">Lando <span class="last-name">Norris</span></h2>
+              <p class="team">McLaren</p>
+              <div class="flag-icon flag-gb"></div>
             </div>
-            <div class="p-5 text-left">
-              <h5 class="text-lg font-semibold">Última Corrida</h5>
-              <p class="mt-1 text-neutral-600">GP da Espanha — Vitória de O. Piastri com volta mais rápida.</p>
+            <div class="driver-image">
+              <img src="norris.png" alt="Lando Norris">
             </div>
-          </article>
+            <div class="points">398 <span class="pts-label">PTS</span></div>
+            <div class="dotted-pattern"></div>
+          </div>
 
-          <!-- Card 2 -->
-          <article class="group bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden hover:shadow-md transition">
-            <div class="w-full aspect-[16/9] bg-white ring-neutral-200">
-              <img src="/rfg/assets/img/tela_login.jpg" alt="Piloto do Mês"
-                class="w-full h-full object-contain" />
+          <!-- Card 3º Lugar -->
+          <div class="card card-third">
+            <div class="position">3<span class="position-suffix">RD</span></div>
+            <div class="driver-info">
+              <h2 class="driver-name">Max <span class="last-name">Verstappen</span></h2>
+              <p class="team">Red Bull Racing</p>
+              <div class="flag-icon flag-nl"></div>
             </div>
-            <div class="p-5 text-left">
-              <h5 class="text-lg font-semibold">Piloto do Mês</h5>
-              <p class="mt-1 text-neutral-600">Carlos R. (Red Phoenix) — Consistência e duas vitórias seguidas.</p>
+            <div class="driver-image">
+              <img src="verstappen.png" alt="Max Verstappen">
             </div>
-          </article>
-
-          <!-- Card 3 -->
-          <article class="group bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden hover:shadow-md transition">
-            <div class="w-full aspect-[16/9] bg-white ring-neutral-200">
-              <img src="/rfg/assets/img/tela_login.jpg" alt="Equipe Líder"
-                class="w-full h-full object-contain" />
-            </div>
-            <div class="p-5 text-left">
-              <h5 class="text-lg font-semibold">Equipe Líder</h5>
-              <p class="mt-1 text-neutral-600">Black Arrow GP — 213 pontos acumulados na temporada.</p>
-            </div>
-          </article>
+            <div class="points">341 <span class="pts-label">PTS</span></div>
+            <div class="dotted-pattern"></div>
+          </div>
         </div>
       </div>
     </section>

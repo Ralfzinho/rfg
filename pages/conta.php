@@ -179,11 +179,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 Entrar na pista
               </button>
             </form>
-
-            <!-- Info mock (se quiser manter) -->
-            <p class="text-xs text-white/50 mt-4">
-              Mock: <code>admin@rfg.local / 123456</code>
-            </p>
           </div>
         </div>
       </div>
