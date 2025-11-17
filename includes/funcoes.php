@@ -111,3 +111,11 @@ function get_flash(string $key): ?string {
     unset($_SESSION['flash'][$key]);
     return $msg;
 }
+
+function has_flash(string $key): bool {
+    return isset($_SESSION['flash'][$key]);
+}
+
+function flash(string $key): ?string {
+    return get_flash($key);
+}
