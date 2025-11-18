@@ -145,30 +145,119 @@ CREATE TABLE resultados (
 -- =============================================================
 -- INSERÇÕES BÁSICAS
 -- =============================================================
-INSERT INTO usuarios (name, email, password, role) VALUES
-('Administrador', 'admin@raceforglory.com', '$2y$10$ExemploDeHashBcrypt1234567890abcdefghi', 'admin');
+-- =============================================================
+-- SEEDS INICIAIS – TEMPORADA F1 2025
+-- =============================================================
 
-INSERT INTO equipes (nome, pais, cor_principal)
-VALUES 
-('Black Arrow GP', 'Reino Unido', '#000000'),
-('Red Phoenix', 'Itália', '#FF0000');
+-- Limpeza opcional (descomente se quiser sempre recriar do zero)
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE resultados;
+TRUNCATE TABLE classificacao;
+TRUNCATE TABLE corridas;
+TRUNCATE TABLE circuitos;
+TRUNCATE TABLE pilotos;
+TRUNCATE TABLE equipes;
+SET FOREIGN_KEY_CHECKS = 1;
 
-INSERT INTO pilotos (nome, numero, pais, equipe_id)
-VALUES 
-('Oscar Piastri', 81, 'Austrália', 1),
-('Carlos R.', 23, 'Espanha', 2);
+-- -------------------------------------------------------------
+-- EQUIPES (10 equipes 2025)
+-- -------------------------------------------------------------
+INSERT INTO `equipes` (`id`, `nome`, `sigla`, `chefe_equipe`, `foto_url`, `status`, `pontos`, `posicao`, `created_at`) VALUES
+(1, 'Oracle Red Bull Racing', 'RBR', '', 'https://i.pinimg.com/1200x/28/ee/6c/28ee6c55b8e3d6414342daf10d97fe5a.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29'),
+(2, 'Mercedes-AMG Petronas F1 Team', 'MER', '', 'https://i.pinimg.com/736x/09/5e/4c/095e4c19d7f609e23bbe73b28372b579.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29'),
+(3, 'Scuderia Ferrari HP', 'FER', '', 'https://i.pinimg.com/736x/8f/92/c2/8f92c268caac6dde6199fc5934dec42e.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29'),
+(4, 'McLaren Formula 1 Team', 'MCL', '', 'https://i.pinimg.com/736x/42/8d/f4/428df42edf1939ed0961861286c93980.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29'),
+(5, 'Aston Martin Aramco F1 Team', 'AST', '', 'https://i.pinimg.com/736x/2d/4d/8d/2d4d8dcb621dc7b9348d1282f56eb1b2.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29'),
+(6, 'BWT Alpine F1 Team', 'ALP', '', 'https://i.pinimg.com/1200x/95/55/2f/95552f5ae725ddaf2cafb2c2018f8c99.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29'),
+(7, 'MoneyGram Haas F1 Team', 'HAA', '', 'https://i.pinimg.com/1200x/b6/0f/0f/b60f0f9cccd7eeab516244d60bc2ff52.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29'),
+(8, 'Stake F1 Team Kick Sauber', 'SAU', '', 'https://i.pinimg.com/736x/ef/5e/e4/ef5ee492ffea67c391fa4466b2116230.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29'),
+(9, 'Visa Cash App RB F1 Team', 'RB', '', 'https://i.pinimg.com/736x/85/2b/de/852bde59f33378b1297e5a45852883f4.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29'),
+(10, 'Williams Racing', 'WIL', '', 'https://i.pinimg.com/736x/63/aa/a2/63aaa25489f5df04a220ea1694b58603.jpg', 'ativa', 0, NULL, '2025-11-17 23:20:29');
 
-INSERT INTO circuitos (nome, localizacao, pais, comprimento_km, numero_voltas)
-VALUES 
-('Circuit de Barcelona-Catalunya', 'Montmeló', 'Espanha', 4.67, 66),
-('Autódromo José Carlos Pace', 'São Paulo', 'Brasil', 4.31, 71);
+-- -------------------------------------------------------------
+-- PILOTOS (grid base 2025 – 2 por equipe, sem resultados)
+-- -------------------------------------------------------------
 
-INSERT INTO corridas (nome_gp, circuito_id, data, status)
-VALUES
-('GP da Espanha', 1, '2025-06-01', 'finalizada'),
-('GP do Brasil', 2, '2025-11-10', 'agendada');
+INSERT INTO `pilotos` (`id`, `nome`, `numero`, `pais`, `equipe_id`, `pontos`, `foto_url`, `status`, `created_at`) VALUES
+(1, 'Max Verstappen', 1, 'Países Baixos', 1, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/redbullracing/maxver01/2025redbullracingmaxver01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(2, 'Liam Lawson', 30, 'Nova Zelândia', 1, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/racingbulls/lialaw01/2025racingbullslialaw01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(3, 'George Russell', 63, 'Reino Unido', 2, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/mercedes/georus01/2025mercedesgeorus01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(4, 'Andrea Kimi Antonelli', 12, 'Itália', 2, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/mercedes/andant01/2025mercedesandant01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(5, 'Charles Leclerc', 16, 'Mônaco', 3, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/ferrari/chalec01/2025ferrarichalec01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(6, 'Lewis Hamilton', 44, 'Reino Unido', 3, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/ferrari/lewham01/2025ferrarilewham01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(7, 'Lando Norris', 4, 'Reino Unido', 4, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/mclaren/lannor01/2025mclarenlannor01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(8, 'Oscar Piastri', 81, 'Austrália', 4, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/mclaren/oscpia01/2025mclarenoscpia01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(9, 'Fernando Alonso', 14, 'Espanha', 5, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/astonmartin/feralo01/2025astonmartinferalo01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(10, 'Lance Stroll', 18, 'Canadá', 5, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/astonmartin/lanstr01/2025astonmartinlanstr01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(11, 'Pierre Gasly', 10, 'França', 6, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/alpine/piegas01/2025alpinepiegas01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(12, 'Franco Colapinto', 7, 'Austrália', 6, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/alpine/fracol01/2025alpinefracol01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(13, 'Esteban Ocon', 31, 'França', 7, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/haas/estoco01/2025haasestoco01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(14, 'Oliver Bearman', 87, 'Reino Unido', 7, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/haas/olibea01/2025haasolibea01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(15, 'Gabriel Bortoleto', 5, 'Brasil', 8, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/kicksauber/gabbor01/2025kicksaubergabbor01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(16, 'Nico Hülkenberg', 27, 'Alemanha', 8, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/kicksauber/nichul01/2025kicksaubernichul01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(17, 'Yuki Tsunoda', 22, 'Japão', 9, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/redbullracing/yuktsu01/2025redbullracingyuktsu01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(18, 'Isack Hadjar', 6, 'França', 9, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/racingbulls/isahad01/2025racingbullsisahad01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(19, 'Alexander Albon', 23, 'Tailândia', 10, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/williams/alealb01/2025williamsalealb01right.webp', 'ativo', '2025-11-17 23:20:29'),
+(20, 'Carlos Sainz Jr.', 55, 'Espanha', 10, 0, 'https://media.formula1.com/image/upload/c_fill,w_720/q_auto/v1740000000/common/f1/2025/williams/carsai01/2025williamscarsai01right.webp', 'ativo', '2025-11-17 23:20:29');
 
-INSERT INTO classificacao (corrida_id, piloto_id, equipe_id, posicao, pontos, tempo, volta_rapida)
-VALUES
-(1, 1, 1, 1, 26, '1:22:05.214', TRUE),
-(1, 2, 2, 2, 18, '1:22:10.547', FALSE);
+
+-- -------------------------------------------------------------
+-- CIRCUITOS (24 etapas do calendário 2025)
+-- (comprimento_km, numero_voltas e imagem_url deixados NULL
+--  para você preencher depois se quiser)
+-- -------------------------------------------------------------
+INSERT INTO circuitos (id, nome, localizacao, pais, comprimento_km, numero_voltas, imagem_url) VALUES
+(1,  'Albert Park Circuit',              'Melbourne',                'Austrália',               NULL, NULL, NULL),
+(2,  'Shanghai International Circuit',   'Shanghai',                 'China',                   NULL, NULL, NULL),
+(3,  'Suzuka Circuit',                   'Suzuka',                   'Japão',                   NULL, NULL, NULL),
+(4,  'Bahrain International Circuit',    'Sakhir',                   'Bahrein',                 NULL, NULL, NULL),
+(5,  'Jeddah Corniche Circuit',          'Jeddah',                   'Arábia Saudita',          NULL, NULL, NULL),
+(6,  'Miami International Autodrome',    'Miami Gardens, Florida',   'Estados Unidos',          NULL, NULL, NULL),
+(7,  'Imola Circuit',                    'Imola',                    'Itália',                  NULL, NULL, NULL),
+(8,  'Circuit de Monaco',                'Monaco',                   'Mônaco',                  NULL, NULL, NULL),
+(9,  'Circuit de Barcelona-Catalunya',   'Montmeló',                 'Espanha',                 NULL, NULL, NULL),
+(10, 'Circuit Gilles Villeneuve',        'Montreal',                 'Canadá',                  NULL, NULL, NULL),
+(11, 'Red Bull Ring',                    'Spielberg',                'Áustria',                 NULL, NULL, NULL),
+(12, 'Silverstone Circuit',              'Silverstone',              'Reino Unido',             NULL, NULL, NULL),
+(13, 'Circuit de Spa-Francorchamps',     'Stavelot',                 'Bélgica',                 NULL, NULL, NULL),
+(14, 'Hungaroring',                      'Mogyoród',                 'Hungria',                 NULL, NULL, NULL),
+(15, 'Circuit Zandvoort',                'Zandvoort',                'Países Baixos',           NULL, NULL, NULL),
+(16, 'Monza Circuit',                    'Monza',                    'Itália',                  NULL, NULL, NULL),
+(17, 'Baku City Circuit',                'Baku',                     'Azerbaijão',              NULL, NULL, NULL),
+(18, 'Marina Bay Street Circuit',        'Singapura',                'Singapura',               NULL, NULL, NULL),
+(19, 'Circuit of the Americas',          'Austin, Texas',            'Estados Unidos',          NULL, NULL, NULL),
+(20, 'Autódromo Hermanos Rodríguez',     'Cidade do México',         'México',                  NULL, NULL, NULL),
+(21, 'Interlagos Circuit',               'São Paulo',                'Brasil',                  NULL, NULL, NULL),
+(22, 'Las Vegas Strip Circuit',          'Paradise, Nevada',         'Estados Unidos',          NULL, NULL, NULL),
+(23, 'Lusail International Circuit',     'Lusail',                   'Catar',                   NULL, NULL, NULL),
+(24, 'Yas Marina Circuit',               'Abu Dhabi',                'Emirados Árabes Unidos',  NULL, NULL, NULL);
+
+-- -------------------------------------------------------------
+-- CORRIDAS (GPs 2025 – sem resultados ainda)
+-- status: usando 'agendada' (ENUM do schema)
+-- -------------------------------------------------------------
+INSERT INTO corridas (id, nome_gp, circuito_id, data, status) VALUES
+(1,  'GP da Austrália',          1,  '2025-03-16', 'agendada'),
+(2,  'GP da China',              2,  '2025-03-23', 'agendada'),
+(3,  'GP do Japão',              3,  '2025-04-06', 'agendada'),
+(4,  'GP do Bahrein',            4,  '2025-04-13', 'agendada'),
+(5,  'GP da Arábia Saudita',     5,  '2025-04-20', 'agendada'),
+(6,  'GP de Miami',              6,  '2025-05-04', 'agendada'),
+(7,  'GP da Emília-Romanha',     7,  '2025-05-18', 'agendada'),
+(8,  'GP de Mônaco',             8,  '2025-05-25', 'agendada'),
+(9,  'GP da Espanha',            9,  '2025-06-01', 'agendada'),
+(10, 'GP do Canadá',             10, '2025-06-15', 'agendada'),
+(11, 'GP da Áustria',            11, '2025-06-29', 'agendada'),
+(12, 'GP da Grã-Bretanha',       12, '2025-07-06', 'agendada'),
+(13, 'GP da Bélgica',            13, '2025-07-27', 'agendada'),
+(14, 'GP da Hungria',            14, '2025-08-03', 'agendada'),
+(15, 'GP dos Países Baixos',     15, '2025-08-31', 'agendada'),
+(16, 'GP da Itália',             16, '2025-09-07', 'agendada'),
+(17, 'GP do Azerbaijão',         17, '2025-09-21', 'agendada'),
+(18, 'GP de Singapura',          18, '2025-10-05', 'agendada'),
+(19, 'GP dos Estados Unidos',    19, '2025-10-19', 'agendada'),
+(20, 'GP da Cidade do México',   20, '2025-10-26', 'agendada'),
+(21, 'GP de São Paulo',          21, '2025-11-09', 'agendada'),
+(22, 'GP de Las Vegas',          22, '2025-11-22', 'agendada'),
+(23, 'GP do Catar',              23, '2025-11-30', 'agendada'),
+(24, 'GP de Abu Dhabi',          24, '2025-12-07', 'agendada');

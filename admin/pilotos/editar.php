@@ -15,7 +15,7 @@ global $pdo;
 $title = 'Editar Piloto — RFG';
 
 // ID do piloto
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 if ($id <= 0) {
   set_flash('erro', 'Piloto não encontrado.');
   header('Location: /rfg/admin/pilotos/listar.php');
@@ -28,33 +28,33 @@ $equipes = $stmt_equipes->fetchAll(PDO::FETCH_ASSOC);
 
 // Se enviou o form (POST) → atualiza
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $nome      = trim($_POST['nome'] ?? '');
-  $numero    = (int)($_POST['numero'] ?? 0);
-  $pais      = trim($_POST['pais'] ?? '');
-  $equipe_id = (int)($_POST['equipe_id'] ?? 0);
-  $foto_url  = trim($_POST['foto_url'] ?? '');
-  $status    = trim($_POST['status'] ?? 'ativo');
+  $nome = trim($_POST['nome'] ?? '');
+  $numero = (int) ($_POST['numero'] ?? 0);
+  $pais = trim($_POST['pais'] ?? '');
+  $equipe_id = (int) ($_POST['equipe_id'] ?? 0);
+  $foto_url = trim($_POST['foto_url'] ?? '');
+  $status = trim($_POST['status'] ?? 'ativo');
 
   if ($nome === '' || $numero <= 0 || $equipe_id <= 0) {
     set_flash('erro', 'Informe ao menos Nome, Número e Equipe.');
   } else {
     $sql = "UPDATE pilotos
-            SET nome = :nome,
-                numero = :numero,
-                pais = :pais,
-                equipe_id = :equipe_id,
-                foto_url = :foto_url,
-                status = :status
-            WHERE id = :id";
+                SET nome      = :nome,
+                    numero    = :numero,
+                    pais      = :pais,
+                    equipe_id = :equipe_id,
+                    foto_url  = :foto_url,
+                    status    = :status
+                WHERE id = :id";
     $st = $pdo->prepare($sql);
     $st->execute([
-      ':nome'      => $nome,
-      ':numero'    => $numero,
-      ':pais'      => $pais,
+      ':nome' => $nome,
+      ':numero' => $numero,
+      ':pais' => $pais,
       ':equipe_id' => $equipe_id,
-      ':foto_url'  => $foto_url,
-      ':status'    => $status,
-      ':id'        => $id,
+      ':foto_url' => $foto_url,
+      ':status' => $status,
+      ':id' => $id,
     ]);
 
     set_flash('ok', 'Piloto atualizado com sucesso.');
@@ -78,7 +78,7 @@ if (!$piloto) {
   exit;
 }
 
-$ok   = get_flash('ok');
+$ok = get_flash('ok');
 $erro = get_flash('erro');
 ?>
 <!doctype html>
@@ -96,9 +96,7 @@ $erro = get_flash('erro');
 
     <main class="flex-1 mx-auto max-w-3xl px-4 py-8">
       <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-gray-900">
-          Editar Piloto
-        </h1>
+        <h1 class="text-2xl font-bold text-gray-900">Editar Piloto</h1>
         <a href="/rfg/admin/pilotos/listar.php"
           class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 text-sm font-medium">
           Voltar
@@ -123,12 +121,8 @@ $erro = get_flash('erro');
           <label class="block text-sm font-semibold text-gray-700 mb-1">
             Nome do Piloto <span class="text-red-500">*</span>
           </label>
-          <input
-            name="nome"
-            type="text"
-            required
-            value="<?= htmlspecialchars($piloto['nome']) ?>"
-            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+          <input name="nome" type="text" required value="<?= htmlspecialchars($piloto['nome']) ?>" class="w-full rounded-lg border border-gray-300 px-4 py-2.5
+                   focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
         </div>
 
         <!-- Número + País -->
@@ -137,25 +131,16 @@ $erro = get_flash('erro');
             <label class="block text-sm font-semibold text-gray-700 mb-1">
               Número <span class="text-red-500">*</span>
             </label>
-            <input
-              name="numero"
-              type="number"
-              min="1"
-              max="99"
-              required
-              value="<?= (int)$piloto['numero'] ?>"
-              class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+            <input name="numero" type="number" min="1" max="99" required value="<?= (int) $piloto['numero'] ?>" class="w-full rounded-lg border border-gray-300 px-4 py-2.5
+                     focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
           </div>
 
           <div>
             <label class="block text-sm font-semibold text-gray-700 mb-1">
               País
             </label>
-            <input
-              name="pais"
-              type="text"
-              value="<?= htmlspecialchars($piloto['pais']) ?>"
-              class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+            <input name="pais" type="text" value="<?= htmlspecialchars($piloto['pais']) ?>" class="w-full rounded-lg border border-gray-300 px-4 py-2.5
+                     focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
           </div>
         </div>
 
@@ -165,15 +150,11 @@ $erro = get_flash('erro');
             <label class="block text-sm font-semibold text-gray-700 mb-1">
               Equipe <span class="text-red-500">*</span>
             </label>
-            <select
-              name="equipe_id"
-              required
-              class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+            <select name="equipe_id" required class="w-full rounded-lg border border-gray-300 px-4 py-2.5
+                     focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
               <option value="">Selecione uma equipe</option>
               <?php foreach ($equipes as $e): ?>
-                <option
-                  value="<?= $e['id'] ?>"
-                  <?= $piloto['equipe_id'] == $e['id'] ? 'selected' : '' ?>>
+                <option value="<?= $e['id'] ?>" <?= $piloto['equipe_id'] == $e['id'] ? 'selected' : '' ?>>
                   <?= htmlspecialchars($e['nome']) ?>
                 </option>
               <?php endforeach; ?>
@@ -184,11 +165,11 @@ $erro = get_flash('erro');
             <label class="block text-sm font-semibold text-gray-700 mb-1">
               Status
             </label>
-            <select
-              name="status"
-              class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
-              <option value="ativo" <?= ($piloto['status'] ?? 'ativo') === 'ativo'   ? 'selected' : '' ?>>Ativo</option>
-              <option value="inativo" <?= ($piloto['status'] ?? 'ativo') === 'inativo' ? 'selected' : '' ?>>Inativo</option>
+            <select name="status" class="w-full rounded-lg border border-gray-300 px-4 py-2.5
+                     focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+              <option value="ativo" <?= ($piloto['status'] ?? 'ativo') === 'ativo' ? 'selected' : '' ?>>Ativo</option>
+              <option value="inativo" <?= ($piloto['status'] ?? 'ativo') === 'inativo' ? 'selected' : '' ?>>Inativo
+              </option>
             </select>
           </div>
         </div>
@@ -198,23 +179,23 @@ $erro = get_flash('erro');
           <label class="block text-sm font-semibold text-gray-700 mb-1">
             URL da Foto
           </label>
-          <input
-            name="foto_url"
-            type="url"
-            value="<?= htmlspecialchars($piloto['foto_url']) ?>"
-            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
-          <p class="mt-1 text-xs text-gray-500">Cole o link direto da imagem do piloto</p>
+          <input name="foto_url" type="url" value="<?= htmlspecialchars($piloto['foto_url'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+ class="w-full rounded-lg border border-gray-300 px-4 py-2.5
+                   focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+          <p class="mt-1 text-xs text-gray-500">
+            Cole o link direto da imagem do piloto (ex.: https://...)
+          </p>
         </div>
 
         <!-- Botões -->
-        <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
+        <div class="flex justify-end gap-3 pt-4 border-top border-gray-200">
           <a href="/rfg/admin/pilotos/listar.php"
             class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50">
             Cancelar
           </a>
-          <button
-            type="submit"
-            class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-semibold hover:from-yellow-600 hover:to-yellow-700 shadow-lg hover:shadow-xl transition-all">
+          <button type="submit" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600
+                   text-white font-semibold hover:from-yellow-600 hover:to-yellow-700
+                   shadow-lg hover:shadow-xl transition-all">
             Salvar Alterações
           </button>
         </div>
