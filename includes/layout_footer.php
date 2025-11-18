@@ -3,7 +3,7 @@
   <div class="mx-auto max-w-6xl px-4">
     <p class="mb-2">Junte-se à comunidade RACE FOR GLORY</p>
     <div class="flex justify-center gap-6 text-white/90">
-      <a href="#" class="hover:text-white">Instagram</a>
+      <a href="https://www.instagram.com/raceforgloryof" class="hover:text-white">Instagram</a>
       <a href="#" class="hover:text-white">Twitter</a>
       <a href="#" class="hover:text-white">YouTube</a>
     </div>

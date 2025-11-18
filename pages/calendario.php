@@ -59,7 +59,7 @@ $meses = [1 => 'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'o
 <section id="proximas-corridas" class="bg-neutral-900 py-12 md:py-16">
     <div class="container mx-auto px-4">
         <h2 class="text-center text-[clamp(28px,5vw,48px)] font-extrabold text-white">
-            Corridas da Temporada
+            Calendário da Temporada
         </h2>
 
         <div class="relative max-w-5xl mx-auto mt-6">
@@ -129,8 +129,8 @@ $meses = [1 => 'jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'o
 
         <!-- Mini filtros (opcionais) -->
         <div class="max-w-5xl mx-auto mt-6 flex flex-wrap gap-3 justify-center">
-            <a href="?futuras=1" class="text-xs px-3 py-1.5 rounded border border-white/20 text-white hover:bg-white/10">Só futuras</a>
-            <a href="?status=agendada,teste" class="text-xs px-3 py-1.5 rounded border border-white/20 text-white hover:bg-white/10">Agendada + Teste</a>
+            <a href="?futuras=1" class="text-xs px-3 py-1.5 rounded border border-white/20 text-white hover:bg-white/10">Próximas</a>
+            <a href="?status=agendada,teste" class="text-xs px-3 py-1.5 rounded border border-white/20 text-white hover:bg-white/10">Agendadas</a>
             <a href="?" class="text-xs px-3 py-1.5 rounded border border-white/20 text-white hover:bg-white/10">Limpar filtros</a>
         </div>
     </div>

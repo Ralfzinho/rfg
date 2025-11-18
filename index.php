@@ -49,11 +49,11 @@ global $pdo;
             </p>
 
             <div class="flex flex-wrap gap-3 pt-2">
-              <a href="#"
+              <a href="/rfg/pages/temporada.php"
                 class="px-5 py-2.5 rounded-xl text-black bg-[#C9A300] hover:bg-[#E6C200] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A300]/60 transition">
                 Ver temporada
               </a>
-              <a href="#"
+              <a href="/rfg/pages/calendario.php"
                 class="px-5 py-2.5 rounded-xl border border-white/20 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 transition">
                 Calendário
               </a>
@@ -140,7 +140,7 @@ global $pdo;
           <p class="text-5xl md:text-6xl leading-none font-extrabold">
             SIGA A <span class="text-[#C9A300]">RACE FOR GLORY</span><br class="hidden lg:block"> NO INSTAGRAM
           </p>
-          <a href="https://instagram.com/MYTHS_STREET_team" target="_blank"
+          <a href="https://www.instagram.com/raceforgloryof" target="_blank"
             class="mt-6 inline-block rounded-lg px-4 py-2 bg-black text-white hover:bg-neutral-800 transition">
             @raceforgloryof
           </a>
@@ -222,9 +222,6 @@ LIMIT 3;
                 </h2>
 
                 <div class="team-row">
-                  <span class="team-name">
-                    <?= htmlspecialchars($second['equipe_nome'] ?? 'Sem equipe') ?>
-                  </span>
                   <span class="team-logo">
                     <img
                       src="<?= htmlspecialchars($second['equipe_foto_url'] ?? '/rfg/assets/img/team-placeholder.png') ?>"
@@ -260,9 +257,6 @@ LIMIT 3;
                 </h2>
 
                 <div class="team-row">
-                  <span class="team-name">
-                    <?= htmlspecialchars($first['equipe_nome'] ?? 'Sem equipe') ?>
-                  </span>
                   <span class="team-logo">
                     <img
                       src="<?= htmlspecialchars($first['equipe_foto_url'] ?? '/rfg/assets/img/team-placeholder.png') ?>"
@@ -298,9 +292,6 @@ LIMIT 3;
                 </h2>
 
                 <div class="team-row">
-                  <span class="team-name">
-                    <?= htmlspecialchars($third['equipe_nome'] ?? 'Sem equipe') ?>
-                  </span>
                   <span class="team-logo">
                     <img
                       src="<?= htmlspecialchars($third['equipe_foto_url'] ?? '/rfg/assets/img/team-placeholder.png') ?>"
