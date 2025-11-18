@@ -26,8 +26,6 @@ header {
   padding: 0;
 }
 
-
-
 .nav {
   gap: 1rem;
   padding: 0;
@@ -125,10 +123,31 @@ header {
   font-weight: 900;
 }
 
+.team-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 4px;
+}
+
 .team {
   font-size: 16px;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 10px;
+  margin: 0;
+}
+.team-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  flex-shrink: 0;
+}
+
+.team-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Bandeiras */
@@ -159,18 +178,22 @@ header {
 /* Imagem do piloto */
 .driver-image {
   position: absolute;
-  right: 0;
-  bottom: 60px;
-  width: 220px;
-  height: 250px;
+  right: -10px;
+  bottom: 0px;
+  width: 240px;
+  height: 300px;
   z-index: 1;
 }
 
-.driver-image img {
+.driver-image img.driver-photo {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: bottom;
+  object-fit: cover;
+  /* 1º valor: horizontal | 2º valor: vertical
+     50% 50% = centro da imagem
+     50% 40% = um pouco mais pra cima (mais cabeça/torso, menos pé) */
+  object-position: 50% 0%;  /* 👈 foco do recorte: tronco/cabeça */
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
 }
 
 /* Pontos */

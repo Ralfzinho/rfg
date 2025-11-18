@@ -33,13 +33,15 @@ global $pdo;
         <div class="grid items-center gap-10 md:grid-cols-2">
           <!-- copy -->
           <div class="space-y-6">
-            <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-wider ring-1 ring-white/20 backdrop-blur">
+            <span
+              class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-wider ring-1 ring-white/20 backdrop-blur">
               <span class="h-1.5 w-1.5 rounded-full bg-[#C9A300]"></span>
               Temporada 2025
             </span>
 
             <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.05]">
-              Adrenalina em cada <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#C9A300] to-yellow-300">curva</span>.
+              Adrenalina em cada <span
+                class="bg-clip-text text-transparent bg-gradient-to-r from-[#C9A300] to-yellow-300">curva</span>.
             </h1>
 
             <p class="text-white/80 text-lg">
@@ -60,10 +62,8 @@ global $pdo;
 
           <!-- vídeo -->
           <div class="rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl bg-white/5 backdrop-blur-md">
-            <video
-              class="block w-full aspect-video"
-              poster="/rfg/assets/img/background_video.png"
-              autoplay muted loop playsinline preload="metadata">
+            <video class="block w-full aspect-video" poster="/rfg/assets/img/background_video.png" autoplay muted loop
+              playsinline preload="metadata">
               <source src="/rfg/assets/img/videobackground.mp4" type="video/mp4" />
               Seu navegador não suporta vídeo HTML5.
             </video>
@@ -72,7 +72,9 @@ global $pdo;
       </div>
 
       <!-- borda decorativa inferior -->
-      <div class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      <div
+        class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent">
+      </div>
     </section>
 
     <!-- ===== SECTION 2 – HISTÓRIA / GRID ===== -->
@@ -84,32 +86,39 @@ global $pdo;
 
       <div class="relative z-20 max-w-7xl mx-auto px-6">
         <h2 class="text-center text-4xl md:text-6xl font-extrabold tracking-tight">
-          <span class="text-white">RACE FOR</span> <span class="text-[#C9A300]">GLORY</span><span class="text-white">—</span> <span class="text-[#C9A300]">Nossa história</span>
+          <span class="text-white">RACE FOR</span> <span class="text-[#C9A300]">GLORY</span><span
+            class="text-white">—</span> <span class="text-[#C9A300]">Nossa história</span>
         </h2>
         <p class="mt-6 text-center text-white/80 max-w-3xl mx-auto">
-          Em 23 de novembro de 2021, um grupo de amigos se conectou no lobby de corridas. O que começou como diversão casual virou uma equipe unida por um mesmo sonho: competir e vencer.
+          Em 23 de novembro de 2021, um grupo de amigos se conectou no lobby de corridas. O que começou como diversão
+          casual virou uma equipe unida por um mesmo sonho: competir e vencer.
         </p>
 
         <div class="mt-16 grid gap-10 md:gap-14 md:grid-cols-2">
           <!-- card -->
           <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
-            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">O nome e o símbolo</h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">O nome e o símbolo
+            </h3>
             <p class="mt-4 text-white/90 leading-relaxed">
-              O nome RACE FOR GLORY representa liderança, pioneirismo e excelência — sempre à frente. Nosso símbolo, o lobo, traduz a força da coletividade: como uma alcateia, somos mais fortes juntos.
+              O nome RACE FOR GLORY representa liderança, pioneirismo e excelência — sempre à frente. Nosso símbolo, o
+              lobo, traduz a força da coletividade: como uma alcateia, somos mais fortes juntos.
             </p>
           </article>
 
           <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
-            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">Trajetória de sucesso</h3>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">Trajetória de sucesso
+            </h3>
             <p class="mt-4 text-white/90 leading-relaxed">
-              Em poucos anos, nos consolidamos como uma das equipes mais respeitadas no automobilismo virtual, acumulando títulos e expandindo para novas plataformas e desafios.
+              Em poucos anos, nos consolidamos como uma das equipes mais respeitadas no automobilismo virtual,
+              acumulando títulos e expandindo para novas plataformas e desafios.
             </p>
           </article>
 
           <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg hover:bg-white/[0.07] transition">
             <h3 class="text-3xl md:text-4xl font-extrabold text-[#C9A300] uppercase tracking-wide">Além das pistas</h3>
             <p class="mt-4 text-white/90 leading-relaxed">
-              Compartilhamos bastidores, evolução dos pilotos e nossa preparação estratégica. O trabalho em equipe é o que nos torna únicos.
+              Compartilhamos bastidores, evolução dos pilotos e nossa preparação estratégica. O trabalho em equipe é o
+              que nos torna únicos.
             </p>
           </article>
 
@@ -159,25 +168,26 @@ global $pdo;
 
     // Busca top 3 pilotos por pontos
     $stmt = $pdo->query("
-    SELECT 
-        p.id,
-        p.nome,
-        p.pontos,
-        p.pais,
-        p.foto_url,
-        e.nome AS equipe_nome
-    FROM pilotos p
-    LEFT JOIN equipes e ON e.id = p.equipe_id
-    WHERE p.status = 'ativo'
-    ORDER BY p.pontos DESC
-    LIMIT 3
+  SELECT 
+    p.id,
+    p.nome,
+    p.pontos,
+    p.pais,
+    p.foto_url,
+    e.nome      AS equipe_nome,
+    e.foto_url  AS equipe_foto_url   -- 👈 logo da equipe
+FROM pilotos p
+LEFT JOIN equipes e ON e.id = p.equipe_id
+WHERE p.status = 'ativo'
+ORDER BY p.pontos DESC
+LIMIT 3;
 ");
     $podium = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Quebra em 1º, 2º, 3º
-    $first  = $podium[0] ?? null;
+    $first = $podium[0] ?? null;
     $second = $podium[1] ?? null;
-    $third  = $podium[2] ?? null;
+    $third = $podium[2] ?? null;
 
     // Função pra separar nome e sobrenome
     function splitName($nome)
@@ -192,15 +202,17 @@ global $pdo;
     ?>
     <section class="py-12 bg-neutral-50">
       <div class="max-w-7xl mx-auto px-6">
-        <h2 class="mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">Destaques</h2>
+        <h2 class="mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">
+          Destaques
+        </h2>
 
         <?php if ($first && $second && $third): ?>
           <div class="podium-container">
-
-            <!-- 2º Lugar -->
+            <!-- ================= 2º LUGAR ================= -->
             <?php list($nome2, $sobrenome2) = splitName($second['nome']); ?>
             <div class="card card-second">
               <div class="position">2<span class="position-suffix">ND</span></div>
+
               <div class="driver-info">
                 <h2 class="driver-name">
                   <?= htmlspecialchars($nome2) ?>
@@ -208,24 +220,37 @@ global $pdo;
                     <span class="last-name"><?= htmlspecialchars($sobrenome2) ?></span>
                   <?php endif; ?>
                 </h2>
-                <p class="team"><?= htmlspecialchars($second['equipe_nome'] ?? 'Sem equipe') ?></p>
-                <!-- adapte essa class da bandeira conforme seu esquema -->
-                <div class="flag-icon"></div>
+
+                <div class="team-row">
+                  <span class="team-name">
+                    <?= htmlspecialchars($second['equipe_nome'] ?? 'Sem equipe') ?>
+                  </span>
+                  <span class="team-logo">
+                    <img
+                      src="<?= htmlspecialchars($second['equipe_foto_url'] ?? '/rfg/assets/img/team-placeholder.png') ?>"
+                      alt="<?= htmlspecialchars($second['equipe_nome'] ?? 'Equipe') ?>" loading="lazy">
+                  </span>
+                </div>
               </div>
+
               <div class="driver-image">
-                <img src="<?= htmlspecialchars($second['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                <img class="driver-photo"
+                  src="<?= htmlspecialchars($second['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
                   alt="<?= htmlspecialchars($second['nome']) ?>">
               </div>
+
               <div class="points">
-                <?= (int)$second['pontos'] ?> <span class="pts-label">PTS</span>
+                <?= (int) $second['pontos'] ?> <span class="pts-label">PTS</span>
               </div>
+
               <div class="dotted-pattern"></div>
             </div>
 
-            <!-- 1º Lugar -->
+            <!-- ================= 1º LUGAR ================= -->
             <?php list($nome1, $sobrenome1) = splitName($first['nome']); ?>
             <div class="card card-first">
               <div class="position">1<span class="position-suffix">ST</span></div>
+
               <div class="driver-info">
                 <h2 class="driver-name">
                   <?= htmlspecialchars($nome1) ?>
@@ -233,23 +258,37 @@ global $pdo;
                     <span class="last-name"><?= htmlspecialchars($sobrenome1) ?></span>
                   <?php endif; ?>
                 </h2>
-                <p class="team"><?= htmlspecialchars($first['equipe_nome'] ?? 'Sem equipe') ?></p>
-                <div class="flag-icon"></div>
+
+                <div class="team-row">
+                  <span class="team-name">
+                    <?= htmlspecialchars($first['equipe_nome'] ?? 'Sem equipe') ?>
+                  </span>
+                  <span class="team-logo">
+                    <img
+                      src="<?= htmlspecialchars($first['equipe_foto_url'] ?? '/rfg/assets/img/team-placeholder.png') ?>"
+                      alt="<?= htmlspecialchars($first['equipe_nome'] ?? 'Equipe') ?>" loading="lazy">
+                  </span>
+                </div>
               </div>
+
               <div class="driver-image">
-                <img src="<?= htmlspecialchars($first['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                <img class="driver-photo"
+                  src="<?= htmlspecialchars($first['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
                   alt="<?= htmlspecialchars($first['nome']) ?>">
               </div>
+
               <div class="points">
-                <?= (int)$first['pontos'] ?> <span class="pts-label">PTS</span>
+                <?= (int) $first['pontos'] ?> <span class="pts-label">PTS</span>
               </div>
+
               <div class="dotted-pattern"></div>
             </div>
 
-            <!-- 3º Lugar -->
+            <!-- ================= 3º LUGAR ================= -->
             <?php list($nome3, $sobrenome3) = splitName($third['nome']); ?>
             <div class="card card-third">
               <div class="position">3<span class="position-suffix">RD</span></div>
+
               <div class="driver-info">
                 <h2 class="driver-name">
                   <?= htmlspecialchars($nome3) ?>
@@ -257,19 +296,31 @@ global $pdo;
                     <span class="last-name"><?= htmlspecialchars($sobrenome3) ?></span>
                   <?php endif; ?>
                 </h2>
-                <p class="team"><?= htmlspecialchars($third['equipe_nome'] ?? 'Sem equipe') ?></p>
-                <div class="flag-icon"></div>
+
+                <div class="team-row">
+                  <span class="team-name">
+                    <?= htmlspecialchars($third['equipe_nome'] ?? 'Sem equipe') ?>
+                  </span>
+                  <span class="team-logo">
+                    <img
+                      src="<?= htmlspecialchars($third['equipe_foto_url'] ?? '/rfg/assets/img/team-placeholder.png') ?>"
+                      alt="<?= htmlspecialchars($third['equipe_nome'] ?? 'Equipe') ?>" loading="lazy">
+                  </span>
+                </div>
               </div>
+
               <div class="driver-image">
-                <img src="<?= htmlspecialchars($third['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                <img class="driver-photo"
+                  src="<?= htmlspecialchars($third['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
                   alt="<?= htmlspecialchars($third['nome']) ?>">
               </div>
+
               <div class="points">
-                <?= (int)$third['pontos'] ?> <span class="pts-label">PTS</span>
+                <?= (int) $third['pontos'] ?> <span class="pts-label">PTS</span>
               </div>
+
               <div class="dotted-pattern"></div>
             </div>
-
           </div>
         <?php else: ?>
           <p class="text-center text-gray-500">
@@ -278,6 +329,7 @@ global $pdo;
         <?php endif; ?>
       </div>
     </section>
+
 
     <?php require INC . 'layout_footer.php'; ?>
   </main>

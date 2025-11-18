@@ -11,7 +11,7 @@ function menu_active(string $prefix, string $currentPath): bool
     return strpos($currentPath, $prefix) === 0;
 }
 
-$isDashboard     = menu_active('/rfg/admin/dashboard_new.php',    $currentPath);
+$isDashboard     = menu_active('/rfg/admin/dashboard.php',    $currentPath);
 $isPilotos       = menu_active('/rfg/admin/pilotos',              $currentPath);
 $isEquipes       = menu_active('/rfg/admin/equipes',              $currentPath);
 $isCorridas      = menu_active('/rfg/admin/corridas/listar',      $currentPath);
@@ -30,7 +30,7 @@ $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
         <ul class="space-y-2">
             <!-- Dashboard -->
             <li>
-                <a href="/rfg/admin/dashboard_new.php"
+                <a href="/rfg/admin/dashboard.php"
                     data-section="dashboard"
                     class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
                    <?= $isDashboard ? 'bg-yellow-400 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' ?>">
