@@ -175,7 +175,7 @@ global $pdo;
     p.pais,
     p.foto_url,
     e.nome      AS equipe_nome,
-    e.foto_url  AS equipe_foto_url   -- 👈 logo da equipe
+    e.foto_url  AS equipe_foto_url   
 FROM pilotos p
 LEFT JOIN equipes e ON e.id = p.equipe_id
 WHERE p.status = 'ativo'
