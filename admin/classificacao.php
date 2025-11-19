@@ -32,18 +32,19 @@ try {
 
   // --- Classificação de Pilotos a partir de RESULTADOS ---
   $sqlPilotos = "
-        SELECT 
-            p.id,
-            p.nome  AS piloto,
-            COALESCE(e.nome,'Sem equipe') AS equipe,
-            COALESCE(p.foto_url,'')       AS logo,
-            COALESCE(SUM(r.pontos), 0)    AS pontos
-        FROM pilotos p
-        LEFT JOIN resultados r ON r.piloto_id = p.id
-        LEFT JOIN equipes e    ON e.id = p.equipe_id
-        GROUP BY p.id, p.nome, e.nome, p.foto_url
-        ORDER BY pontos DESC, p.nome ASC
-    ";
+    SELECT 
+      p.id,
+      p.nome  AS piloto,
+      COALESCE(e.nome,'Sem equipe')      AS equipe,
+      COALESCE(p.foto_url,'')            AS foto,
+      COALESCE(e.cor_primaria,'#111827') AS equipe_cor,
+      COALESCE(SUM(r.pontos), 0)         AS pontos
+    FROM pilotos p
+    LEFT JOIN resultados r ON r.piloto_id = p.id
+    LEFT JOIN equipes e    ON e.id = p.equipe_id
+    GROUP BY p.id, p.nome, e.nome, p.foto_url, e.cor_primaria
+    ORDER BY pontos DESC, p.nome ASC
+  ";
   $pilotos = $pdo->query($sqlPilotos)->fetchAll(PDO::FETCH_ASSOC);
 } catch (Throwable $e) {
   $erro = 'Erro ao carregar classificação: ' . $e->getMessage();
@@ -88,7 +89,9 @@ try {
                 <li class="flex items-center justify-between py-3 px-2 <?= $i === 0 ? 'bg-yellow-50 rounded-lg' : '' ?>">
                   <div class="flex items-center gap-3 min-w-0">
                     <span class="w-6 shrink-0 text-neutral-500"><?= $i + 1 ?></span>
-                    <img src="<?= htmlspecialchars($row['logo'] ?: 'https://placehold.co/40x40') ?>" alt="Logo"
+                    <img
+                      src="<?= htmlspecialchars($row['logo'] ?: 'https://placehold.co/40x40') ?>"
+                      alt="Logo da equipe <?= htmlspecialchars($row['equipe']) ?>"
                       class="w-9 h-9 rounded-full object-cover shrink-0">
                     <span class="font-medium truncate">
                       <?= htmlspecialchars($row['equipe']) ?>
@@ -116,8 +119,17 @@ try {
                 <li class="flex items-center justify-between py-3 px-2 <?= $i === 0 ? 'bg-yellow-50 rounded-lg' : '' ?>">
                   <div class="flex items-center gap-3 min-w-0">
                     <span class="w-6 shrink-0 text-neutral-500"><?= $i + 1 ?></span>
-                    <img src="<?= htmlspecialchars($row['logo'] ?: 'https://placehold.co/40x40') ?>" alt="Foto"
-                      class="w-9 h-9 rounded-full object-cover shrink-0">
+
+                    <!-- Avatar do piloto com fundo da cor da equipe -->
+                    <div
+                      class="driver-avatar-wrapper w-10 h-10 rounded-full overflow-hidden flex items-center justify-center shrink-0"
+                      style="background-color: <?= htmlspecialchars($row['equipe_cor'] ?? '#111827') ?>;">
+                      <img
+                        src="<?= htmlspecialchars($row['foto'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                        alt="Foto de <?= htmlspecialchars($row['piloto']) ?>"
+                        class="driver-avatares">
+                    </div>
+
                     <div class="truncate">
                       <div class="font-medium truncate">
                         <?= htmlspecialchars($row['piloto']) ?>

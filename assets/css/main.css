@@ -135,6 +135,7 @@ header {
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
 }
+
 .team-logo {
   width: 30px;
   height: 30px;
@@ -192,7 +193,8 @@ header {
   /* 1º valor: horizontal | 2º valor: vertical
      50% 50% = centro da imagem
      50% 40% = um pouco mais pra cima (mais cabeça/torso, menos pé) */
-  object-position: 50% 0%;  /* 👈 foco do recorte: tronco/cabeça */
+  object-position: 50% 0%;
+  /* 👈 foco do recorte: tronco/cabeça */
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
 }
 
@@ -294,3 +296,4 @@ header {
 .sidebar-item.sidebar-active span {
   color: white !important;
 }
+
