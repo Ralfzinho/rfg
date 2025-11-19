@@ -45,7 +45,6 @@ try {
         ORDER BY pontos DESC, p.nome ASC
     ";
   $pilotos = $pdo->query($sqlPilotos)->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (Throwable $e) {
   $erro = 'Erro ao carregar classificação: ' . $e->getMessage();
   $equipes = $pilotos = [];
@@ -62,7 +61,8 @@ try {
   <?php require INC . 'layout_nav.php'; ?>
 
   <div class="flex">
-    <?php require INC . 'admin_sidebar.php'; ?>
+    <!-- Sidebar -->
+    <?php require dirname(__DIR__) . '/includes/admin_sidebar.php'; ?>
 
     <main class="flex-1 mx-auto max-w-6xl px-4 py-8">
       <div class="flex items-center justify-between mb-6">

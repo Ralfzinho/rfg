@@ -3,21 +3,49 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$currentUri  = $_SERVER['REQUEST_URI'] ?? '/';
-$currentPath = strtok($currentUri, '?'); // remove ?corrida_id=3 etc.
+// SCRIPT_NAME normalmente vem como: /rfg/admin/classificacao.php
+$script      = $_SERVER['SCRIPT_NAME'] ?? ($_SERVER['PHP_SELF'] ?? '/');
+$currentPath = strtok($script, '?'); // só por garantia
+$basename    = basename($currentPath); // ex: classificacao.php
 
-function menu_active(string $prefix, string $currentPath): bool
-{
-    return strpos($currentPath, $prefix) === 0;
+// Zera tudo
+$isDashboard     = false;
+$isPilotos       = false;
+$isEquipes       = false;
+$isCorridas      = false;
+$isResultados    = false;
+$isClassificacao = false;
+$isUsuarios      = false;
+
+// Marca pelo nome do arquivo
+if ($basename === 'dashboard.php') {
+    $isDashboard = true;
 }
 
-$isDashboard     = menu_active('/rfg/admin/dashboard.php',    $currentPath);
-$isPilotos       = menu_active('/rfg/admin/pilotos',              $currentPath);
-$isEquipes       = menu_active('/rfg/admin/equipes',              $currentPath);
-$isCorridas      = menu_active('/rfg/admin/corridas/listar',      $currentPath);
-$isResultados    = menu_active('/rfg/admin/corridas/resultados',  $currentPath);
-$isClassificacao = menu_active('/rfg/admin/classificacao.php',       $currentPath);
-$isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
+if ($basename === 'classificacao.php') {
+    $isClassificacao = true;
+}
+
+// Marca pelos diretórios para os módulos
+if (str_contains($currentPath, '/admin/pilotos/')) {
+    $isPilotos = true;
+}
+
+if (str_contains($currentPath, '/admin/equipes/')) {
+    $isEquipes = true;
+}
+
+if (str_contains($currentPath, '/admin/corridas/listar')) {
+    $isCorridas = true;
+}
+
+if (str_contains($currentPath, '/admin/corridas/resultados')) {
+    $isResultados = true;
+}
+
+if (str_contains($currentPath, '/admin/usuarios/')) {
+    $isUsuarios = true;
+}
 ?>
 
 <aside class="w-72 bg-gray-50 min-h-screen border-r border-gray-200">
@@ -31,8 +59,8 @@ $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
             <!-- Dashboard -->
             <li>
                 <a href="/rfg/admin/dashboard.php"
-                    data-section="dashboard"
-                    class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
+                   data-section="dashboard"
+                   class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
                    <?= $isDashboard ? 'bg-yellow-400 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' ?>">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center <?= $isDashboard ? 'bg-yellow-500' : 'bg-gray-100' ?>">
                         <svg class="w-4 h-4 <?= $isDashboard ? 'text-white' : 'text-racing-gold' ?>" fill="currentColor" viewBox="0 0 24 24">
@@ -46,8 +74,8 @@ $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
             <!-- Pilotos -->
             <li>
                 <a href="/rfg/admin/pilotos/listar.php"
-                    data-section="pilotos"
-                    class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
+                   data-section="pilotos"
+                   class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
                    <?= $isPilotos ? 'bg-yellow-400 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' ?>">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center <?= $isPilotos ? 'bg-yellow-500' : 'bg-gray-100' ?>">
                         <svg class="w-4 h-4 <?= $isPilotos ? 'text-white' : 'text-racing-gold' ?>" fill="currentColor" viewBox="0 0 24 24">
@@ -61,8 +89,8 @@ $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
             <!-- Equipes -->
             <li>
                 <a href="/rfg/admin/equipes/listar.php"
-                    data-section="equipes"
-                    class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
+                   data-section="equipes"
+                   class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
                    <?= $isEquipes ? 'bg-yellow-400 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' ?>">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center <?= $isEquipes ? 'bg-yellow-500' : 'bg-gray-100' ?>">
                         <svg class="w-4 h-4 <?= $isEquipes ? 'text-white' : 'text-racing-gold' ?>" fill="currentColor" viewBox="0 0 24 24">
@@ -76,8 +104,8 @@ $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
             <!-- Corridas -->
             <li>
                 <a href="/rfg/admin/corridas/listar.php"
-                    data-section="corridas"
-                    class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
+                   data-section="corridas"
+                   class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
                    <?= $isCorridas ? 'bg-yellow-400 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' ?>">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center <?= $isCorridas ? 'bg-yellow-500' : 'bg-gray-100' ?>">
                         <svg class="w-4 h-4 <?= $isCorridas ? 'text-white' : 'text-racing-gold' ?>" fill="currentColor" viewBox="0 0 24 24">
@@ -91,8 +119,8 @@ $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
             <!-- Resultados -->
             <li>
                 <a href="/rfg/admin/corridas/resultados.php"
-                    data-section="resultados"
-                    class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
+                   data-section="resultados"
+                   class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
                    <?= $isResultados ? 'bg-yellow-400 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' ?>">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center <?= $isResultados ? 'bg-yellow-500' : 'bg-gray-100' ?>">
                         <svg class="w-4 h-4 <?= $isResultados ? 'text-white' : 'text-racing-gold' ?>" fill="currentColor" viewBox="0 0 24 24">
@@ -106,8 +134,8 @@ $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
             <!-- Classificação -->
             <li>
                 <a href="/rfg/admin/classificacao.php"
-                    data-section="classificacoes"
-                    class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
+                   data-section="classificacoes"
+                   class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
                    <?= $isClassificacao ? 'bg-yellow-400 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' ?>">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center <?= $isClassificacao ? 'bg-yellow-500' : 'bg-gray-100' ?>">
                         <svg class="w-4 h-4 <?= $isClassificacao ? 'text-white' : 'text-racing-gold' ?>" fill="currentColor" viewBox="0 0 24 24">
@@ -121,8 +149,8 @@ $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
             <!-- Usuários -->
             <li>
                 <a href="/rfg/admin/usuarios/listar.php"
-                    data-section="usuarios"
-                    class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
+                   data-section="usuarios"
+                   class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
                    <?= $isUsuarios ? 'bg-yellow-400 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' ?>">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center <?= $isUsuarios ? 'bg-yellow-500' : 'bg-gray-100' ?>">
                         <svg class="w-4 h-4 <?= $isUsuarios ? 'text-white' : 'text-racing-gold' ?>" fill="currentColor" viewBox="0 0 24 24">
