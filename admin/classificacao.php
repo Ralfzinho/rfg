@@ -117,7 +117,7 @@ try {
                   <div class="flex items-center gap-3 min-w-0">
                     <span class="w-6 shrink-0 text-neutral-500"><?= $i + 1 ?></span>
                     <img src="<?= htmlspecialchars($row['logo'] ?: 'https://placehold.co/40x40') ?>" alt="Foto"
-                      class="w-9 h-9 rounded-full object-cover shrink-0">
+                      class="w-9 h-9 rounded-full object-cover object-position-top shrink-0">
                     <div class="truncate">
                       <div class="font-medium truncate">
                         <?= htmlspecialchars($row['piloto']) ?>
