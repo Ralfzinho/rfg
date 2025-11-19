@@ -166,22 +166,28 @@ global $pdo;
     <?php
     global $pdo;
 
-    // Busca top 3 pilotos por pontos
-    $stmt = $pdo->query("
-  SELECT 
-    p.id,
-    p.nome,
-    p.pontos,
-    p.pais,
-    p.foto_url,
-    e.nome      AS equipe_nome,
-    e.foto_url  AS equipe_foto_url   
-FROM pilotos p
-LEFT JOIN equipes e ON e.id = p.equipe_id
-WHERE p.status = 'ativo'
-ORDER BY p.pontos DESC
-LIMIT 3;
+$stmt = $pdo->query("
+    SELECT 
+        p.id,
+        p.nome,
+        COALESCE(SUM(r.pontos), 0) AS pontos,   -- soma os pontos da tabela resultados
+        p.pais,
+        p.foto_url,
+        e.nome     AS equipe_nome,
+        e.foto_url AS equipe_foto_url
+    FROM pilotos p
+    LEFT JOIN resultados r ON r.piloto_id = p.id
+    LEFT JOIN corridas  c  ON c.id = r.corrida_id
+    LEFT JOIN equipes   e  ON e.id = p.equipe_id
+    WHERE p.status = 'ativo'
+      AND (c.status = 'finalizada' OR c.id IS NULL) -- só corridas finalizadas (ou nenhum resultado ainda)
+    GROUP BY
+        p.id, p.nome, p.pais, p.foto_url,
+        e.nome, e.foto_url
+    ORDER BY pontos DESC
+    LIMIT 3
 ");
+
     $podium = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Quebra em 1º, 2º, 3º

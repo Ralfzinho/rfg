@@ -16,7 +16,7 @@ $isPilotos       = menu_active('/rfg/admin/pilotos',              $currentPath);
 $isEquipes       = menu_active('/rfg/admin/equipes',              $currentPath);
 $isCorridas      = menu_active('/rfg/admin/corridas/listar',      $currentPath);
 $isResultados    = menu_active('/rfg/admin/corridas/resultados',  $currentPath);
-$isClassificacao = menu_active('/rfg/admin/classificacoes',       $currentPath);
+$isClassificacao = menu_active('/rfg/admin/classificacao.php',       $currentPath);
 $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
 ?>
 
@@ -105,7 +105,7 @@ $isUsuarios      = menu_active('/rfg/admin/usuarios',             $currentPath);
 
             <!-- Classificação -->
             <li>
-                <a href="/rfg/admin/classificacoes/pilotos.php"
+                <a href="/rfg/admin/classificacao.php"
                     data-section="classificacoes"
                     class="sidebar-item w-full flex items-center space-x-3 px-4 py-3 text-left rounded-xl transition-all duration-200
                    <?= $isClassificacao ? 'bg-yellow-400 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' ?>">

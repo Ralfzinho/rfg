@@ -11,7 +11,7 @@ global $pdo;
 $corridas = $pdo->query("SELECT id, nome_gp, data FROM corridas ORDER BY data DESC")->fetchAll();
 $pilotos = $pdo->query("SELECT id, nome FROM pilotos ORDER BY nome")->fetchAll();
 
-$corrida_id_selecionada = (int)($_GET['corrida_id'] ?? 0);
+$corrida_id_selecionada = (int) ($_GET['corrida_id'] ?? 0);
 $resultados_existentes = [];
 
 if ($corrida_id_selecionada > 0) {
@@ -24,10 +24,10 @@ $ok = get_flash('ok');
 $erro = get_flash('erro');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $corrida_id = (int)($_POST['corrida_id'] ?? 0);
-    $posicoes   = $_POST['posicao'] ?? [];
+    $corrida_id = (int) ($_POST['corrida_id'] ?? 0);
+    $posicoes = $_POST['posicao'] ?? [];
     $piloto_ids = $_POST['piloto_id'] ?? [];
-    $pontos     = $_POST['pontos'] ?? [];
+    $pontos = $_POST['pontos'] ?? [];
 
     if ($corrida_id <= 0) {
         $erro = 'Selecione uma corrida válida.';
@@ -35,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->beginTransaction();
         try {
             // Limpa resultados antigos para esta corrida
-            $pdo->prepare("DELETE FROM resultados WHERE corrida_id = ?")->execute([$corrida_id]);
+            $pdo->prepare("DELETE FROM resultados WHERE corrida_id = ?")
+                ->execute([$corrida_id]);
 
             // Insere os novos resultados
             $sql_insert = "INSERT INTO resultados (corrida_id, piloto_id, equipe_id, posicao, pontos)
@@ -45,22 +46,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_insert = $pdo->prepare($sql_insert);
 
             for ($i = 0; $i < count($piloto_ids); $i++) {
-                $piloto_id = (int)$piloto_ids[$i];
-                $posicao   = (int)$posicoes[$i];
-                $ponto     = (int)$pontos[$i];
+                $piloto_id = (int) $piloto_ids[$i];
+                $posicao = (int) $posicoes[$i];
+                $ponto = (int) $pontos[$i];
 
                 if ($piloto_id > 0 && $posicao > 0) {
                     $stmt_insert->execute([
-                        ':corrida_id'    => $corrida_id,
-                        ':piloto_id'     => $piloto_id,
-                        ':posicao'       => $posicao,
-                        ':pontos'        => $ponto,
+                        ':corrida_id' => $corrida_id,
+                        ':piloto_id' => $piloto_id,
+                        ':posicao' => $posicao,
+                        ':pontos' => $ponto,
                         ':piloto_id_ref' => $piloto_id
                     ]);
                 }
             }
+
+            // 🔥 Aqui marcamos a corrida como FINALIZADA
+            $stmt_update = $pdo->prepare("UPDATE corridas SET status = 'finalizada' WHERE id = ?");
+            $stmt_update->execute([$corrida_id]);
+
             $pdo->commit();
-            set_flash('ok', 'Resultados salvos com sucesso.');
+
+            set_flash('ok', 'Resultados salvos com sucesso e corrida marcada como finalizada.');
             header("Location: /rfg/admin/corridas/resultados.php?corrida_id=" . $corrida_id);
             exit;
         } catch (Exception $e) {
@@ -71,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -88,7 +96,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <main class="flex-1 mx-auto max-w-6xl px-4 py-8">
             <div class="flex items-center justify-between mb-6">
                 <h1 class="text-2xl font-bold">Lançar Resultados da Corrida</h1>
-                <a href="/rfg/admin/corridas/listar.php" class="px-4 py-2 rounded border">Voltar</a>
+                <a href="/rfg/admin/corridas/listar.php"
+                    class="btn-primary text-white font-semibold py-3 px-6 rounded-xl">Voltar</a>
             </div>
 
             <?php if ($ok): ?>
@@ -107,9 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <form method="get" class="flex items-end gap-4">
                     <div>
                         <label class="block text-sm font-medium">Selecione a Corrida</label>
-                        <select name="corrida_id"
-                            class="mt-1 w-full rounded-lg border px-3 py-2"
-                            required
+                        <select name="corrida_id" class="mt-1 w-full rounded-lg border px-3 py-2" required
                             onchange="this.form.submit()">
                             <option value="">Selecione...</option>
                             <?php foreach ($corridas as $c): ?>
@@ -138,12 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     $linhas_a_exibir = max(20, count($resultados_existentes));
                                     for ($i = 0; $i < $linhas_a_exibir; $i++):
                                         $res = $resultados_existentes[$i] ?? null;
-                                    ?>
+                                        ?>
                                         <tr class="border-b">
                                             <td class="py-1 pr-3 w-24">
-                                                <input name="posicao[]"
-                                                    type="number"
-                                                    class="w-full rounded border px-2 py-1"
+                                                <input name="posicao[]" type="number" class="w-full rounded border px-2 py-1"
                                                     value="<?= htmlspecialchars($res['posicao'] ?? ($i + 1)) ?>">
                                             </td>
                                             <td class="py-1 pr-3">
@@ -157,9 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 </select>
                                             </td>
                                             <td class="py-1 pr-3 w-24">
-                                                <input name="pontos[]"
-                                                    type="number"
-                                                    class="w-full rounded border px-2 py-1"
+                                                <input name="pontos[]" type="number" class="w-full rounded border px-2 py-1"
                                                     value="<?= htmlspecialchars($res['pontos'] ?? '0') ?>">
                                             </td>
                                         </tr>
@@ -169,7 +172,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="flex justify-end gap-3 pt-4">
-                            <button class="px-5 py-2 rounded bg-primary text-white hover:bg-red-700">
+                            <button class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-semibold
+                 hover:from-yellow-600 hover:to-yellow-700 shadow-lg hover:shadow-xl transition-all">
                                 Salvar Resultados
                             </button>
                         </div>
