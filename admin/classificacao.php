@@ -127,7 +127,7 @@ try {
                       <img
                         src="<?= htmlspecialchars($row['foto'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
                         alt="Foto de <?= htmlspecialchars($row['piloto']) ?>"
-                        class="driver-avatares">
+                        class="driver-avatar">
                     </div>
 
                     <div class="truncate">
