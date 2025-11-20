@@ -1,0 +1,64 @@
+.podium-card {
+    transition: all 0.3s ease;
+    /* fundo padrão dos cards do pódio = laranja da liga */
+    background: linear-gradient(135deg, #C9A300 0%, #ebc311 100%);
+}
+
+.podium-card:hover {
+    transform: translateY(-8px);
+    /* sombra com o amarelo da liga */
+    box-shadow: 0 20px 40px -10px rgba(241, 227, 99, 0.3);
+}
+
+/* 1º lugar */
+.podium-first {
+    background: linear-gradient(135deg, #facc15  0%, #eab308  100%);
+}
+
+/* 2º lugar (laranja da liga) */
+.podium-second {
+    background: linear-gradient(135deg, #e5e7eb  0%, #9ca3af  100%);
+}
+
+/* 3º lugar */
+.podium-third {
+    background: linear-gradient(135deg, #fed7aa  0%, #ea580c  100%);
+}
+
+.table-row {
+    transition: all 0.2s ease;
+}
+
+.table-row:hover {
+    background: rgba(99, 102, 241, 0.05);
+    transform: translateX(4px);
+}
+
+.btn-tab {
+    transition: all 0.3s ease;
+}
+
+.btn-tab.active {
+    /* aqui ainda deixei o roxo/azul do design original;
+           se quiser posso trocar pro laranja também */
+    background: linear-gradient(135deg, #C9A300 0%, #ebc311 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(241, 203, 99, 0.4);
+}
+
+.avatar {
+    background: linear-gradient(135deg, #C9A300 0%, #ebc311 100%);
+}
+
+.position-badge {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #C9A300 0%, #ebc311 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #ffffffff;
+}
