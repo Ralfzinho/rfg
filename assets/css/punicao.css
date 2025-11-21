@@ -1,0 +1,85 @@
+.news-card {
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(99, 102, 241, 0.3);
+}
+
+.penalty-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.penalty-time {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+.penalty-grid {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+}
+
+.penalty-fine {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+}
+
+.penalty-warning {
+    background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+    color: white;
+}
+
+.penalty-dsq {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    color: white;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.filter-btn {
+    transition: all 0.3s ease;
+    border: 2px solid #e5e7eb;
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    border-color: #6366f1;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.driver-avatar {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: white;
+}

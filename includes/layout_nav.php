@@ -28,7 +28,7 @@ $user   = $_SESSION['user'] ?? null;
           <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/calendario.php">Calendário</a></li>
           <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/temporada.php">Temporada</a></li>
           <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/equipes.php">Equipes</a></li>
-          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/pilotos.php">Pilotos</a></li>
+          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/punicoes.php">Punições</a></li>
           <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/sobre_nos.php">Contato</a></li>
 
           <?php if ($logged): ?>

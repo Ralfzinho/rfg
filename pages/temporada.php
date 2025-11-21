@@ -23,27 +23,57 @@ $sqlPilotos = "
 $stmtPilotos = $pdo->query($sqlPilotos);
 $pilotos = $stmtPilotos->fetchAll(PDO::FETCH_ASSOC);
 
-// Classificação de equipes (também com cor_primaria)
+// Classificação de equipes (com cor_primaria, logo e carro)
 $sqlEquipes = "
     SELECT 
       e.id,
       e.nome                             AS equipe,
       COALESCE(e.cor_primaria,'#111827') AS equipe_cor,
+      COALESCE(e.foto_url,'')            AS equipe_foto,
+      COALESCE(e.carro_url,'')           AS carro_foto,
       COALESCE(SUM(r.pontos), 0)         AS pontos
     FROM equipes e
     LEFT JOIN resultados r ON r.equipe_id = e.id
-    GROUP BY e.id, e.nome, e.cor_primaria
+    GROUP BY e.id, e.nome, e.cor_primaria, e.foto_url, e.carro_url
     ORDER BY pontos DESC, e.nome ASC
 ";
 $stmtEquipes = $pdo->query($sqlEquipes);
 $equipes = $stmtEquipes->fetchAll(PDO::FETCH_ASSOC);
 
-// 1º ao 3º: pódio | 4º ao 20º: tabela
+// ---------- PAGINAÇÃO PILOTOS ----------
+$totalPilotosPorPagina = 10;                                // total na tela (pódio + tabela)
+$pilotosPorPagina      = max(0, $totalPilotosPorPagina - 3); // 3 do pódio + resto na tabela
+
+$totalPilotosLista     = max(0, count($pilotos) - 3);       // exclui os 3 do pódio
+$totalPaginasPilotos   = max(1, (int)ceil($totalPilotosLista / $pilotosPorPagina));
+
+$currentPagesPilotos   = isset($_GET['page_pilotos']) ? (int)$_GET['page_pilotos'] : 1;
+$currentPagesPilotos   = max(1, min($currentPagesPilotos, $totalPaginasPilotos));
+
+$offsetPilotos         = ($currentPagesPilotos - 1) * $pilotosPorPagina;
+
+// ---------- PAGINAÇÃO EQUIPES ----------
+$equipesPorPagina      = 10;
+$totalEquipesLista     = max(0, count($equipes) - 3);       // exclui as 3 do pódio
+$totalPaginasEquipes   = max(1, (int)ceil($totalEquipesLista / $equipesPorPagina));
+
+$currentPagesEquipes   = isset($_GET['page_equipes']) ? (int)$_GET['page_equipes'] : 1;
+$currentPagesEquipes   = max(1, min($currentPagesEquipes, $totalPaginasEquipes));
+
+$offsetEquipes         = ($currentPagesEquipes - 1) * $equipesPorPagina;
+
+// ---------- FATIA OS ARRAYS ----------
 $topPilotos   = array_slice($pilotos, 0, 3);
-$pilotosLista = array_slice($pilotos, 3, 17);   // 4..20
+$pilotosLista = array_slice($pilotos, 3 + $offsetPilotos, $pilotosPorPagina);
 
 $topEquipes   = array_slice($equipes, 0, 3);
-$equipesLista = array_slice($equipes, 3, 17);   // 4..20
+$equipesLista = array_slice($equipes, 3 + $offsetEquipes, $equipesPorPagina);
+
+// Cor da liga (pontos, etc.)
+$corLiga = '#f1e363';
+
+// Base da URL sem query string (pra paginação)
+$baseUrl = strtok($_SERVER['REQUEST_URI'], '?');
 
 // Helper para iniciais
 function getInitials(string $name): string
@@ -127,7 +157,8 @@ function getInitials(string $name): string
                             $borderClass = 'border-orange-300';
                         }
                     ?>
-                        <div class="podium-card rounded-3xl overflow-hidden shadow-xl border-2 <?= $borderClass ?>">
+                        <div class="podium-card rounded-3xl overflow-hidden shadow-xl border-2 <?= $borderClass ?>"
+                            style="background: <?= htmlspecialchars($bgColor) ?>;">
                             <div class="relative h-80 rounded-3xl overflow-hidden">
 
                                 <?php if (!empty($p['foto'])): ?>
@@ -137,8 +168,7 @@ function getInitials(string $name): string
                                         class="absolute inset-0 w-full h-full object-cover object-top">
                                 <?php else: ?>
                                     <!-- Sem foto: fundo na cor da equipe com iniciais -->
-                                    <div class="absolute inset-0 flex items-center justify-center"
-                                        style="background-color: <?= htmlspecialchars($bgColor) ?>;">
+                                    <div class="absolute inset-0 flex items-center justify-center">
                                         <span class="text-4xl font-bold text-white">
                                             <?= htmlspecialchars(getInitials($p['piloto'])) ?>
                                         </span>
@@ -151,8 +181,8 @@ function getInitials(string $name): string
                                 <!-- Bolinha de posição (com as cores ouro/prata/bronze) -->
                                 <div class="absolute top-4 left-1/2 -translate-x-1/2">
                                     <div class="<?= $ribbonClass ?> w-12 h-12 rounded-full
-                                        flex items-center justify-center text-white font-bold text-base
-                                        border-4 border-white shadow-lg">
+                                                 flex items-center justify-center text-white font-bold text-base
+                                                 border-4 border-white shadow-lg">
                                         <?= $posReal ?>º
                                     </div>
                                 </div>
@@ -165,19 +195,20 @@ function getInitials(string $name): string
                                     <p class="text-sm text-gray-100 mb-1">
                                         <?= htmlspecialchars($p['equipe']) ?>
                                     </p>
-                                    <p class="text-lg font-extrabold" style="color:#f1e363;">
+                                    <p class="text-lg font-extrabold" style="color:#ffffff;">
                                         <?= (int)$p['pontos'] ?> ponto<?= (int)$p['pontos'] == 1 ? '' : 's' ?>
                                     </p>
                                 </div>
 
                             </div>
                         </div>
+
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
         </div>
 
-        <!-- Tabela completa pilotos (4º ao 20º) -->
+        <!-- Tabela completa pilotos (4º em diante, paginado) -->
         <div>
             <h3 class="text-2xl font-bold text-gray-900 mb-6">📊 Classificação Completa de Pilotos</h3>
             <div class="bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden">
@@ -207,7 +238,7 @@ function getInitials(string $name): string
                             <?php else: ?>
                                 <?php foreach ($pilotosLista as $index => $p):
                                     // posição real: começa do 4º
-                                    $pos = $index + 4;
+                                    $pos = 4 + $offsetPilotos + $index;
                                 ?>
                                     <tr class="table-row">
                                         <td class="px-8 py-5">
@@ -228,7 +259,6 @@ function getInitials(string $name): string
                                                                 alt="<?= htmlspecialchars($p['piloto']) ?>"
                                                                 class="w-full h-full object-cover"
                                                                 style="object-position: 50% 0%;">
-
                                                         </div>
                                                     <?php else: ?>
                                                         <!-- Sem foto: iniciais em branco sobre a cor da equipe -->
@@ -249,12 +279,15 @@ function getInitials(string $name): string
                                             </div>
                                         </td>
                                         <td class="px-8 py-5">
-                                            <span class="inline-block bg-indigo-50 text-indigo-800 px-4 py-2 rounded-xl text-sm font-semibold">
+                                            <span
+                                                class="inline-block px-4 py-2 rounded-xl text-sm font-semibold bg-white"
+                                                style="color: <?= htmlspecialchars($p['equipe_cor']) ?>;
+                                                       border: 1px solid <?= htmlspecialchars($p['equipe_cor']) ?>;">
                                                 <?= htmlspecialchars($p['equipe']) ?>
                                             </span>
                                         </td>
                                         <td class="px-8 py-5 text-right">
-                                            <span class="text-2xl font-bold text-indigo-600">
+                                            <span class="text-2xl font-bold" style="color:#000000;">
                                                 <?= (int)$p['pontos'] ?>
                                             </span>
                                         </td>
@@ -265,6 +298,58 @@ function getInitials(string $name): string
                     </table>
                 </div>
             </div>
+
+            <?php if ($totalPaginasPilotos > 1): ?>
+                <nav class="mt-4 flex justify-center">
+                    <ul class="inline-flex items-center space-x-1 text-sm">
+
+                        <!-- Anterior -->
+                        <li>
+                            <?php if ($currentPagesPilotos > 1): ?>
+                                <a href="<?= htmlspecialchars($baseUrl . '?page_pilotos=' . ($currentPagesPilotos - 1)) ?>"
+                                    class="px-3 py-1 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
+                                    &laquo; Anterior
+                                </a>
+                            <?php else: ?>
+                                <span class="px-3 py-1 rounded-md border border-gray-200 text-gray-400 cursor-default">
+                                    &laquo; Anterior
+                                </span>
+                            <?php endif; ?>
+                        </li>
+
+                        <!-- Números das páginas -->
+                        <?php for ($i = 1; $i <= $totalPaginasPilotos; $i++): ?>
+                            <li>
+                                <?php if ($i === $currentPagesPilotos): ?>
+                                    <span class="px-3 py-1 rounded-md border border-indigo-500 bg-indigo-50 text-indigo-700 font-semibold">
+                                        <?= $i ?>
+                                    </span>
+                                <?php else: ?>
+                                    <a href="<?= htmlspecialchars($baseUrl . '?page_pilotos=' . $i) ?>"
+                                        class="px-3 py-1 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
+                                        <?= $i ?>
+                                    </a>
+                                <?php endif; ?>
+                            </li>
+                        <?php endfor; ?>
+
+                        <!-- Próximo -->
+                        <li>
+                            <?php if ($currentPagesPilotos < $totalPaginasPilotos): ?>
+                                <a href="<?= htmlspecialchars($baseUrl . '?page_pilotos=' . ($currentPagesPilotos + 1)) ?>"
+                                    class="px-3 py-1 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
+                                    Próximo &raquo;
+                                </a>
+                            <?php else: ?>
+                                <span class="px-3 py-1 rounded-md border border-gray-200 text-gray-400 cursor-default">
+                                    Próximo &raquo;
+                                </span>
+                            <?php endif; ?>
+                        </li>
+
+                    </ul>
+                </nav>
+            <?php endif; ?>
         </div>
 
     </div> <!-- /drivers-content -->
@@ -280,32 +365,94 @@ function getInitials(string $name): string
                 <?php if (count($topEquipes) === 0): ?>
                     <p class="text-gray-500">Nenhuma equipe classificada ainda.</p>
                 <?php else: ?>
-                    <?php foreach ($topEquipes as $i => $e):
-                        $pos = $i + 1;
+
+                    <?php
+                    // ordem visual: 2º, 1º, 3º (igual pilotos)
+                    if (count($topEquipes) === 1) {
+                        $indicesEquipes = [0];
+                    } elseif (count($topEquipes) === 2) {
+                        $indicesEquipes = [1, 0]; // 2º, 1º
+                    } else {
+                        $indicesEquipes = [1, 0, 2]; // 2º, 1º, 3º
+                    }
+
+                    foreach ($indicesEquipes as $idx):
+                        $e       = $topEquipes[$idx];
+                        $posReal = $idx + 1; // 1, 2 ou 3
                         $bgColor = $e['equipe_cor'] ?: '#111827';
+
+                        $carImg  = !empty($e['carro_foto']) ? $e['carro_foto'] : $e['equipe_foto'];
+                        $logoImg = $e['equipe_foto'];
+
+                        // ouro / prata / bronze
+                        if ($posReal === 1) {
+                            $ribbonClass = 'podium-first';
+                            $borderClass = 'border-yellow-300';
+                        } elseif ($posReal === 2) {
+                            $ribbonClass = 'podium-second';
+                            $borderClass = 'border-gray-300';
+                        } else {
+                            $ribbonClass = 'podium-third';
+                            $borderClass = 'border-orange-300';
+                        }
                     ?>
-                        <div class="podium-card rounded-3xl overflow-hidden shadow-xl border-2 <?= $podiumBorder[$i] ?? 'border-gray-200' ?>">
-                            <div class="relative h-56 flex items-center justify-center overflow-hidden"
-                                style="background-color: <?= htmlspecialchars($bgColor) ?>;">
-                                <div class="absolute top-4 left-1/2 -translate-x-1/2">
-                                    <div class="<?= $podiumRibbon[$i] ?? 'podium-first' ?> inline-block px-5 py-2 rounded-full">
-                                        <span class="text-white font-bold text-2xl"><?= $pos ?>º</span>
+                        <div class="rounded-3xl overflow-hidden shadow-xl border-2 <?= $borderClass ?>">
+                            <div class="relative h-56 md:h-64"
+                                style="background: linear-gradient(
+                                     90deg,
+                                     #000000 0%,
+                                     <?= htmlspecialchars($bgColor) ?> 45%,
+                                     <?= htmlspecialchars($bgColor) ?> 100%
+                                 );">
+
+                                <!-- Medalha de posição -->
+                                <div class="absolute top-4 right-4 z-10">
+                                    <div class="<?= $ribbonClass ?> w-12 h-12 rounded-full
+                                                 flex items-center justify-center text-white font-bold text-base
+                                                 border-4 border-white shadow-lg">
+                                        <?= $posReal ?>º
                                     </div>
                                 </div>
-                                <span class="text-white font-bold text-6xl opacity-90">
-                                    <?= htmlspecialchars(getInitials($e['equipe'])) ?>
-                                </span>
-                            </div>
-                            <div class="p-6 text-center bg-white">
-                                <h4 class="text-xl font-bold text-gray-900 mb-2">
-                                    <?= htmlspecialchars($e['equipe']) ?>
-                                </h4>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <p class="text-gray-600 text-sm mb-1">Pontos</p>
-                                    <p class="text-3xl font-bold text-indigo-600">
+
+                                <!-- Nome da equipe -->
+                                <div class="absolute top-4 left-5 right-20 z-10">
+                                    <h4 class="text-2xl font-extrabold text-white drop-shadow-md leading-tight">
+                                        <?= htmlspecialchars($e['equipe']) ?>
+                                    </h4>
+                                </div>
+
+                                <!-- Logo redonda, canto direito inferior -->
+                                <?php if (!empty($logoImg)): ?>
+                                    <div class="absolute bottom-4 right-4 z-10 w-12 h-12 rounded-full
+                                                bg-white/90 flex items-center justify-center shadow-lg overflow-hidden">
+                                        <img src="<?= htmlspecialchars($logoImg) ?>"
+                                            alt="<?= htmlspecialchars($e['equipe']) ?>"
+                                            class="w-full h-full object-contain rounded-full">
+                                    </div>
+                                <?php endif; ?>
+
+                                <!-- Carro grande com zoom -->
+                                <div class="absolute inset-x-0 bottom-0 top-10 flex items-end justify-center pointer-events-none">
+                                    <?php if (!empty($carImg)): ?>
+                                        <img src="<?= htmlspecialchars($carImg) ?>"
+                                            alt="Carro <?= htmlspecialchars($e['equipe']) ?>"
+                                            class="w-[135%] max-w-none h-auto object-contain drop-shadow-xl">
+                                    <?php else: ?>
+                                        <!-- Fallback se não tiver carro -->
+                                        <span class="text-5xl font-bold text-white/20">
+                                            <?= htmlspecialchars(getInitials($e['equipe'])) ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+
+                                <!-- Pontos, canto esquerdo inferior -->
+                                <div class="absolute bottom-4 left-5 z-10">
+                                    <p class="text-sm text-white/80">Pontos</p>
+                                    <p class="text-3xl font-extrabold text-white drop-shadow-md">
                                         <?= (int)$e['pontos'] ?>
                                     </p>
                                 </div>
+
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -313,7 +460,7 @@ function getInitials(string $name): string
             </div>
         </div>
 
-        <!-- Tabela completa equipes (4º ao 20º) -->
+        <!-- Tabela completa equipes (4º em diante, paginado) -->
         <div>
             <h3 class="text-2xl font-bold text-gray-900 mb-6">📊 Classificação Completa de Equipes</h3>
             <div class="bg-white rounded-3xl shadow-lg border border-gray-200 overflow-hidden">
@@ -342,7 +489,8 @@ function getInitials(string $name): string
                             <?php else: ?>
                                 <?php foreach ($equipesLista as $index => $e):
                                     // posição real começa do 4º
-                                    $pos = $index + 4;
+                                    $pos  = 4 + $offsetEquipes + $index;
+                                    $logo = $e['equipe_foto'] ?? '';
                                 ?>
                                     <tr class="table-row">
                                         <td class="px-8 py-5">
@@ -354,19 +502,29 @@ function getInitials(string $name): string
                                             <div class="flex items-center space-x-4">
                                                 <div class="w-12 h-12 rounded-full flex items-center justify-center border-2 border-gray-200"
                                                     style="background-color: <?= htmlspecialchars($e['equipe_cor']) ?>;">
-                                                    <span class="text-white font-bold text-lg">
-                                                        <?= htmlspecialchars(getInitials($e['equipe'])) ?>
-                                                    </span>
+
+                                                    <?php if (!empty($logo)): ?>
+                                                        <div class="w-10 h-10 rounded-full overflow-hidden bg-white">
+                                                            <img src="<?= htmlspecialchars($logo) ?>"
+                                                                alt="<?= htmlspecialchars($e['equipe']) ?>"
+                                                                class="w-full h-full object-contain">
+                                                        </div>
+                                                    <?php else: ?>
+                                                        <span class="text-white font-bold text-lg">
+                                                            <?= htmlspecialchars(getInitials($e['equipe'])) ?>
+                                                        </span>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <div>
-                                                    <p class="text-gray-900 font-bold text-lg">
+                                                    <p class="font-bold text-lg"
+                                                        style="color: <?= htmlspecialchars($e['equipe_cor']) ?>;">
                                                         <?= htmlspecialchars($e['equipe']) ?>
                                                     </p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="px-8 py-5 text-right">
-                                            <span class="text-2xl font-bold text-indigo-600">
+                                            <span class="text-2xl font-bold" style="color:<?= $corLiga ?>;">
                                                 <?= (int)$e['pontos'] ?>
                                             </span>
                                         </td>
@@ -377,10 +535,61 @@ function getInitials(string $name): string
                     </table>
                 </div>
             </div>
+
+            <?php if ($totalPaginasEquipes > 1): ?>
+                <nav class="mt-4 flex justify-center">
+                    <ul class="inline-flex items-center space-x-1 text-sm">
+
+                        <!-- Anterior -->
+                        <li>
+                            <?php if ($currentPagesEquipes > 1): ?>
+                                <a href="<?= htmlspecialchars($baseUrl . '?page_equipes=' . ($currentPagesEquipes - 1)) ?>"
+                                    class="px-3 py-1 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
+                                    &laquo; Anterior
+                                </a>
+                            <?php else: ?>
+                                <span class="px-3 py-1 rounded-md border border-gray-200 text-gray-400 cursor-default">
+                                    &laquo; Anterior
+                                </span>
+                            <?php endif; ?>
+                        </li>
+
+                        <!-- Números das páginas -->
+                        <?php for ($i = 1; $i <= $totalPaginasEquipes; $i++): ?>
+                            <li>
+                                <?php if ($i === $currentPagesEquipes): ?>
+                                    <span class="px-3 py-1 rounded-md border border-indigo-500 bg-indigo-50 text-indigo-700 font-semibold">
+                                        <?= $i ?>
+                                    </span>
+                                <?php else: ?>
+                                    <a href="<?= htmlspecialchars($baseUrl . '?page_equipes=' . $i) ?>"
+                                        class="px-3 py-1 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
+                                        <?= $i ?>
+                                    </a>
+                                <?php endif; ?>
+                            </li>
+                        <?php endfor; ?>
+
+                        <!-- Próximo -->
+                        <li>
+                            <?php if ($currentPagesEquipes < $totalPaginasEquipes): ?>
+                                <a href="<?= htmlspecialchars($baseUrl . '?page_equipes=' . ($currentPagesEquipes + 1)) ?>"
+                                    class="px-3 py-1 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
+                                    Próximo &raquo;
+                                </a>
+                            <?php else: ?>
+                                <span class="px-3 py-1 rounded-md border border-gray-200 text-gray-400 cursor-default">
+                                    Próximo &raquo;
+                                </span>
+                            <?php endif; ?>
+                        </li>
+
+                    </ul>
+                </nav>
+            <?php endif; ?>
         </div>
 
     </div> <!-- /teams-content -->
-</div> <!-- /max-w-7xl -->
 
 </div> <!-- /container -->
 

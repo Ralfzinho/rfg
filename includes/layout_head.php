@@ -27,6 +27,7 @@
   <link href="/rfg/assets/css/main.css" rel="stylesheet">
   <link href="/rfg/assets/css/dashboard_adm.css" rel="stylesheet">
   <link href="/rfg/assets/css/temporada.css" rel="stylesheet">
+  <link href="/rfg/assets/css/punicao.css" rel="stylesheet">
 </head>
 
 <body class="bg-neutral-50 text-neutral-900">
