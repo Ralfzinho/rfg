@@ -20,7 +20,7 @@ if (isset($_POST['del'])) {
   $st->execute([$id]);
 
   set_flash('ok', 'Piloto removido com sucesso.');
-  header('Location: /rfg/admin/pilotos/listar.php');
+  header('Location: /admin/pilotos/listar.php');
   exit;
 }
 
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar'])) {
     set_flash('ok', 'Piloto cadastrado com sucesso.');
   }
 
-  header('Location: /rfg/admin/pilotos/listar.php');
+  header('Location: /admin/pilotos/listar.php');
   exit;
 }
 
@@ -230,7 +230,7 @@ function getAvatarColor($index)
                     <td class="px-6 py-4">
                       <div class="flex space-x-2">
                         <!-- Editar -->
-                        <a href="/rfg/admin/pilotos/editar.php?id=<?= $p['id'] ?>"
+                        <a href="/admin/pilotos/editar.php?id=<?= $p['id'] ?>"
                           class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           title="Editar">
                           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -239,7 +239,7 @@ function getAvatarColor($index)
                         </a>
 
                         <!-- Excluir -->
-                        <form method="post" action="/rfg/admin/pilotos/listar.php" class="inline-block"
+                        <form method="post" action="/admin/pilotos/listar.php" class="inline-block"
                           onsubmit="return confirm('Tem certeza que deseja remover este piloto?')">
                           <input type="hidden" name="del" value="<?= $p['id'] ?>">
                           <button type="submit"
@@ -274,7 +274,7 @@ function getAvatarColor($index)
         </button>
       </div>
 
-      <form method="post" action="/rfg/admin/pilotos/listar.php" class="p-6 space-y-4">
+      <form method="post" action="/admin/pilotos/listar.php" class="p-6 space-y-4">
         <input type="hidden" name="cadastrar" value="1">
 
         <!-- Nome -->

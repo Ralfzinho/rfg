@@ -68,12 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->commit();
 
             set_flash('ok', 'Resultados salvos com sucesso e corrida marcada como finalizada.');
-            header("Location: /rfg/admin/corridas/resultados.php?corrida_id=" . $corrida_id);
+            header("Location: /admin/corridas/resultados.php?corrida_id=" . $corrida_id);
             exit;
         } catch (Exception $e) {
             $pdo->rollBack();
             set_flash('erro', 'Ocorreu um erro ao salvar os resultados: ' . $e->getMessage());
-            header("Location: /rfg/admin/corridas/resultados.php?corrida_id=" . $corrida_id);
+            header("Location: /admin/corridas/resultados.php?corrida_id=" . $corrida_id);
             exit;
         }
     }
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <main class="flex-1 mx-auto max-w-6xl px-4 py-8">
             <div class="flex items-center justify-between mb-6">
                 <h1 class="text-2xl font-bold">Lançar Resultados da Corrida</h1>
-                <a href="/rfg/admin/corridas/listar.php"
+                <a href="/admin/corridas/listar.php"
                     class="btn-primary text-white font-semibold py-3 px-6 rounded-xl">Voltar</a>
             </div>
 

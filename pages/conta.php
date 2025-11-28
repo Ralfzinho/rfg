@@ -21,13 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } elseif (auth_login($email, $senha)) {
     // redireciona conforme o papel (usando caminhos absolutos pra não quebrar)
     if (auth_is('admin')) {
-      header('Location: /rfg/admin/dashboard.php');
+      header('Location: /admin/dashboard.php');
       exit;
     } elseif (auth_is('editor')) {
-      header('Location: /rfg/editor/dashboard.php');
+      header('Location: /editor/dashboard.php');
       exit;
     } else {
-      header('Location: /rfg/index.php');
+      header('Location: /index.php');
       exit;
     }
   } else {
@@ -59,14 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="flex items-center space-x-3">
           <div class="w-10 h-10 rounded-full flex items-center justify-center">
             <!-- Ícone simples -->
-            <img src="/rfg/assets/img/logo.png" alt="Logo da Liga" class="h-9 w-9 object-contain"/>
+            <img src="/assets/img/logo.png" alt="Logo da Liga" class="h-9 w-9 object-contain"/>
           </div>
           <h1 class="text-2xl md:text-3xl font-extrabold tracking-wide">
             RACING FOR <span class="text-[#C9A300]">GLORY</span>
           </h1>
         </div>
 
-        <a href="/rfg/index.php" class="text-white/80 hover:text-[#C9A300] transition uppercase tracking-wide text-sm">
+        <a href="/index.php" class="text-white/80 hover:text-[#C9A300] transition uppercase tracking-wide text-sm">
           ← Voltar ao site
         </a>
       </div>
@@ -77,11 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="hidden lg:block">
           <div class="rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl racing-glow">
             <div class="relative">
-              <video class="w-full h-[420px] object-cover" src="/rfg/assets/img/videobackground.mp4"
-                poster="/rfg/assets/img/background_video.png" autoplay muted loop playsinline preload="metadata">
+              <video class="w-full h-[420px] object-cover" src="/assets/img/videobackground.mp4"
+                poster="/assets/img/background_video.png" autoplay muted loop playsinline preload="metadata">
                 <!-- fontes alternativas (opcional) -->
-                <source src="/rfg/assets/img/videobackground.webm" type="video/webm">
-                <source src="/rfg/assets/img/videobackground.mp4" type="video/mp4">
+                <source src="/assets/img/videobackground.webm" type="video/webm">
+                <source src="/assets/img/videobackground.mp4" type="video/mp4">
                 Seu navegador não suporta vídeo HTML5.
               </video>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>

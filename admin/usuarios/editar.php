@@ -19,7 +19,7 @@ $currentUser = auth_user();
 $id = (int)($_GET['id'] ?? 0);
 if ($id <= 0) {
     set_flash('erro', 'Usuário inválido.');
-    header('Location: /rfg/admin/usuarios/listar.php');
+    header('Location: /admin/usuarios/listar.php');
     exit;
 }
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($nome === '' || $email === '') {
         set_flash('erro', 'Informe Nome e E-mail.');
-        header('Location: /rfg/admin/usuarios/editar.php?id=' . $id);
+        header('Location: /admin/usuarios/editar.php?id=' . $id);
         exit;
     }
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $editingSelf = ((int)$currentUser['id'] === $id);
     if ($editingSelf && ($role !== 'admin' || $status !== 'ativo')) {
         set_flash('erro', 'Você não pode remover seu próprio acesso de administrador ou desativar a sua conta.');
-        header('Location: /rfg/admin/usuarios/editar.php?id=' . $id);
+        header('Location: /admin/usuarios/editar.php?id=' . $id);
         exit;
     }
 
@@ -61,12 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($novaSenha !== '' || $confirmaSenha !== '') {
         if ($novaSenha !== $confirmaSenha) {
             set_flash('erro', 'A nova senha e a confirmação não conferem.');
-            header('Location: /rfg/admin/usuarios/editar.php?id=' . $id);
+            header('Location: /admin/usuarios/editar.php?id=' . $id);
             exit;
         }
         if (strlen($novaSenha) < 4) {
             set_flash('erro', 'A nova senha deve ter pelo menos 4 caracteres.');
-            header('Location: /rfg/admin/usuarios/editar.php?id=' . $id);
+            header('Location: /admin/usuarios/editar.php?id=' . $id);
             exit;
         }
 
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $st->execute($params);
 
     set_flash('ok', 'Usuário atualizado com sucesso.');
-    header('Location: /rfg/admin/usuarios/listar.php');
+    header('Location: /admin/usuarios/listar.php');
     exit;
 }
 
@@ -92,7 +92,7 @@ $usuario = $st->fetch(PDO::FETCH_ASSOC);
 
 if (!$usuario) {
     set_flash('erro', 'Usuário não encontrado.');
-    header('Location: /rfg/admin/usuarios/listar.php');
+    header('Location: /admin/usuarios/listar.php');
     exit;
 }
 
@@ -130,7 +130,7 @@ $dataCadastro    = $dataCadastroRaw ? date('d/m/Y H:i', strtotime($dataCadastroR
                         Ajuste os dados do usuário. Deixe a senha em branco para não alterar.
                     </p>
                 </div>
-                <a href="/rfg/admin/usuarios/listar.php"
+                <a href="/admin/usuarios/listar.php"
                     class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50">
                     Voltar
                 </a>
@@ -154,7 +154,7 @@ $dataCadastro    = $dataCadastroRaw ? date('d/m/Y H:i', strtotime($dataCadastroR
                     <span class="font-semibold">Cadastro:</span> <?= htmlspecialchars($dataCadastro) ?>
                 </div>
 
-                <form method="post" action="/rfg/admin/usuarios/editar.php?id=<?= (int)$usuario['id'] ?>" class="space-y-4">
+                <form method="post" action="/admin/usuarios/editar.php?id=<?= (int)$usuario['id'] ?>" class="space-y-4">
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">
                             Nome completo <span class="text-red-500">*</span>
@@ -231,7 +231,7 @@ $dataCadastro    = $dataCadastroRaw ? date('d/m/Y H:i', strtotime($dataCadastroR
                     </div>
 
                     <div class="flex justify-end gap-3 pt-4 border-t border-gray-200 mt-4">
-                        <a href="/rfg/admin/usuarios/listar.php"
+                        <a href="/admin/usuarios/listar.php"
                             class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50">
                             Cancelar
                         </a>

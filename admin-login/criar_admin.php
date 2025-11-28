@@ -28,7 +28,7 @@ $title = 'Criar Novo Administrador';
         </div>
       <?php endif; ?>
 
-      <form method="post" action="/rfg/admin-login/criar_admin_process.php" class="space-y-4">
+      <form method="post" action="/admin-login/criar_admin_process.php" class="space-y-4">
         <div>
           <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
           <input type="text" id="name" name="name" required

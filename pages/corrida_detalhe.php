@@ -7,7 +7,7 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 // Redirect if the ID is invalid.
 if ($id <= 0) {
-    header("Location: /rfg/pages/corrida.php"); // Redirect to the main races page
+    header("Location: /pages/corrida.php"); // Redirect to the main races page
     exit;
 }
 ?>

@@ -32,7 +32,7 @@ if (isset($_POST['del'])) {
     set_flash('erro', 'ID de equipe inválido.');
   }
 
-  header('Location: /rfg/admin/equipes/listar.php');
+  header('Location: /admin/equipes/listar.php');
   exit;
 }
 
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar_equipe'])) 
     set_flash('ok', 'Equipe cadastrada com sucesso.');
   }
 
-  header('Location: /rfg/admin/equipes/listar.php');
+  header('Location: /admin/equipes/listar.php');
   exit;
 }
 
@@ -224,12 +224,12 @@ function equipe_status_label(string $status): string
 
               <div class="flex space-x-2">
                 <a
-                  href="/rfg/admin/equipes/editar.php?id=<?= (int)$e['id'] ?>"
+                  href="/admin/equipes/editar.php?id=<?= (int)$e['id'] ?>"
                   class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded text-sm transition-colors text-center">
                   Editar
                 </a>
 
-                <form method="post" action="/rfg/admin/equipes/listar.php" class="flex-1"
+                <form method="post" action="/admin/equipes/listar.php" class="flex-1"
                   onsubmit="return confirm('Tem certeza que deseja remover esta equipe?');">
                   <input type="hidden" name="del" value="<?= (int)$e['id'] ?>">
                   <button
@@ -263,7 +263,7 @@ function equipe_status_label(string $status): string
       </div>
 
       <!-- Form -->
-      <form method="post" action="/rfg/admin/equipes/listar.php" class="p-6 space-y-4">
+      <form method="post" action="/admin/equipes/listar.php" class="p-6 space-y-4">
         <input type="hidden" name="cadastrar_equipe" value="1">
 
         <div>

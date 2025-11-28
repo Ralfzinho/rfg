@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['del'])) {
     set_flash('erro', 'ID de corrida inválido.');
   }
 
-  header('Location: /rfg/admin/corridas/listar.php');
+  header('Location: /admin/corridas/listar.php');
   exit;
 }
 
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar_corrida']))
     }
   }
 
-  header('Location: /rfg/admin/corridas/listar.php');
+  header('Location: /admin/corridas/listar.php');
   exit;
 }
 
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editar_corrida'])) {
     set_flash('ok', 'Corrida atualizada com sucesso.');
   }
 
-  header('Location: /rfg/admin/corridas/listar.php');
+  header('Location: /admin/corridas/listar.php');
   exit;
 }
 
@@ -294,7 +294,7 @@ function formatar_data_corrida(?string $data): string
 
                 <div class="flex flex-wrap gap-2 mt-4">
                   <a
-                    href="/rfg/admin/corridas/resultados.php?id=<?= (int)$c['id'] ?>"
+                    href="/admin/corridas/resultados.php?id=<?= (int)$c['id'] ?>"
                     class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded text-xs md:text-sm text-center transition-colors">
                     Resultados
                   </a>
@@ -311,7 +311,7 @@ function formatar_data_corrida(?string $data): string
                     Editar
                   </button>
 
-                  <form method="post" action="/rfg/admin/corridas/listar.php"
+                  <form method="post" action="/admin/corridas/listar.php"
                     class="flex-1"
                     onsubmit="return confirm('Remover esta corrida?');">
                     <input type="hidden" name="del" value="<?= (int)$c['id'] ?>">
@@ -345,7 +345,7 @@ function formatar_data_corrida(?string $data): string
         </button>
       </div>
 
-      <form method="post" action="/rfg/admin/corridas/listar.php" class="p-6 space-y-4">
+      <form method="post" action="/admin/corridas/listar.php" class="p-6 space-y-4">
         <input type="hidden" name="cadastrar_corrida" value="1">
 
         <div>
@@ -435,7 +435,7 @@ function formatar_data_corrida(?string $data): string
         </button>
       </div>
 
-      <form method="post" action="/rfg/admin/corridas/listar.php" class="p-6 space-y-4">
+      <form method="post" action="/admin/corridas/listar.php" class="p-6 space-y-4">
         <input type="hidden" name="editar_corrida" value="1">
         <input type="hidden" name="id" value="">
 

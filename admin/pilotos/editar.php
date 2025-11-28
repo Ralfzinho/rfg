@@ -18,7 +18,7 @@ $title = 'Editar Piloto — RFG';
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 if ($id <= 0) {
   set_flash('erro', 'Piloto não encontrado.');
-  header('Location: /rfg/admin/pilotos/listar.php');
+  header('Location: /admin/pilotos/listar.php');
   exit;
 }
 
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     set_flash('ok', 'Piloto atualizado com sucesso.');
-    header('Location: /rfg/admin/pilotos/listar.php');
+    header('Location: /admin/pilotos/listar.php');
     exit;
   }
 }
@@ -74,7 +74,7 @@ $piloto = $st->fetch(PDO::FETCH_ASSOC);
 
 if (!$piloto) {
   set_flash('erro', 'Piloto não encontrado.');
-  header('Location: /rfg/admin/pilotos/listar.php');
+  header('Location: /admin/pilotos/listar.php');
   exit;
 }
 
@@ -97,7 +97,7 @@ $erro = get_flash('erro');
     <main class="flex-1 mx-auto max-w-3xl px-4 py-8">
       <div class="mb-6 flex items-center justify-between">
         <h1 class="text-2xl font-bold text-gray-900">Editar Piloto</h1>
-        <a href="/rfg/admin/pilotos/listar.php"
+        <a href="/admin/pilotos/listar.php"
           class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 text-sm font-medium">
           Voltar
         </a>
@@ -189,7 +189,7 @@ $erro = get_flash('erro');
 
         <!-- Botões -->
         <div class="flex justify-end gap-3 pt-4 border-top border-gray-200">
-          <a href="/rfg/admin/pilotos/listar.php"
+          <a href="/admin/pilotos/listar.php"
             class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50">
             Cancelar
           </a>

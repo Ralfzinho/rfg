@@ -14,7 +14,7 @@ global $pdo;
 
 // Se não for POST, redireciona
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-  header('Location: /rfg/admin-login/criar_admin.php');
+  header('Location: /admin-login/criar_admin.php');
   exit;
 }
 
@@ -27,13 +27,13 @@ $role  = trim($_POST['role'] ?? 'editor');
 // Validação básica
 if (empty($name) || empty($email) || empty($senha) || !in_array($role, ['admin', 'editor'])) {
   set_flash('erro', 'Todos os campos são obrigatórios.');
-  header('Location: /rfg/admin-login/criar_admin.php');
+  header('Location: /admin-login/criar_admin.php');
   exit;
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   set_flash('erro', 'Formato de e-mail inválido.');
-  header('Location: /rfg/admin-login/criar_admin.php');
+  header('Location: /admin-login/criar_admin.php');
   exit;
 }
 
@@ -43,7 +43,7 @@ try {
   $stmt->execute([':email' => $email]);
   if ($stmt->fetch()) {
     set_flash('erro', 'Este e-mail já está em uso.');
-    header('Location: /rfg/admin-login/criar_admin.php');
+    header('Location: /admin-login/criar_admin.php');
     exit;
   }
 
@@ -61,13 +61,13 @@ try {
   ]);
 
   set_flash('ok', 'Administrador criado com sucesso!');
-  header('Location: /rfg/admin-login/login.php');
+  header('Location: /admin-login/login.php');
   exit;
 
 } catch (PDOException $e) {
   // Em caso de erro, exibe uma mensagem genérica
   // error_log($e->getMessage()); // log para depuração
   set_flash('erro', 'Ocorreu um erro ao criar o administrador. Tente novamente.');
-  header('Location: /rfg/admin-login/criar_admin.php');
+  header('Location: /admin-login/criar_admin.php');
   exit;
 }
