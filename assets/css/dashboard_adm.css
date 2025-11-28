@@ -148,7 +148,7 @@
 }
 
 /* Controla o zoom e o posicionamento da imagem dentro do círculo */
-.driver-avatar {
+.driver-avatares {
     width: 140%;
     /* zoom (aumenta se quiser mais perto) */
     height: auto;
