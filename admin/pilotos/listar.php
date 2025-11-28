@@ -263,8 +263,92 @@ function getAvatarColor($index)
   </div>
 
   <!-- Modal Cadastrar Piloto -->
-  <!-- (resto do modal permanece igual) -->
-  <!-- ... seu modal exatamente como estava ... -->
+  <div id="pilot-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50 modal">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl mx-4 overflow-hidden transform transition-all">
+      <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+        <h3 class="text-xl font-bold text-gray-800">Novo Piloto</h3>
+        <button onclick="hideModal('pilot-modal')" class="text-gray-400 hover:text-gray-600 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <form method="post" action="/rfg/admin/pilotos/listar.php" class="p-6 space-y-4">
+        <input type="hidden" name="cadastrar" value="1">
+
+        <!-- Nome -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">
+            Nome do Piloto <span class="text-red-500">*</span>
+          </label>
+          <input name="nome" type="text" required class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+        </div>
+
+        <!-- Número + País -->
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">
+              Número <span class="text-red-500">*</span>
+            </label>
+            <input name="numero" type="number" min="1" max="99" required class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">
+              País
+            </label>
+            <input name="pais" type="text" class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+          </div>
+        </div>
+
+        <!-- Equipe + Status -->
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">
+              Equipe <span class="text-red-500">*</span>
+            </label>
+            <select name="equipe_id" required class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+              <option value="">Selecione uma equipe</option>
+              <?php foreach ($equipes as $e): ?>
+                <option value="<?= $e['id'] ?>"><?= htmlspecialchars($e['nome']) ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">
+              Status
+            </label>
+            <select name="status" class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+              <option value="ativo">Ativo</option>
+              <option value="inativo">Inativo</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Foto -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">
+            URL da Foto
+          </label>
+          <input name="foto_url" type="url" class="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+          <p class="mt-1 text-xs text-gray-500">
+            Cole o link direto da imagem do piloto (ex.: https://...)
+          </p>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-6">
+          <button type="button" onclick="hideModal('pilot-modal')" class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition-colors">
+            Cancelar
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-semibold hover:from-yellow-600 hover:to-yellow-700 shadow-lg hover:shadow-xl transition-all">
+            Salvar Piloto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <?php require INC . 'layout_footer.php'; ?>
 
