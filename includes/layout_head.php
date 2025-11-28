@@ -9,7 +9,7 @@
   <title>RACE FOR GLORY</title>
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/rfg/assets/JavaScript/admin-panel.js?v=1"></script>
+  <script src="/assets/JavaScript/admin-panel.js?v=1"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -24,10 +24,10 @@
   </script>
 
   <!-- Seu CSS opcional -->
-  <link href="/rfg/assets/css/main.css" rel="stylesheet">
-  <link href="/rfg/assets/css/dashboard_adm.css" rel="stylesheet">
-  <link href="/rfg/assets/css/temporada.css" rel="stylesheet">
-  <link href="/rfg/assets/css/punicao.css" rel="stylesheet">
+  <link href="/assets/css/main.css" rel="stylesheet">
+  <link href="/assets/css/dashboard_adm.css" rel="stylesheet">
+  <link href="/assets/css/temporada.css" rel="stylesheet">
+  <link href="/assets/css/punicao.css" rel="stylesheet">
 </head>
 
 <body class="bg-neutral-50 text-neutral-900">

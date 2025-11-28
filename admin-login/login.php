@@ -17,7 +17,7 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = trim($_POST['email'] ?? '');
     $senha    = $_POST['password'] ?? '';
-    $redirect = $_POST['redirect'] ?? '/rfg/admin/dashboard.php';
+    $redirect = $_POST['redirect'] ?? '/admin/dashboard.php';
 
     // Validação básica
     if ($email === '' || $senha === '') {
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // valida redirect
             if (!is_string($redirect) || $redirect === '' || $redirect[0] !== '/' || str_contains($redirect, "\n")) {
-                $redirect = '/rfg/admin/dashboard.php';
+                $redirect = '/admin/dashboard.php';
             }
 
             header('Location: ' . $redirect);
@@ -60,11 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     <?php endif; ?>
 
-    <form method="post" action="/rfg/admin-login/login.php" class="space-y-4">
+    <form method="post" action="/admin-login/login.php" class="space-y-4">
       <input
         type="hidden"
         name="redirect"
-        value="<?= htmlspecialchars($_GET['redirect'] ?? '/rfg/admin/dashboard.php') ?>"
+        value="<?= htmlspecialchars($_GET['redirect'] ?? '/admin/dashboard.php') ?>"
       >
       <div>
         <label class="block text-sm font-medium mb-1">E-mail</label>

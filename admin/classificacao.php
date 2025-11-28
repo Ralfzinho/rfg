@@ -68,7 +68,7 @@ try {
     <main class="flex-1 mx-auto max-w-6xl px-4 py-8">
       <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold">Classificação Geral</h1>
-        <a href="/rfg/admin/dashboard.php" class="btn-primary text-white font-semibold py-3 px-6 rounded-xl">
+        <a href="/admin/dashboard.php" class="btn-primary text-white font-semibold py-3 px-6 rounded-xl">
           Voltar ao Painel
         </a>
       </div>
@@ -125,7 +125,7 @@ try {
                       class="driver-avatar-wrapper w-10 h-10 rounded-full overflow-hidden flex items-center justify-center shrink-0"
                       style="background-color: <?= htmlspecialchars($row['equipe_cor'] ?? '#111827') ?>;">
                       <img
-                        src="<?= htmlspecialchars($row['foto'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                        src="<?= htmlspecialchars($row['foto'] ?: '/assets/img/piloto-placeholder.png') ?>"
                         alt="Foto de <?= htmlspecialchars($row['piloto']) ?>"
                         class="driver-avatares">
                     </div>

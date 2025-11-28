@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['del'])) {
         set_flash('ok', 'Usuário removido com sucesso.');
     }
 
-    header('Location: /rfg/admin/usuarios/listar.php');
+    header('Location: /admin/usuarios/listar.php');
     exit;
 }
 
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cadastrar'])) {
         set_flash('ok', 'Usuário cadastrado com sucesso.');
     }
 
-    header('Location: /rfg/admin/usuarios/listar.php');
+    header('Location: /admin/usuarios/listar.php');
     exit;
 }
 
@@ -248,7 +248,7 @@ function user_avatar_color(int $index): string
                                         <!-- Ações -->
                                         <td class="px-6 py-4">
                                             <div class="flex space-x-2">
-                                                <a href="/rfg/admin/usuarios/editar.php?id=<?= (int)$u['id'] ?>"
+                                                <a href="/admin/usuarios/editar.php?id=<?= (int)$u['id'] ?>"
                                                     class="text-blue-400 hover:text-blue-300"
                                                     title="Editar">
                                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -257,7 +257,7 @@ function user_avatar_color(int $index): string
                                                 </a>
 
                                                 <?php if (!$isSelf): ?>
-                                                    <form method="post" action="/rfg/admin/usuarios/listar.php"
+                                                    <form method="post" action="/admin/usuarios/listar.php"
                                                         class="inline-block"
                                                         onsubmit="return confirm('Tem certeza que deseja remover este usuário?')">
                                                         <input type="hidden" name="del" value="<?= (int)$u['id'] ?>">
@@ -295,7 +295,7 @@ function user_avatar_color(int $index): string
                 </button>
             </div>
 
-            <form method="post" action="/rfg/admin/usuarios/listar.php" class="p-6 space-y-4">
+            <form method="post" action="/admin/usuarios/listar.php" class="p-6 space-y-4">
                 <input type="hidden" name="cadastrar" value="1">
 
                 <div>

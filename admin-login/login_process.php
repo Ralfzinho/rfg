@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/funcoes.php';
 
 // Só aceita POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /rfg/admin-login/login.php');
+    header('Location: /admin-login/login.php');
     exit;
 }
 
@@ -24,7 +24,7 @@ if ($email === '' || $senha === '') {
         set_flash('login_error', 'Preencha e-mail e senha.');
     }
 
-    header('Location: /rfg/admin-login/login.php');
+    header('Location: /admin-login/login.php');
     exit;
 }
 
@@ -37,7 +37,7 @@ try {
             set_flash('login_error', 'Usuário ou senha inválidos.');
         }
 
-        header('Location: /rfg/admin-login/login.php');
+        header('Location: /admin-login/login.php');
         exit;
     }
 
@@ -50,11 +50,11 @@ try {
     $role = auth_role(); // admin | editor | viewer (ou o que você usar)
 
     // Destino padrão
-    $dest = '/rfg/index.php';
+    $dest = '/index.php';
     if ($role === 'admin') {
-        $dest = '/rfg/admin/dashboard.php';
+        $dest = '/admin/dashboard.php';
     } elseif ($role === 'editor') {
-        $dest = '/rfg/editor/dashboard.php';
+        $dest = '/editor/dashboard.php';
     }
 
     // Se veio redirect e for uma rota interna segura, sobrescreve o destino
@@ -81,7 +81,7 @@ try {
         set_flash('login_error', 'Erro interno ao autenticar.');
     }
 
-    header('Location: /rfg/admin-login/login.php');
+    header('Location: /admin-login/login.php');
     exit;
 }
 

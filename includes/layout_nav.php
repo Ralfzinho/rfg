@@ -13,8 +13,8 @@ $user   = $_SESSION['user'] ?? null;
     <div class="flex items-center justify-between">
       <!-- Brand -->
       <div class="flex items-center space-x-4">
-        <a href="/rfg/index.php" class="flex items-center gap-3">
-          <img src="/rfg/assets/img/logo.png" alt="Logo da Liga" class="h-9 w-9 object-contain" />
+        <a href="/index.php" class="flex items-center gap-3">
+          <img src="/assets/img/logo.png" alt="Logo da Liga" class="h-9 w-9 object-contain" />
           <span class="font-extrabold text-xl tracking-wide text-gray-900">
             RACE FOR <span class="text-[#FFD700]">GLORY</span>
           </span>
@@ -24,24 +24,24 @@ $user   = $_SESSION['user'] ?? null;
       <!-- Menu Desktop -->
       <nav class="hidden lg:block">
         <ul class="flex gap-6 items-center">
-          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/index.php">Início</a></li>
-          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/calendario.php">Calendário</a></li>
-          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/temporada.php">Temporada</a></li>
-          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/equipes.php">Equipes</a></li>
-          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/punicoes.php">Punições</a></li>
-          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/sobre_nos.php">Contato</a></li>
+          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/index.php">Início</a></li>
+          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/pages/calendario.php">Calendário</a></li>
+          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/pages/temporada.php">Temporada</a></li>
+          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/pages/equipes.php">Equipes</a></li>
+          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/pages/punicoes.php">Punições</a></li>
+          <li><a class="text-gray-600 hover:text-gray-900 font-medium transition-colors" href="/pages/sobre_nos.php">Contato</a></li>
 
           <?php if ($logged): ?>
             <li>
               <a class="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 font-medium transition-colors"
-                 href="/rfg/admin/dashboard.php">
+                 href="/admin/dashboard.php">
                 Painel
               </a>
             </li>
           <?php else: ?>
             <li>
               <a class="inline-flex items-center px-4 py-2 rounded-lg border-2 border-gray-300 hover:border-indigo-600 text-gray-700 hover:text-indigo-600 font-medium transition-colors"
-                 href="/rfg/pages/conta.php">
+                 href="/pages/conta.php">
                 Login
               </a>
             </li>
@@ -88,7 +88,7 @@ $user   = $_SESSION['user'] ?? null;
           </div>
 
           <!-- Logout Button (opcional em nav público) -->
-          <a href="/rfg/admin-login/logout.php"
+          <a href="/admin-login/logout.php"
              class="hidden sm:inline-flex items-center px-3 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 text-sm font-medium transition-colors">
             Sair
           </a>
@@ -113,30 +113,30 @@ $user   = $_SESSION['user'] ?? null;
   <div id="mobilePanel" class="lg:hidden hidden border-t border-gray-200 bg-white">
     <nav class="px-6 py-4">
       <ul class="flex flex-col gap-3">
-        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/rfg/index.php">Início</a></li>
-        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/corrida.php">Corridas</a></li>
-        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/classificacao.php">Classificação</a></li>
-        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/equipes.php">Equipes</a></li>
-        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/pilotos.php">Pilotos</a></li>
-        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/rfg/pages/sobre_nos.php">Contato</a></li>
+        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/index.php">Início</a></li>
+        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/pages/corrida.php">Corridas</a></li>
+        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/pages/classificacao.php">Classificação</a></li>
+        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/pages/equipes.php">Equipes</a></li>
+        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/pages/pilotos.php">Pilotos</a></li>
+        <li><a class="block text-gray-700 hover:text-gray-900 font-medium transition-colors" href="/pages/sobre_nos.php">Contato</a></li>
 
         <?php if ($logged): ?>
           <li>
             <a class="block text-center mt-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 font-medium transition-colors"
-               href="/rfg/admin/dashboard.php">
+               href="/admin/dashboard.php">
               Painel
             </a>
           </li>
           <li>
             <a class="block text-center mt-1 px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 font-medium transition-colors"
-               href="/rfg/admin-login/logout.php">
+               href="/admin-login/logout.php">
               Sair
             </a>
           </li>
         <?php else: ?>
           <li>
             <a class="block text-center mt-2 px-4 py-2 rounded-lg border-2 border-gray-300 hover:border-indigo-600 text-gray-700 hover:text-indigo-600 font-medium transition-colors"
-               href="/rfg/pages/conta.php">
+               href="/pages/conta.php">
               Login
             </a>
           </li>

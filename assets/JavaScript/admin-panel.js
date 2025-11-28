@@ -1,4 +1,4 @@
-// /rfg/assets/js/admin-panel.js
+// /assets/js/admin-panel.js
 
 // ===============================
 // Função auxiliar para resetar um item do menu
@@ -115,13 +115,13 @@ function setActiveSidebarItem() {
     
     // Mapeia URLs para os itens da sidebar
     const pathMap = {
-        '/rfg/admin/dashboard_new.php': 'dashboard',
-        '/rfg/admin/pilotos': 'pilotos',
-        '/rfg/admin/equipes': 'equipes',
-        '/rfg/admin/corridas/listar': 'corridas',
-        '/rfg/admin/corridas/resultados': 'resultados',
-        '/rfg/admin/classificacoes': 'classificacoes',
-        '/rfg/admin/usuarios': 'usuarios',
+        '/admin/dashboard_new.php': 'dashboard',
+        '/admin/pilotos': 'pilotos',
+        '/admin/equipes': 'equipes',
+        '/admin/corridas/listar': 'corridas',
+        '/admin/corridas/resultados': 'resultados',
+        '/admin/classificacoes': 'classificacoes',
+        '/admin/usuarios': 'usuarios',
     };
     
     // Encontra qual seção corresponde à URL atual

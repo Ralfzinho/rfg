@@ -49,11 +49,11 @@ global $pdo;
             </p>
 
             <div class="flex flex-wrap gap-3 pt-2">
-              <a href="/rfg/pages/temporada.php"
+              <a href="/pages/temporada.php"
                 class="px-5 py-2.5 rounded-xl text-black bg-[#C9A300] hover:bg-[#E6C200] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A300]/60 transition">
                 Ver temporada
               </a>
-              <a href="/rfg/pages/calendario.php"
+              <a href="/pages/calendario.php"
                 class="px-5 py-2.5 rounded-xl border border-white/20 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 transition">
                 Calendário
               </a>
@@ -62,9 +62,9 @@ global $pdo;
 
           <!-- vídeo -->
           <div class="rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl bg-white/5 backdrop-blur-md">
-            <video class="block w-full aspect-video" poster="/rfg/assets/img/background_video.png" autoplay muted loop
+            <video class="block w-full aspect-video" poster="/assets/img/background_video.png" autoplay muted loop
               playsinline preload="metadata">
-              <source src="/rfg/assets/img/videobackground.mp4" type="video/mp4" />
+              <source src="/assets/img/videobackground.mp4" type="video/mp4" />
               Seu navegador não suporta vídeo HTML5.
             </video>
           </div>
@@ -149,7 +149,7 @@ global $pdo;
 
         <!-- IMAGEM AO CENTRO -->
         <div class="order-1 lg:order-2 justify-self-center">
-          <img src="/rfg/assets/img/mockup_instagram.png" alt="Mockup Instagram"
+          <img src="/assets/img/mockup_instagram.png" alt="Mockup Instagram"
             class="w-[300px] md:w-[420px] rotate-[-8deg] rounded-3xl" loading="lazy" />
         </div>
 
@@ -230,7 +230,7 @@ $stmt = $pdo->query("
                 <div class="team-row">
                   <span class="team-logo">
                     <img
-                      src="<?= htmlspecialchars($second['equipe_foto_url'] ?? '/rfg/assets/img/team-placeholder.png') ?>"
+                      src="<?= htmlspecialchars($second['equipe_foto_url'] ?? '/assets/img/team-placeholder.png') ?>"
                       alt="<?= htmlspecialchars($second['equipe_nome'] ?? 'Equipe') ?>" loading="lazy">
                   </span>
                 </div>
@@ -238,7 +238,7 @@ $stmt = $pdo->query("
 
               <div class="driver-image">
                 <img class="driver-photo"
-                  src="<?= htmlspecialchars($second['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                  src="<?= htmlspecialchars($second['foto_url'] ?: '/assets/img/piloto-placeholder.png') ?>"
                   alt="<?= htmlspecialchars($second['nome']) ?>">
               </div>
 
@@ -265,7 +265,7 @@ $stmt = $pdo->query("
                 <div class="team-row">
                   <span class="team-logo">
                     <img
-                      src="<?= htmlspecialchars($first['equipe_foto_url'] ?? '/rfg/assets/img/team-placeholder.png') ?>"
+                      src="<?= htmlspecialchars($first['equipe_foto_url'] ?? '/assets/img/team-placeholder.png') ?>"
                       alt="<?= htmlspecialchars($first['equipe_nome'] ?? 'Equipe') ?>" loading="lazy">
                   </span>
                 </div>
@@ -273,7 +273,7 @@ $stmt = $pdo->query("
 
               <div class="driver-image">
                 <img class="driver-photo"
-                  src="<?= htmlspecialchars($first['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                  src="<?= htmlspecialchars($first['foto_url'] ?: '/assets/img/piloto-placeholder.png') ?>"
                   alt="<?= htmlspecialchars($first['nome']) ?>">
               </div>
 
@@ -300,7 +300,7 @@ $stmt = $pdo->query("
                 <div class="team-row">
                   <span class="team-logo">
                     <img
-                      src="<?= htmlspecialchars($third['equipe_foto_url'] ?? '/rfg/assets/img/team-placeholder.png') ?>"
+                      src="<?= htmlspecialchars($third['equipe_foto_url'] ?? '/assets/img/team-placeholder.png') ?>"
                       alt="<?= htmlspecialchars($third['equipe_nome'] ?? 'Equipe') ?>" loading="lazy">
                   </span>
                 </div>
@@ -308,7 +308,7 @@ $stmt = $pdo->query("
 
               <div class="driver-image">
                 <img class="driver-photo"
-                  src="<?= htmlspecialchars($third['foto_url'] ?: '/rfg/assets/img/piloto-placeholder.png') ?>"
+                  src="<?= htmlspecialchars($third['foto_url'] ?: '/assets/img/piloto-placeholder.png') ?>"
                   alt="<?= htmlspecialchars($third['nome']) ?>">
               </div>
 
@@ -331,8 +331,8 @@ $stmt = $pdo->query("
     <?php require INC . 'layout_footer.php'; ?>
   </main>
   <!-- Scripts -->
-  <script src="/rfg/assets/JavaScript/noticias_card_tailwind.js"></script>
-  <script src="/rfg/assets/JavaScript/classificacao_tailwind.js"></script>
+  <script src="/assets/JavaScript/noticias_card_tailwind.js"></script>
+  <script src="/assets/JavaScript/classificacao_tailwind.js"></script>
 </body>
 
 </html>
